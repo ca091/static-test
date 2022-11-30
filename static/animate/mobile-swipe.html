@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>touch swipe on mobile</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    .swipe-box {
+      position: relative;
+      height: 250px;
+      overflow: hidden;
+    }
+    .swipe-item {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform: translateX(100%);
+      overflow: hidden;
+    }
+    .swipe-item.is-active {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body>
+
+<div class="swipe-box">
+  <div class="swipe-item is-active">
+    <p>0</p>
+    <pre>
+      fs.writeFile('文件名.txt', 'Node.js 中文网', (err) => {
+        if (err) throw err;
+        console.log('文件已保存！');
+      });
+    </pre>
+  </div>
+
+  <div class="swipe-item">
+    <p>1</p>
+    fs.writeFile('文件名.txt', 'Node.js 中文网', 'utf8', callback);
+  </div>
+
+  <div class="swipe-item">
+    <p>2</p>
+    <pre>
+      fs.writeFile('文件名.txt', 'Node.js 中文网', (err) => {
+        if (err) throw err;
+        console.log('文件已保存！');
+      });
+    </pre>
+  </div>
+
+  <div class="swipe-item">
+    <p>3</p>
+    fs.writeFile('文件名.txt', 'Node.js 中文网', 'utf8', callback);
+  </div>
+</div>
+
+<section>
+  <div>
+    <button onclick="moveLeft()">move left</button>
+    <button onclick="moveRight()">move right</button>
+  </div>
+</section>
+
+<section id="msg"></section>
+
+
+<script src="../asset/js/utils.js"></script>
+<script src="js/MobileSwipe.js"></script>
+<script>
+  let mobileSwipe = new MobileSwipe({times: 5000})
+  // ;[...mobileSwipe.items].map(item => {
+  //     item.style.backgroundColor = '#' + Math.floor(Math.random() * 256 * 256 * 256).toString(16)
+  // });
+  function moveLeft() {
+    mobileSwipe.moveLeft()
+  }
+
+  function moveRight() {
+    mobileSwipe.moveRight()
+  }
+</script>
+</body>
+</html>

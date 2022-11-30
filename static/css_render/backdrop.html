@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>::backdrop</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    .video-wrap {
+      height: 5.6rem;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+    }
+    /* 处理video在全屏下背景(幕布) */
+    video::backdrop {
+      background: url("../asset/image/2111540456957_.pic.jpg") center no-repeat;
+      /*background: radial-gradient(#fff, #fa0);*/
+      background-size: cover;
+    }
+    /* 处理video在横屏全屏下UI */
+    @media screen and (orientation: landscape) {
+      video:-webkit-full-screen {
+      }
+
+      video:-moz-full-screen {
+      }
+
+      video:-ms-fullscreen {
+      }
+
+      video:fullscreen {
+        object-fit: cover;
+      }
+    }
+    iframe {
+      width: 100vmin;
+      height: 100vh;
+      border: none;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+<section class="video-wrap">
+  <video controls autoplay playsinline>
+    <source src="../asset/media/1546857801070356.mp4" type="video/mp4">
+    <p>Sorry, your browser doesn't support embedded videos.</p>
+  </video>
+</section>
+<button id="btn-play" style="display: none;">play</button>
+
+<!--<iframe src="../asset/media/1546857801070356.mp4" allow="autoplay; fullscreen"></iframe>-->
+
+<script>
+  // 设置根字体大小
+  function refreshRem() {
+    console.log('execute fn refreshRem...')
+    let root = document.documentElement
+    let width = root.clientWidth
+    // let width = window.innerWidth;
+    // let screenW = screen.width;
+    // if (width > screenW) width = screenW;
+    root.style.fontSize = width > 640 ? '64px' : width / 10 + 'px'
+  }
+
+  // 函数节流
+  function throttle(handler, delay) {
+    let timer = null
+    return function () {
+      if (timer) {
+        clearTimeout(timer)
+      }
+      timer = setTimeout(handler, delay)
+    }
+  }
+
+  window.addEventListener('resize', throttle(refreshRem, 200))
+  refreshRem()
+
+  function onloadHandler() {
+    let promise = document.querySelector('video').play()
+    if (promise !== undefined) {
+      promise.then(() => {
+        console.info('autoplay started')
+      }).catch(error => {
+        console.warn('can not autoplay', error)
+        // Autoplay was prevented.
+        // Show a "Play" button so that user can start playback.
+        document.querySelector('#btn-play').style.display = 'block'
+      })
+    }
+  }
+
+  window.onload = onloadHandler
+</script>
+</body>
+</html>

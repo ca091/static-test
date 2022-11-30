@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>盒子模型 width, 改变width的表现</title>
+  <style>
+    .box {
+      margin: 10px auto;
+      width: 70%;
+      height: 200px;
+      resize: horizontal;
+      border: 1px solid #aaa;
+      overflow: hidden;
+    }
+
+    .box-fill-available {
+      line-height: 200px;
+    }
+    /*行内元素垂直居中时 表现为块的宽度（div容器）*/
+    .fill-available {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 20px;
+      background-color: #ccc;
+
+      width: -webkit-fill-available;
+      width: -moz-fill-available;
+      width: fill-available;
+    }
+
+    /*块元素水平居中时 表现为行内块宽度（包裹容器）*/
+    .box-fit-content {
+      width: -webkit-fit-content;
+    }
+
+    /*假设容器无限宽*/
+    .max-content {
+      width: -webkit-max-content;
+    }
+    .max-content > img,
+    .min-content > img {
+      width: 200px;
+    }
+    /*内部元素最小宽度值最大的那个元素的宽度*/
+    .min-content {
+      width: -webkit-min-content;
+    }
+  </style>
+</head>
+<body>
+<div class="box box-fill-available">
+  <div class="fill-available">
+    width:fill-available可以让元素的宽度表现为默认的block水平元素的尺寸表现。<br>
+    但这里实际上是display:inline-block水平的，<br>
+    于是，我们可以保证宽度满尺寸自适应的同时使用line-height实现近似的垂直居中效果。
+  </div>
+</div>
+
+<div class="box box-fit-content">
+  aaaaaaaaaaajjjlagjaljgaljhalhjahjahjalhja
+</div>
+
+<div class="box box-fit-content">
+  aaaaaaaaaaajjjlagjaljgaljhalhjahjahjalhjafffagahgahah
+</div>
+
+<div class="max-content">
+  <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+  <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+  <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+  <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+  <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+  <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+</div>
+
+<div class="min-content">
+  <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+  <p>ghagoagoa</p>
+</div>
+
+</body>
+</html>

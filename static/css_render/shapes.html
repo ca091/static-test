@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>shapes</title>
+  <style>
+    :root {
+      /*--color1: gray;*/
+      /*--color2: gold;*/
+      --color1: transparent;
+      --color2: transparent;
+      --colorArrow: green;
+    }
+    div + div {
+      margin-top: 10px;
+    }
+    .arrow {
+      width: 0;
+    }
+    .arrow-up, .arrow-down {
+      border-left: 50px solid var(--color1);
+      border-right: 50px solid var(--color2);
+    }
+    .arrow-left, .arrow-right {
+      border-top: 50px solid var(--color1);
+      border-bottom: 50px solid var(--color2);
+    }
+    .arrow-up {
+      border-bottom: 50px solid var(--colorArrow);
+    }
+    .arrow-down {
+      border-top: 50px solid var(--colorArrow);
+    }
+    .arrow-left {
+      border-right: 50px solid var(--colorArrow);
+    }
+    .arrow-right {
+      border-left: 50px solid var(--colorArrow);
+    }
+  </style>
+</head>
+<body>
+<div class="arrow arrow-up"></div>
+<div class="arrow arrow-down"></div>
+<div class="arrow arrow-right"></div>
+<div class="arrow arrow-left"></div>
+</body>
+</html>

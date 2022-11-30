@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="viewport" content="width=device-width">
+  <title>border的运用</title>
+  <style>
+    @keyframes antRun {
+      to {
+        background-position: 100%;
+      }
+    }
+
+    .box {
+      width: 400px;
+      height: 300px;
+      margin: 1em;
+      padding: 1em;
+    }
+
+    .ants {
+      border: 2px solid transparent;
+      /*裁切,只有border可见,覆盖渐变背景*/
+      background: linear-gradient(#fff, #fff) padding-box,
+      repeating-linear-gradient(-45deg, #333 0, #333 25%, #fff 0, #fff 50%) 0 / .6em .6em;
+      animation: antRun 12s linear infinite;
+    }
+
+    .car {
+      border: 20px solid gray;
+      border-image: url("../asset/image/car.png") 100% / 20px round;
+    }
+
+    .border-top {
+      border-top: .2em solid transparent;
+      border-image: 100% 0 0 linear-gradient(90deg, currentColor 4em, transparent 0);
+    }
+  </style>
+</head>
+<body>
+
+<div class="box ants">蚂蚁边框🐜</div>
+<div class="box car"></div>
+<div class="box border-top">
+  <h1>use border-top</h1>
+</div>
+</body>
+</html>

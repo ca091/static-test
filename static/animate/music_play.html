@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>music playing ...</title>
+  <link rel="stylesheet" href="../asset/css/common.css">
+  <link rel="stylesheet" href="../asset/css/music_play.css">
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    main {
+      height: calc(100% - 10px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lyric {
+      flex: 1;
+    }
+
+    .lyric.hide {
+      display: none;
+    }
+
+    .music-play {
+      position: fixed;
+      left: 5px;
+      top: 5px;
+    }
+
+    .operate {
+      position: fixed;
+      top: 5px;
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <!--歌词的html结构可根据歌词文件生成: https://github.com/erluzi/node-yarn/blob/master/practice/parseLyrics/parseLyrics.js-->
+  <section class="lyric">
+    <div><p>ti:原谅</p></div>
+    <div><p>ar:张玉华</p></div>
+    <div><p>al:电视剧《瓦斯大爆报》片尾曲</p></div>
+    <div><p>by:果果1314</p></div>
+    <div><p></p></div>
+    <div><p data-start="00:00.00"></p></div>
+    <div><p data-start="00:00.00">原谅 - 张玉华</p></div>
+    <div><p data-start="00:00.40">电视剧《瓦斯大爆报》片尾曲</p></div>
+    <div><p data-start="00:00.78">原谅把你带走的雨天</p></div>
+    <div><p data-start="00:05.11">在突然醒来的黑夜</p></div>
+    <div><p data-start="00:08.05">发现我终于没有再流泪</p></div>
+    <div style="height: 1px;"><p data-start="00:12.65"></p></div>
+    <div><p data-start="00:13.08">原谅被你带走的永远</p></div>
+    <div><p data-start="00:17.24">时钟就快要走到明天</p></div>
+    <div><p data-start="00:20.31">痛会随着时间 好一点</p></div>
+    <div style="height: 1px;"><p data-start="00:25.32"></p></div>
+    <div><p data-start="00:26.63">那些日子你会不会舍不得</p></div>
+    <div><p data-start="00:32.11">思念就像关不紧的门</p></div>
+    <div><p data-start="00:35.89">空气里有幸福的灰尘</p></div>
+    <div><p data-start="00:39.03">否则为何闭上眼睛的时候</p></div>
+    <div><p data-start="00:45.08">那么疼</p></div>
+    <div style="height: 1px;"><p data-start="00:49.93"></p></div>
+    <div><p data-start="00:50.25">谁都别说</p></div>
+    <div><p data-start="00:52.38">让我一个人躲一躲</p></div>
+    <div><p data-start="00:56.26">你的承诺</p></div>
+    <div><p data-start="00:58.46">我竟没怀疑过</p></div>
+    <div><p data-start="01:02.32">反反覆覆</p></div>
+    <div><p data-start="01:04.32">要不是当初的温柔</p></div>
+    <div><p data-start="01:11.67">毕竟是我爱的人</p></div>
+    <div><p data-start="01:15.12">我能够怪你什么</p></div>
+    <div style="height: 1px;"><p data-start="01:19.03"></p></div>
+    <div><p data-start="01:20.88">原谅把你带走的雨天</p></div>
+    <div><p data-start="01:25.24">在渐渐模糊的窗前</p></div>
+    <div><p data-start="01:28.16">每个人最后都要说再见</p></div>
+    <div style="height: 1px;"><p data-start="01:32.45"></p></div>
+    <div><p data-start="01:33.15">原谅被你带走的永远</p></div>
+    <div><p data-start="01:37.36">微笑着容易过一天</p></div>
+    <div><p data-start="01:40.34">也许是我已经 老了一点</p></div>
+    <div style="height: 1px;"><p data-start="01:45.84"></p></div>
+    <div><p data-start="02:11.13">那些日子你会不会舍不得</p></div>
+    <div><p data-start="02:16.72">思念就像关不紧的门</p></div>
+    <div><p data-start="02:20.46">空气里有幸福的灰尘</p></div>
+    <div><p data-start="02:23.57">否则为何闭上眼睛的时候</p></div>
+    <div><p data-start="02:29.55">又全都想起了</p></div>
+    <div style="height: 1px;"><p data-start="02:34.44"></p></div>
+    <div><p data-start="02:34.78">谁都别说</p></div>
+    <div><p data-start="02:37.07">让我一个人躲一躲</p></div>
+    <div><p data-start="02:40.78">你的承诺</p></div>
+    <div><p data-start="02:42.93">我竟然没怀疑过</p></div>
+    <div><p data-start="02:46.91">反反覆覆</p></div>
+    <div><p data-start="02:48.79">要不是当初深深爱过</p></div>
+    <div><p data-start="02:56.84">我试着恨你</p></div>
+    <div><p data-start="02:59.44">却想起你的笑容</p></div>
+    <div style="height: 1px;"><p data-start="03:02.74"></p></div>
+    <div><p data-start="03:04.65">原谅把你带走的雨天</p></div>
+    <div><p data-start="03:09.18">在突然醒来的黑夜</p></div>
+    <div><p data-start="03:12.15">发现我终于没有再流泪</p></div>
+    <div style="height: 1px;"><p data-start="03:16.63"></p></div>
+    <div><p data-start="03:17.10">原谅被你带走的永远</p></div>
+    <div><p data-start="03:21.32">时钟就快要走到明天</p></div>
+    <div><p data-start="03:24.28">痛会随着时间 好一点</p></div>
+    <div style="height: 1px;"><p data-start="03:29.29"></p></div>
+    <div><p data-start="03:29.53">原谅把你带走的雨天</p></div>
+    <div><p data-start="03:33.99">在渐渐模糊的窗前</p></div>
+    <div><p data-start="03:36.94">每个人最后都要说再见</p></div>
+    <div style="height: 1px;"><p data-start="03:41.71"></p></div>
+    <div><p data-start="03:42.05">原谅被你带走的永远</p></div>
+    <div><p data-start="03:46.13">微笑着容易过一天</p></div>
+    <div><p data-start="03:49.31">也许是我已经 老了一点</p></div>
+    <div style="height: 1px;"><p data-start="03:55.91"></p></div>
+    <div><p data-start="03:57.40">歌词编辑：果果</p></div>
+    <div><p data-start="04:01.07">QQ:765708831</p></div>
+    <div><p data-start="04:04.58">爱歌词网：www.22lrc.com</p></div>
+    <div style="height: 1px;"><p data-start="04:08.70"></p></div>
+    <div><p data-start="09:59.60">LRC歌词下载：www.22lrc.com </p></div>
+    <div><p></p></div>
+  </section>
+
+  <section class="lyric hide">
+    <div><p>ti:贝多芬的悲伤</p></div>
+    <div><p>ar:萧风</p></div>
+    <div><p>al:</p></div>
+    <div><p>by:咭 </p></div>
+    <div><p data-start="00:00.00"></p></div>
+    <div><p data-start="00:01.04">贝多芬的悲伤</p></div>
+    <div><p data-start="00:01.18">作词：口袋易百</p></div>
+    <div><p data-start="00:04.51">作曲/编曲/唱/和声/混音：郑毅(Zey)</p></div>
+    <div><p data-start="00:09.76">演唱：萧风</p></div>
+    <div><p data-start="00:14.93">LRC编辑：咭シ擺錯姿勢 QQ:471487526</p></div>
+    <div style="height: 1px;"><p data-start="00:19.06"></p></div>
+    <div><p data-start="00:21.45">旋律 伴随故事响起</p></div>
+    <div><p data-start="00:26.72">揭开你 不平凡的传记</p></div>
+    <div><p data-start="00:31.41">在夜里 天使在黎明前降临</p></div>
+    <div><p data-start="00:38.37">唤醒 充满奇迹的命运</p></div>
+    <div style="height: 1px;"><p data-start="00:42.57"></p></div>
+    <div><p data-start="00:43.86">倾听 爱丽丝的旋律</p></div>
+    <div><p data-start="00:48.19">若别离 撕毁我写的信</p></div>
+    <div><p data-start="00:53.43">当序曲 落幕后拆穿的回忆</p></div>
+    <div><p data-start="01:00.31">抚慰你 心灵悠扬的协奏曲</p></div>
+    <div style="height: 1px;"><p data-start="01:04.85"></p></div>
+    <div><p data-start="01:05.33">在莱茵河畔 贝多芬的悲伤在徜徉</p></div>
+    <div><p data-start="01:11.34">诙谐夜晚 遗留在波恩城的泪光</p></div>
+    <div><p data-start="01:16.36">维也纳 推开 窗 风景却如此委婉</p></div>
+    <div><p data-start="01:22.47">黑白琴键上 谱写华丽的乐章</p></div>
+    <div style="height: 1px;"><p data-start="01:27.27"></p></div>
+    <div><p data-start="01:27.42">在破旧琴房 弹唱出贝多芬的悲伤</p></div>
+    <div><p data-start="01:33.06">诙谐街上 探望绚烂欲望的橱窗</p></div>
+    <div><p data-start="01:38.61">小木船 被遗忘 剩下黯淡的月光</p></div>
+    <div><p data-start="01:44.33">无力哀叹 谁得情绪彷徨 结局被凌乱</p></div>
+    <div style="height: 1px;"><p data-start="01:51.83"></p></div>
+    <div><p data-start="01:55.56">傾尽灵魂独舞、呮待緈褔落幕．</p></div>
+    <div><p data-start="02:01.76">揮霍妳莪哖華、一舞一夢◇一麯一傷．</p></div>
+    <div style="height: 1px;"><p data-start="02:07.76"></p></div>
+    <div><p data-start="02:11.26">倾听 爱丽丝的旋律</p></div>
+    <div><p data-start="02:15.40">若别离 撕毁我写的信</p></div>
+    <div><p data-start="02:20.90">当序曲 落幕后拆穿的回忆</p></div>
+    <div><p data-start="02:28.32">抚慰你 心灵悠扬的协奏曲</p></div>
+    <div style="height: 1px;"><p data-start="02:32.58"></p></div>
+    <div><p data-start="02:33.10">在莱茵河畔 贝多芬的悲伤在徜徉</p></div>
+    <div><p data-start="02:39.18">诙谐夜晚 遗留在波恩城的泪光</p></div>
+    <div><p data-start="02:44.06">维也纳 推开 窗 风景却如此委婉</p></div>
+    <div><p data-start="02:50.15">黑白琴键上 谱写华丽的乐章</p></div>
+    <div style="height: 1px;"><p data-start="02:54.18"></p></div>
+    <div><p data-start="02:54.64">在破旧琴房 弹唱出贝多芬的悲伤</p></div>
+    <div><p data-start="03:01.07">诙谐街上 探望绚烂欲望的橱窗</p></div>
+    <div><p data-start="03:06.25">小木船 被遗忘 剩下黯淡的月光</p></div>
+    <div><p data-start="03:11.98">无力哀叹 谁得情绪彷徨</p></div>
+    <div style="height: 1px;"><p data-start="03:16.09"></p></div>
+    <div><p data-start="03:16.94">在莱茵河畔 贝多芬的悲伤在徜徉</p></div>
+    <div><p data-start="03:22.81">诙谐夜晚 遗留在波恩城的泪光</p></div>
+    <div><p data-start="03:28.54">维也纳 推开 窗 风景却如此委婉</p></div>
+    <div><p data-start="03:33.80">黑白琴键上 谱写华丽的乐章</p></div>
+    <div style="height: 1px;"><p data-start="03:38.05"></p></div>
+    <div><p data-start="03:38.37">在破旧琴房 弹唱出贝多芬的悲伤</p></div>
+    <div><p data-start="03:44.97">诙谐街上 探望绚烂欲望的橱窗</p></div>
+    <div><p data-start="03:50.14">小木船 被遗忘 剩下黯淡的月光</p></div>
+    <div><p data-start="03:55.87">无力哀叹 谁得情绪彷徨 结局被凌乱</p></div>
+    <div style="height: 1px;"><p data-start="04:02.98"></p></div>
+    <div><p data-start="04:06.74">萧风 - 贝多芬的悲伤</p></div>
+    <div style="height: 1px;"><p data-start="04:08.25"></p></div>
+    <div><p></p></div>
+    <div><p data-start="10:00.00">LRC歌词下载：www.22lrc.com </p></div>
+    <div><p></p></div>
+  </section>
+
+  <!--音乐播放时间线-->
+  <div class="music-line">
+    <div></div>
+  </div>
+</main>
+
+<!--音乐播放动画-->
+<div class="music-play">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<!--播放、暂停控制-->
+<div class="operate operate-play"></div>
+
+<div>
+  <audio>
+    <source src="../asset/music/原谅.mp3" type="audio/mp3">
+    <p>Your browser doesn't support HTML5 audio.</p>
+  </audio>
+</div>
+
+<script src="js/PlayMusic.js"></script>
+<script>
+  const $ = document.querySelector.bind(document)
+  const $$ = document.querySelectorAll.bind(document)
+  let el_mp3 = $('audio')
+  let el_music_play = $('.music-play')
+  let el_music_line_move = $('.music-line>div')
+  let el_operate = $('.operate')
+  let el_lyrics = $$('.lyric:not(.hide) p[data-start]')
+  let playLyrics = new PlayLyrics(el_lyrics)
+  let playMusic = new PlayMusic(el_music_play)
+  let playMusicLine = new PlayMusicLine(el_music_line_move)
+  try {
+    el_mp3.load()
+    el_mp3.onloadedmetadata = e => {
+      playMusicLine.setDuration(el_mp3.duration)
+    }
+    // 兼容微信（在执行play()后才会触发oncanplaythrough、oncanplay）
+    el_mp3.oncanplaythrough = () => {
+      playMusicLine.setDuration(el_mp3.duration)
+      if (navigator.userAgent.indexOf('MicroMessenger') !== -1) {
+        playLyrics.play()
+        playMusic.play()
+        playMusicLine.setAnimationLine()
+        playMusicLine.play()
+      }
+    }
+    // el_mp3.oncanplay = e => {};
+    el_mp3.onended = e => {
+      playMusic.pause()
+      playMusicLine.unset()
+      el_operate.className = 'operate operate-play'
+    }
+  } catch (e) {
+    console.warn(e)
+  }
+  el_operate.addEventListener('click', e => {
+    // if(el_mp3.readyState !== 4) return;
+    if (/operate-play$/.test(el_operate.className)) play()
+    else stop()
+  })
+
+  function play() {
+    console.log('play')
+    el_mp3.play().then(() => {
+      console.log('start playing...')
+      el_operate.className = 'operate operate-playing'
+      if (navigator.userAgent.indexOf('MicroMessenger') === -1 || playLyrics.isPlaying) {
+        playLyrics.play()
+        playMusic.play()
+        playMusicLine.setAnimationLine()
+        playMusicLine.play()
+      }
+    })
+  }
+
+  function stop() {
+    console.log('pause')
+    el_mp3.pause()
+    el_operate.className = 'operate operate-play'
+    playLyrics.pause()
+    playMusic.pause()
+    playMusicLine.pause()
+  }
+</script>
+</body>
+</html>

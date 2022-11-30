@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>slide</title>
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    .viewport {
+      width: 300%;
+      height: 100%;
+      display: -webkit-box;
+      overflow: hidden;
+      pointer-events: none;
+      backface-visibility: hidden;
+    }
+
+    .page {
+      width: 33.333%;
+      height: 100%;
+    }
+
+    .page1 {
+      background-color: #fff;
+    }
+
+    .page1 .button {
+      width: 100px;
+      height: 50px;
+      -webkit-appearance: caret;
+    }
+
+    .page2 {
+      background-color: #58c03b;
+      zoom: 5;
+      cursor: url("../asset/image/star.png"), pointer;
+      pointer-events: auto;
+    }
+
+    .page3 {
+      background-color: #c03b25;
+    }
+  </style>
+</head>
+<body>
+<div class="viewport">
+  <div class="page page1" id="page1">
+    <p>父元素设置了 pointer-events: none; 阻止了它成为点击事件的target </p>
+    <div class="button">click</div>
+  </div>
+  <div class="page page2">
+    <h1>this is 第二页</h1>
+  </div>
+  <div class="page page3">
+    page3
+  </div>
+</div>
+
+<script>
+  let page1 = document.getElementById('page1')
+  page1.addEventListener('click', function () {
+    console.log('page1 clicked')
+  })
+</script>
+</body>
+</html>

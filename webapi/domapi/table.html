@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>table</title>
+  <style>
+    table td {
+      border: 1px solid;
+    }
+  </style>
+</head>
+<body>
+<table></table>
+
+<section>
+  <button onclick="insertRow()">insert row</button>
+</section>
+
+<script>
+  let el_table = document.querySelector('table')
+
+  function insertRow() {
+    if (el_table.tHead === null) {
+      let headRow = el_table.createTHead().insertRow()
+      headRow.insertCell().textContent = '红'
+      headRow.insertCell().textContent = '蓝'
+      headRow.insertCell().textContent = '黄'
+    }
+
+    let newRow = el_table.createTBody().insertRow()
+    newRow.insertCell().textContent = 'red'
+    newRow.insertCell().textContent = 'blue'
+    newRow.insertCell().textContent = 'yellow'
+  }
+</script>
+</body>
+</html>

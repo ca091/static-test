@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Document</title>
+  <style>
+    p {
+      margin: 0
+    }
+
+    body {
+      padding-top: 100px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .box-input {
+      position: relative;
+      width: 75%;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .box-input > div {
+      float: left;
+      line-height: 40px;
+      font-size: 20px;
+    }
+
+    #box-show {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #box-show span {
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    li {
+      margin: 5px;
+      width: 25%;
+      line-height: 45px;
+      text-align: center;
+      flex: 1 0 auto;
+      background-color: lightblue;
+    }
+
+    .rel {
+      position: relative;
+    }
+
+    #input {
+      height: 40px;
+      border: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      background-color: transparent;
+    }
+
+    .l_active {
+      border-right: 1px solid gray;
+      animation: san 1s ease 0s infinite;
+    }
+
+    @keyframes san {
+      0% {
+        border-right: 1px solid #000;
+      }
+      100% {
+        border-right: 1px solid transparent;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="box-input">
+  <div><span id="span-area-code" class="l_active">+86</span></div>
+  <div class="rel">
+    <div id="box-show"></div>
+    <!--<input type="text" id="dom-show" value="+86123456789*#" readonly>-->
+    <!--<span id="l"></span>-->
+    <!--<input type="number" id="input" readonly>-->
+  </div>
+</div>
+<!--<p id="dom-show" contenteditable="true" readonly>+86</p>-->
+<ul class="list-num">
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+  <li>4</li>
+  <li>5</li>
+  <li>6</li>
+  <li>7</li>
+  <li>8</li>
+  <li>9</li>
+  <li>*</li>
+  <li>0</li>
+  <li>#</li>
+</ul>
+<ul>
+  <li id="move-left"><-</li>
+  <li id="move-right">-></li>
+  <li id="del">del</li>
+</ul>
+
+<script>
+  let $$ = document.querySelectorAll.bind(document)
+  let $ = document.querySelector.bind(document)
+  let dom_ul = $('.list-num')
+  let box_show = $('#box-show')
+  let dom_del = $('#del')
+  let dom_move_left = $('#move-left')
+  let dom_move_right = $('#move-right')
+  let dom_area_code = $('#span-area-code')
+  let dom_input = $('#input')
+  let start
+
+  document.addEventListener('paste', function (e) {
+    console.log(e)
+    if (e.clipboardData.types.indexOf('text/html') > -1) {
+      console.log(e.clipboardData.getData('text/html'))
+      e.preventDefault()
+      // We are already handling the data from the clipboard, we do not want it inserted into the document
+    } else if (e.clipboardData.types.indexOf('text/plain') > -1) {
+      console.log('data', e.clipboardData.getData('text/plain'))
+      e.preventDefault()
+      // We are already handling the data from the clipboard, we do not want it inserted into the document
+    }
+  })
+
+  dom_move_left.addEventListener('click', function () {
+    console.log(window.clipboardData)
+    console.log(window.netscape)
+//        console.log(clipboardData.getData('text/plain'))
+  })
+
+  dom_ul.addEventListener('click', function (event) {
+    event.preventDefault()
+    let tar = event.target
+    if (tar.nodeName == 'LI') {
+      san.addSpan(tar.textContent)
+    }
+  })
+  dom_del.addEventListener('click', function (event) {
+    event.preventDefault()
+    let tar = event.target
+    if (tar.nodeName == 'LI') {
+      san.delSpan()
+    }
+  })
+
+  function San(box, area) {
+    this.box = box
+    this.area = area
+    this.i = 0
+    this.s = 0
+  }
+
+  San.prototype = {
+    addSpan: function (text) {
+      let span = document.createElement('span')
+      span.innerText = text
+      span.className = 'l_active'
+      //先清掉，再追加
+      this.clearSan()
+      if (this.i != this.s) {
+        let spans = this.box.querySelectorAll('span')
+        this.box.insertBefore(span, spans[this.i])
+      } else {
+        this.box.appendChild(span)
+      }
+      ++this.i
+      ++this.s
+      this.area.className = ''
+    },
+    delSpan: function () {
+      if (this.i == 0) return
+      let spans = this.box.querySelectorAll('span')
+      this.box.removeChild(spans[--this.i])
+      --this.s
+      this.addSan(spans[this.i - 1])
+    },
+    clearSan: function () {
+      if (this.i == 0) return
+      let spans = this.box.querySelectorAll('span')
+      spans[this.i - 1].className = ''
+    },
+    addSan: function (tar) {
+      if (tar) {
+        this.area.className = ''
+        tar.className = 'l_active'
+      } else {
+        this.area.className = 'l_active'
+      }
+    },
+    getI: function (tar) {
+      let spans = this.box.querySelectorAll('span')
+      let i = 0, l = spans.length
+      for (; i < l; i++) {
+        if (spans[i] == tar) {
+          return i + 1
+        }
+      }
+    },
+    initEvent: function () {
+      let me = this
+      this.box.addEventListener('click', function (event) {
+        event.preventDefault()
+        let tar = event.target
+        let offLeft = tar.offsetLeft
+        console.log(offLeft)
+        console.log(event.offsetX)
+        if (tar.nodeName == 'SPAN' && !tar.className.match(/l_active/g)) {
+          me.clearSan()
+          me.i = me.getI(tar)
+          me.addSan(tar)
+        }
+      })
+      this.area.addEventListener('click', function (event) {
+        event.preventDefault()
+        let tar = event.target
+        if (tar.nodeName == 'SPAN' && !tar.className.match(/l_active/g)) {
+          me.clearSan()
+          me.i = 0
+          me.addSan(null)
+        }
+      })
+    },
+  }
+
+  let san = new San(box_show, dom_area_code)
+  san.initEvent()
+</script>
+</body>
+</html>

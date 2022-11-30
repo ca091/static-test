@@ -1,0 +1,185 @@
+h3 {
+  text-decoration: underline;
+}
+.blend-jpg {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.blend-jpg div {
+  width: 218px;
+  height: 153px;
+  background-size: contain;
+  background-blend-mode: lighten;
+}
+.blend-jpg .box1 {
+  background-image: url("../asset/image/skull2.jpg");
+}
+.blend-jpg .box2 {
+  background-image: url("../asset/image/skull2.jpg"), linear-gradient(#f00, #f00);
+}
+.blend-jpg .box3 {
+  background-image: url("../asset/image/skull2.jpg"), linear-gradient(#0f0, #0f0);
+}
+.blend-jpg .box4 {
+  background-image: url("../asset/image/skull2.jpg"), linear-gradient(#00f, #00f);
+}
+.blend-jpg .box5 {
+  background-image: url("../asset/image/skull2.jpg"), linear-gradient(#f00, #00f);
+  background-position: 0 0, 0 153px;
+  background-repeat: no-repeat;
+  transition: all .5s ease-in-out;
+  cursor: pointer;
+}
+.blend-jpg .box5:hover {
+  background-position: 0 0, 0 0;
+}
+
+.filter {
+  display: flex;
+}
+.filter .box2 {
+  filter: hue-rotate(120deg);
+}
+.filter .box3 {
+  filter: hue-rotate(240deg);
+}
+
+.blend-png .box1 {
+  width: 100px;
+  height: 100px;
+  background-image: url("../asset/image/skull.png"), linear-gradient(#f00, #00f);
+}
+.blend-png .box2 {
+  width: 400px;
+  height: 300px;
+  background-image: url("../asset/image/pencil.jpg"), linear-gradient(#f00, #00f);
+}
+
+/*mix-blend-mode*/
+.blend-test {
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+.blend-test div {
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+}
+.blend-test div:nth-child(1) {
+  background-color: #fff;
+  border: 1px solid #000;
+}
+.blend-test div:nth-child(2) {
+  left: 50px;
+  background-color: #000;
+  border: 1px solid #fff;
+}
+
+.loader-mix {
+  padding: 10px;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+.loader-mix div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  transform-origin: 48% 48%;
+  mix-blend-mode: screen;
+}
+.loader-mix div:nth-child(1) {
+  background-color: #f00;
+  animation: turn 1.5s linear 0s infinite;
+}
+.loader-mix div:nth-child(2) {
+  background-color: #0f0;
+  animation: turn 1.5s linear .5s infinite;
+}
+.loader-mix div:nth-child(3) {
+  background-color: #00f;
+  animation: turn 1.5s linear 1s infinite;
+}
+@keyframes turn {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.word-mix > div {
+  position: relative;
+  font-size: 64px;
+}
+.word-mix > div:before,
+.word-mix > div:after {
+  content: attr(data-word);
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+}
+.word-mix > div:before {
+  left: 1px;
+  height: 0;
+  color: rgba(255, 0, 0, .9);
+  z-index: 2;
+  animation: redShadow 1.5s ease-in infinite;
+  mix-blend-mode: color-burn;
+}
+.word-mix > div:after {
+  left: -3px;
+  height: 64px;
+  color: rgba(0, 0, 0, .8);
+  background-color: rgba(255, 255, 255, .9);
+  z-index: 3;
+  animation: redHeight 2s ease-out infinite;
+  mix-blend-mode: hard-light;
+}
+
+@keyframes redShadow {
+  20% {
+    left: -1px;
+    height: 32px;
+  }
+  60% {
+    left: 2px;
+    height: 6px;
+  }
+  100% {
+    left: -2px;
+    height: 42px;
+  }
+}
+@keyframes redHeight {
+  20% {
+    height: 42px;
+  }
+  35% {
+    height: 12px;
+  }
+  50% {
+    height: 40px;
+  }
+  60% {
+    height: 20px;
+  }
+  70% {
+    height: 34px;
+  }
+  80% {
+    height: 22px;
+  }
+  100% {
+    height: 0;
+  }
+}

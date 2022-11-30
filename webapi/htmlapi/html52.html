@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Title</title>
+  <style>
+    dialog {
+      border: none;
+      /*border-radius: 5%;*/
+      /*min-width: 70%;*/
+      background-color: transparent;
+    }
+    /*幕布控制-屏幕背景*/
+    dialog::backdrop {
+      background-color: #eee;
+      border-radius: 2%;
+      box-shadow: 0 0 100px 30px inset;
+      transform: scale(.7);
+      /*transition: transform 3s;*/
+    }
+
+    button {
+      background-color: #ffa800;
+      border: 0 none;
+      color: #fff;
+      line-height: 2;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <button onclick="showDialog('#dialog')">dialog</button>
+  <button onclick="showDialogReturnVal('#dialog')">dialog return val</button>
+</div>
+<dialog id="dialog">
+  <h1>i am dialog title</h1>
+  <p>i am dialog content</p>
+  <button onclick="closeDialog('#dialog', 'hi')">close</button>
+</dialog>
+
+<script>
+  let dialogs = {}
+
+  function showDialog(anchor) {
+    // console.log(dialog);
+    // dialog.showModal(anchor);
+    (dialogs[anchor] || (dialogs[anchor] = document.querySelector(anchor))).showModal()
+  }
+
+  function closeDialog(anchor, result) {
+    dialogs[anchor] && dialogs[anchor].close(result)
+  }
+
+  function showDialogReturnVal(anchor) {
+    console.log(dialogs[anchor] && dialogs[anchor].returnValue)
+  }
+</script>
+</body>
+</html>

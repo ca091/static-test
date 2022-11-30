@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>sticky</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    .top {
+      height: 50px;
+      background-color: lavender;
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 9;
+    }
+    .item {
+      border: 1px solid #f00;
+    }
+    .item + .item {
+      margin-top: 20px;
+    }
+    header {
+      height: 80px;
+      background-color: lightgray;
+      position: -webkit-sticky;
+      position: sticky;
+      top: 50px;
+    }
+    .content, .wrap {
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <div class="top">top</div>
+  <div class="wrap">other content</div>
+  <div>
+    <div class="item">
+      <header>header1</header>
+      <div class="content">content1</div>
+      <footer>footer1</footer>
+    </div>
+    <div class="item">
+      <header>header2</header>
+      <div class="content">content2</div>
+      <footer>footer2</footer>
+    </div>
+    <div class="item">
+      <header>header3</header>
+      <div class="content">content3</div>
+      <footer>footer3</footer>
+    </div>
+    <div class="item">
+      <header>header4</header>
+      <div class="content">content4</div>
+      <footer>footer4</footer>
+    </div>
+  </div>
+</main>
+</body>
+</html>

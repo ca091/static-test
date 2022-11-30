@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>box flex</title>
+  <style>
+    /*老版伸缩盒
+      box-orient: horizontal | vertical | inline-axis | block-axis | inherit;
+      box-pack:   start | end | center | justify; //水平
+      box-align： start | end | center | baseline | stretch; //垂直
+      box-direction: normal | reverse | inherit; //子元素排序
+      box-lines： single | multiple; // 换行
+    */
+    .box {
+      display: -webkit-box;
+      display: -moz-box;
+      display: box;
+      margin-bottom: 20px;
+      width: 800px;
+      border: 1px solid red;
+    }
+    /* 子元素
+    box-flex */
+    .item {
+      -webkit-box-flex: 1;
+      -moz-box-flex: 1;
+      box-flex: 1;
+      height: 400px;
+      border: 1px solid blue;
+    }
+    /*
+    新版伸缩盒
+    设为Flex布局以后，子元素的float、clear和vertical-align属性将失效。
+    容器：
+    flex-direction: row | row-reverse | column | column-reverse;
+    flex-wrap: nowrap | wrap | wrap-reverse;
+    flex-flow: <flex-direction> || <flex-wrap>;
+    justify-content: flex-start | flex-end | center | space-between | space-around; //主轴如何对齐
+    align-items: flex-start | flex-end | center | baseline | stretch; //交叉轴如何对齐
+    align-content: flex-start | flex-end | center | space-between | space-around | stretch; //多轴如何对齐
+
+    */
+    .flex {
+      display: flex;
+      width: 800px;
+    }
+    /* 		项目：
+        order:; //排序
+        flex-grow: <number>; //default 0    0不放大 1等比放大 2放大两倍
+        flex-shrink: <number>; //default 1  0不缩小 1等比缩小
+        flex-basis: <length> | auto; //default auto
+        flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]  //默认值为0 1 auto
+        align-self: auto | flex-start | flex-end | center | baseline | stretch;  //可覆盖align-items属性
+         */
+    .it {
+      flex: 1 0 auto;
+      width: 200px;
+      height: 400px;
+      border: 1px solid blue;
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
+
+<div class="flex">
+  <div class="it"></div>
+  <div class="it"></div>
+  <div class="it"></div>
+</div>
+</body>
+</html>

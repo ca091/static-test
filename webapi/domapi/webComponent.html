@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>webComponent v0版本</title>
+  <style>
+    btn-danger {
+      color: #fff;
+      padding: 5px 10px;
+      background-color: indianred;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    btn-danger:hover {
+      background-color: darkred;
+    }
+  </style>
+</head>
+<body>
+<template id="temp">
+  <img src="" alt="this is template image">
+  <p>this is template p</p>
+</template>
+<btn-danger></btn-danger>
+<script>
+  let $ = document.querySelector.bind(document)
+  let $$ = document.querySelectorAll.bind(document)
+
+  function supportTemplate() {
+    return 'content' in document.createElement('template')
+  }
+
+  function supportCustomElement() {
+    return 'registerElement' in document
+  }
+
+  function supportImports() {
+    return 'import' in document.createElement('link')
+  }
+
+  function init() {
+    appendTemplate()
+    appendBtn()
+    let btnDanger = $('btn-danger')
+    console.log(btnDanger.val)
+  }
+
+  /**
+   * 插入自定义模版
+   */
+  function appendTemplate() {
+    let temp = $('#temp')
+    temp.content.querySelector('img').src = '../img/car.png'
+    temp.content.querySelector('p').textContent = 'this is a car'
+    document.body.appendChild(temp.content)
+  }
+
+  /**
+   * 插入自定义元素
+   */
+  function appendBtn() {
+    let proto = Object.create(HTMLElement.prototype, {
+      val: {
+        configurable: false,
+        get: function () {
+          return 'btn-danger: version 1.0'
+        },
+        set: function (value) {
+          console.log('setting `btn-danger.print` to ', value)
+        },
+      },
+      print: {
+        writable: true,
+        configurable: true,
+        value: 'this is custom element btn-danger',
+
+      },
+    })
+    proto.createdCallback = function () {
+      this.innerHTML = 'danger!'
+
+    }
+    let btnDanger = document.registerElement('btn-danger', {
+      prototype: proto,
+    })
+    document.body.appendChild(new btnDanger())
+  }
+
+  window.onload = init
+</script>
+</body>
+</html>

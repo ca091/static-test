@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>svg 图案</title>
+</head>
+<body>
+<svg width="666" height="1666">
+  <defs>
+    <!--x:图案在x轴方向的起点-->
+    <!--y:图案在y轴方向的起点-->
+    <!--width:x轴方向图案下一次出现的位置-->
+    <!--height:y轴方向图案下一次出现的位置-->
+    <!--patternUnits:定义图案的坐标系统，图案的单位是否随着引用它的SVG对象进行缩放-->
+    <pattern id="pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="10" stroke="none" fill="#393"/>
+    </pattern>
+
+    <pattern id="img-pattern" x="8" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+      <image xlink:href="img/3.png" x="0" y="0" width="50" height="50"></image>
+    </pattern>
+
+    <!--类似继承-->
+    <pattern id="pattern-transform" xlink:href="#pattern" patternTransform="rotate(10)">
+
+    </pattern>
+
+    <!--图案嵌套-->
+    <pattern id="pattern-inner" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="4" height="4" stroke="none" fill="#6a6"></rect>
+    </pattern>
+    <pattern id="pattern-outer" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+      <circle cx="25" cy="25" r="20" stroke="none" fill="url(#pattern-inner)"></circle>
+    </pattern>
+
+  </defs>
+  <!--pattern填充 patternUnits--userSpaceOnUse规定固定尺寸-->
+  <rect x="10" y="10" width="600" height="200" stroke="#630" stroke-width="5px" fill="url(#pattern)"/>
+
+  <!--pattern描边-->
+  <rect x="10" y="250" width="600" height="200" stroke="url(#pattern)" stroke-width="20px" fill="#430"/>
+
+  <!--使用图片-->
+  <rect x="10" y="500" width="600" height="200" stroke="#333" stroke-width="5px" fill="url(#img-pattern)"></rect>
+
+  <!--图案变换 patternTransform-->
+  <rect x="10" y="750" width="600" height="200" stroke="#444" stroke-width="5px" fill="url(#pattern-transform)"></rect>
+
+  <!--图案嵌套-->
+  <rect x="10" y="1000" width="600" height="200" stroke="#555" stroke-width="5px" fill="url(#pattern-outer)"></rect>
+</svg>
+</body>
+</html>

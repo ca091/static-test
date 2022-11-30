@@ -1,0 +1,39 @@
+div:empty:after {
+  content: 'nothing to show';
+}
+
+.list > li {
+  padding: 10px 20px;
+}
+
+.list > li:nth-last-child(n+3) {
+  background-color: #ffa800;
+}
+
+.list > li:first-child:nth-last-child(n+5),
+.list > li:first-child:nth-last-child(n+5) ~ li {
+  display: inline-block;
+}
+
+textarea {
+  font-family: emoji;
+  width: 80%;
+  height: 200px;
+}
+
+h3 {
+  font-family: emoji, 'iOS emoji', 'android emoji', sans-serif;
+}
+
+input {
+  width: 80%;
+  height: 50px;
+}
+
+@font-face {
+  font-family: emoji;
+  src: /*local('Apple Color Emoji'),*/ /*local('Android Emoji'),*/ /*local('Segoe UI'),*/ /*local(EmojiSymbols),*/ /*local(Symbola),*/ /*url('font/Symbola-Emoji.eot?#iefix') format('embedded-opentype'),*/ /*url('font/Symbola-Emoji.woff') format('woff'),*/ /*url('font/Symbola.ttf') format('truetype');*/ url('../asset/font/NotoColorEmoji.ttf') format('truetype');
+
+  /* Emoji unicode blocks */
+  /*unicode-range: U+1F300-1F5FF, U+1F600-1F64F, U+1F680-1F6FF, U+2600-26FF;*/
+}

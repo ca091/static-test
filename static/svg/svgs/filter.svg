@@ -1,0 +1,41 @@
+<!--矩阵计算RGBA自已每行的最终值，每个RGBA通道有自身的RGBA通道。最后一个值是一个乘数。最后RGBA的值从上向下读，像下面这个列表：-->
+
+<!--/* R G B A 1 */-->
+<!--1 0 0 0 0 // R = 1*R + 0*G + 0*B + 0*A + 0-->
+<!--0 1 0 0 0 // G = 0*R + 1*G + 0*B + 0*A + 0-->
+<!--0 0 1 0 0 // B = 0*R + 0*G + 1*B + 0*A + 0-->
+<!--0 0 0 1 0 // A = 0*R + 0*G + 0*B + 1*A + 0-->
+
+<svg>
+    <defs>
+        <!-- lacking the B & G channels (only R at 1) -->
+        <filter id="red">
+            <feColorMatrix
+                    type="matrix"
+                    values="1   0   0   0   0
+                            0   0   0   0   0
+                            0   0   0   0   0
+                            0   0   0   1   0 "/>
+        </filter>
+
+        <!-- lacking the R & G channels (only B at 1) -->
+        <filter id="blue">
+            <feColorMatrix
+                    type="matrix"
+                    values="0   0   0   0   0
+                            0   0   0   0   0
+                            0   0   1   0   0
+                            0   0   0   1   0 "/>
+        </filter>
+
+        <!-- lacking the R & B channels (only G at 1) -->
+        <filter id="green">
+            <feColorMatrix
+                    type="matrix"
+                    values="0   0   0   0   0
+                            0   1   0   0   0
+                            0   0   0   0   0
+                            0   0   0   1   0 "/>
+        </filter>
+    </defs>
+</svg>

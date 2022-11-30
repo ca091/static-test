@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no, email=no"/>
+  <meta name="description" content=""/>
+  <meta name="keywords" content=""/>
+  <meta name="robots" content="index,follow"/>
+  <title>iOS下的 Fixed + Input BUG现象</title>
+  <style>
+    body, p {
+      margin: 0;
+    }
+
+    header, footer {
+      position: fixed;
+      left: 0;
+      right: 0;
+    }
+
+    header {
+      top: 0;
+      height: 50px;
+      background-color: #9a8672;
+    }
+
+    footer {
+      bottom: 0;
+      height: 40px;
+      background-color: #a0b3d6;
+    }
+
+    main {
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50px;
+      bottom: 40px;
+      background-color: #DDCCDD;
+      /*使 fixed 元素的父级不出现滚动(使页面无法滚动)，而将原 body 滚动的区域域移到 main 内部*/
+      overflow-y: scroll;
+      /* 增加该属性，可以增加弹性 */
+      -webkit-overflow-scrolling: touch;
+    }
+
+    main .content {
+      height: 1000px;
+    }
+  </style>
+
+</head>
+<body>
+<header></header>
+<main>
+  <div class="content">
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+  </div>
+</main>
+<footer>
+  <input type="text" placeholder="footer">
+</footer>
+
+<script>
+  // 防止内容区域滚到底后引起页面整体的滚动
+  var content = document.querySelector('main')
+  console.log(content.style.height)//不包含border
+  console.log(content.clientHeight)//可视区域,除去滚动条宽度,不包含border
+  console.log(content.offsetHeight)//可视区域,包含border
+  console.log(content.scrollHeight)//内容高度
+  var startY
+  content.addEventListener('touchstart', function (e) {
+    startY = e.touches[0].clientY
+  })
+  content.addEventListener('touchmove', function (e) {
+    // 高位表示向上滚动
+    // 底位表示向下滚动
+    // 1容许 0禁止
+    var status = '11'
+    var ele = this
+    var currentY = e.touches[0].clientY
+    if (ele.scrollTop === 0) {
+      // 如果内容小于容器则同时禁止上下滚动
+      status = ele.offsetHeight >= ele.scrollHeight ? '00' : '01'
+    } else if (ele.scrollTop + ele.offsetHeight >= ele.scrollHeight) {
+      // 已经滚到底部了只能向上滚动
+      status = '10'
+    }
+    if (status !== '11') {
+      // 判断当前的滚动方向
+      var direction = currentY - startY > 0 ? '10' : '01'
+      // 操作方向和当前允许状态求与运算，运算结果为0，就说明不允许该方向滚动，则禁止默认事件，阻止滚动
+      if (!(parseInt(status, 2) & parseInt(direction, 2))) {
+        e.preventDefault()
+      }
+    }
+  })
+</script>
+</body>
+</html>

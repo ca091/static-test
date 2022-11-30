@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>振动</title>
+</head>
+<body>
+<button id="btn-onetime">单次振动</button>
+<button id="btn-multiTimes">振动3次</button>
+
+<button id="btn-long-start">持续振动 start</button>
+<button id="btn-long-stop">持续振动 stop</button>
+
+<script src="js/utils.js"></script>
+<script>
+  let $ = document.querySelector.bind(document)
+  let timer = null
+
+  function vibrate(duration) {
+    navigator.vibrate(duration)
+  }
+
+  $('#btn-onetime').addEventListener('click', () => {
+    navigator.vibrate(1000) // 单次振动 1s
+  })
+
+  $('#btn-multiTimes').addEventListener('click', () => {
+    navigator.vibrate([1000, 500, 1000, 500, 1000]) // 振动、暂停循环，这里振动3次
+  })
+
+  $('#btn-long-start').addEventListener('click', () => {
+    timer = setInterval(vibrate, 500, 1000)
+  })
+
+  $('#btn-long-stop').addEventListener('click', () => {
+    if (timer) clearInterval(timer)
+    vibrate(0)
+  })
+
+  appendMessage(typeof navigator.vibrate === 'function' ? 'support' : 'not support')
+</script>
+</body>
+</html>

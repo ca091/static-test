@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="writing-mode把水平流变成垂直流;direction改变水平文档流，从左往右或从右往左">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>css 逻辑属性 xxx-start; writing-mode</title>
+  <style>
+    p {
+      margin: 0;
+    }
+    section {
+      background-color: antiquewhite;
+      margin-bottom: 20px;
+    }
+    .box1 p,
+    .box2 p {
+      direction: rtl;
+      /*writing-mode: vertical-lr;*/
+    }
+    .box1 p {
+      margin-inline-start: 20px;
+    }
+    .box2 p {
+      margin-block-start: 20px;
+    }
+
+    .box3 {
+      padding: 10px;
+      /*direction: rtl;*/
+      /*垂直方向，从右往左*/
+      writing-mode: vertical-rl;
+    }
+    .box3 p {
+      /*间距不能使用margin-top*/
+      margin-block-start: 10px;
+    }
+
+    .box4 {
+      height: 400px;
+      writing-mode: vertical-lr;
+      text-align: center;
+    }
+    .box4 img {
+      /*display: block;*/
+      /*margin-top: auto;*/
+      /*margin-bottom: auto;*/
+    }
+
+    .box5 {
+      width: 400px;
+      height: 400px;
+    }
+    .center-box {
+      writing-mode: vertical-lr;
+      text-align: center;
+    }
+    .center-wrap {
+      writing-mode: horizontal-tb;
+      display: inline-block;
+      width: 100%;
+    }
+    .center-content {
+      display: inline-block;
+    }
+
+    .box6 {
+      padding: 5px;
+    }
+    .box6 .a-btn {
+      display: inline-block;
+      line-height: 80px;
+      text-align: center;
+      text-decoration: none;
+    }
+    .box6 .btn {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      font-size: 36px;
+      color: #a78252;
+      background-color: #ddc390;
+      border: 6px solid #ddc390;
+      box-shadow: 0 0 0 1px #d6b681 inset, 0 4px;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+    .box6 .btn:active {
+      text-indent: 2px;
+    }
+    .vertical-mode {
+      writing-mode: vertical-lr;
+    }
+  </style>
+</head>
+<body>
+<section class="box1">
+  <div>test margin-inline-start</div>
+  <p>margin-inline指的是水平方向的margin控制</p>
+</section>
+
+<section class="box2">
+  <div>test margin-block-start</div>
+  <p>而margin-block指的是垂直方向的margin控制</p>
+</section>
+
+<section class="box3">
+  <h4>咏柳</h4>
+  <p>碧玉妆成一树高</p>
+  <p>万条垂下绿丝绦</p>
+  <p>不知细叶谁裁出</p>
+  <p>二月春风似剪刀</p>
+</section>
+
+<h3>writing-mode: vertical-lr; 实现图片垂直居中</h3>
+<section class="box4">
+  <img src="../asset/image/pencil.jpg" alt="">
+</section>
+
+<h3>利用writing-mode实现的垂直居中(三层嵌套)</h3>
+<section class="box5 center-box">
+  <div class="center-wrap">
+    <div class="center-content">
+      <h4>咏柳</h4>
+      <p>碧玉妆成一树高</p>
+      <p>万条垂下绿丝绦</p>
+      <p>不知细叶谁裁出</p>
+      <p>二月春风似剪刀</p>
+    </div>
+  </div>
+</section>
+
+<h3>利用writing-mode + text-indent实现的文字下沉效果</h3>
+<div class="box6">
+  恭喜你中了88元红包，点击 <a href="javascript:" class="a-btn btn vertical-mode">领</a> 取
+</div>
+<div class="box6">
+  恭喜你中了188元红包，点击
+  <button class="btn vertical-mode">领</button>
+  取
+</div>
+
+<footer>
+  from <a href="https://www.zhangxinxu.com/wordpress/2016/04/css-writing-mode/">内容相关文章</a>
+</footer>
+</body>
+</html>

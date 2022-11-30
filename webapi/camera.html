@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>图片预览压缩</title>
+  <style>
+    #input-up {
+      opacity: 0;
+    }
+
+    .btn-up {
+      padding: 5px 10px;
+      border-radius: 3px;
+      color: #fff;
+      background-color: cadetblue;
+      box-shadow: 0 -.1em 0 0 rgba(0, 0, 0, .1) inset;
+    }
+
+    .box-img {
+      padding: 10px;
+      width: 180px;
+      height: 100px;
+      background: url("img/icon_zheng.png") center center no-repeat;
+      background-size: 25%;
+      background-origin: content-box;
+      /*background-clip: content-box;*/
+      border: 1px solid;
+    }
+
+    .box-img input {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+<!--<label for="input-up" class="btn btn-up">-->
+<!--上传图片-->
+<!--</label>-->
+<p>上传到uploads文件夹</p>
+<div class="box-img">
+  <input type="file" accept="image/*" capture="camera" id="file">
+</div>
+
+<p>视频</p>
+<input type="file" accept="video/*" capture="camcorder">
+
+<p>音频</p>
+<input type="file" accept="audio/*" capture="microphone">
+
+<p>图片多选</p>
+<input type="file" accept="image/*" multiple>
+
+<script>
+  let $ = document.querySelector.bind(document)
+
+  function fileUpload(blob) {
+    let fd = new FormData()
+    fd.append('avatar', blob)
+    let xhr = new XMLHttpRequest()
+    xhr.open('POST', '/single')
+    xhr.send(fd)
+  }
+
+  function getBlob(img, type, quality) {
+    let w = img.naturalWidth, h = img.naturalHeight, scale = 1, max = 1000
+    let canvas = document.createElement('canvas'), ctx = canvas.getContext('2d')
+    if (w > max || h > max) scale = max / Math.max(w, h)
+    canvas.width = Math.floor(w * scale)
+    canvas.height = Math.floor(h * scale)
+    //ctx.drawImage(img, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+
+    let data = canvas.toDataURL(type, quality)
+    //dataURL 的格式为 “data:image/png;base64,****”,逗号之前都是一些说明性的文字，我们只需要逗号之后的就行了
+    data = data.split(',')[1]
+    data = window.atob(data)
+    let ia = new Uint8Array(data.length)
+    for (let i = 0; i < data.length; i++) {
+      ia[i] = data.charCodeAt(i)
+    }
+    //canvas.toDataURL 返回的默认格式就是 image/png
+    return new Blob([ia], {type: type})
+  }
+
+  function use(selector) {
+    let domInput = $(selector)
+    if (domInput) {
+      let _self = this
+      domInput.addEventListener('change', function (event) {
+        if (!this.files.length) {
+          console.error('请选择文件')
+        } else if (!/image\/\w+/.test(this.files[0].type)) {
+          console.error('请确保文件类型为图像类型')
+        } else {
+          let file = this.files[0]
+          let readerImg = new FileReader()
+          let img = new Image()
+          img.onload = function () {
+            //压缩(压缩后可能size反而变大)
+            let blob = _self.getBlob(img, file.type, 0.8)
+            _self.fileUpload(blob.size > file.size ? file : blob)
+          }
+          readerImg.onload = function (e) {
+            img.src = e.target.result
+            //回显
+            event.target.parentNode.style.backgroundImage = 'url(' + e.target.result + ')'
+            event.target.parentNode.style.backgroundSize = 'contain'
+          }
+          readerImg.readAsDataURL(file)
+        }
+      })
+    }
+  }
+
+  let imgUp = {use, getBlob, fileUpload}
+  imgUp.use('#file')
+</script>
+</body>
+</html>

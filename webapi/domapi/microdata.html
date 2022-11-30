@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--https://www.tutorialspoint.com/html5/html5_microdata.htm-->
+<a href="https://www.tutorialspoint.com/html5/html5_microdata.htm">html5 tutor</a>
+<a href="https://www.w3.org/TR/microdata/">w3 tutor</a>
+
+<div itemscope>
+  <p>name: <span itemprop="name">qi</span></p>
+</div>
+
+<div itemscope>
+  <p>age: <span itemprop="name">12</span></p>
+</div>
+
+<script>
+  function supports_microdata_api() {
+    return !!document.getItems
+  }
+
+  console.log(`browser ${supports_microdata_api() ? '' : 'not '}support microdata`)
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>内容环绕刘海屏幕</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    .box {
+      height: 100vh;
+      overflow: auto;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    .shape {
+      width: 30px;
+      float: left;
+      shape-outside: polygon(0 0, 0 120px, 16px 124px, 30px 136px, 30px 284px, 16px 296px, 0 300px, 0 0);
+      transition: shape-outside .15s;
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <div class="shape" id="shape"></div>
+  <ul id="content">
+    <li>Sometimes a web page's text content appears to be funneling your attention towards a spot on the page to drive
+      you to follow a particular link.
+    </li>
+    <li>Sometimes you don't notice.</li>
+    <li>Sometimes a web page's text content appears to be funneling your attention towards a spot on the page to drive
+      you to follow a particular link.
+    </li>
+    <li>Sometimes you don't notice.</li>
+    <li>Sometimes a web page's text content appears to be funneling your attention towards a spot on the page to drive
+      you to follow a particular link.
+    </li>
+    <li>Sometimes you don't notice.</li>
+    <li>Sometimes a web page's text content appears to be funneling your attention towards a spot on the page to drive
+      you to follow a particular link.
+    </li>
+    <li>Sometimes you don't notice.</li>
+    <li>Sometimes a web page's text content appears to be funneling your attention towards a spot on the page to drive
+      you to follow a particular link.
+    </li>
+    <li>Sometimes you don't notice.</li>
+    <li>Sometimes a web page's text content appears to be funneling your attention towards a spot on the page to drive
+      you to follow a particular link.
+    </li>
+    <li>Sometimes you don't notice.</li>
+    <li>Sometimes a web page's text content appears to be funneling your attention towards a spot on the page to drive
+      you to follow a particular link.
+    </li>
+    <li>Sometimes you don't notice.</li>
+    <li>Sometimes a web page's text content appears to be funneling your attention towards a spot on the page to drive
+      you to follow a particular link.
+    </li>
+    <li>Sometimes you don't notice.</li>
+    <li>Sometimes a web page's text content appears to be funneling your attention towards a spot on the page to drive
+      you to follow a particular link.
+    </li>
+    <li>Sometimes you don't notice.</li>
+    <li>Sometimes a web page's text content appears to be funneling your attention towards a spot on the page to drive
+      you to follow a particular link.
+    </li>
+    <li>Sometimes you don't notice.</li>
+    <li>Sometimes a web page's text content appears to be funneling your attention towards a spot on the page to drive
+      you to follow a particular link.
+    </li>
+    <li>Sometimes you don't notice.</li>
+    <li>Sometimes a web page's text content appears to be funneling your attention towards a spot on the page to drive
+      you to follow a particular link.
+    </li>
+    <li>Sometimes you don't notice.</li>
+  </ul>
+</div>
+
+<script>
+  let box = document.querySelector('.box')
+  let shape = document.getElementById('shape')
+  let content = document.getElementById('content')
+  shape.style.height = box.scrollHeight + 'px'
+  box.addEventListener('scroll', function (e) {
+    let h = box.scrollTop
+    let shapeOutside = 'polygon(0 0, 0 ' + (120 + h) + 'px, 16px ' + (124 + h) + 'px, 30px ' + (136 + h) + 'px, 30px ' + (284 + h) + 'px, 16px ' + (296 + h) + 'px, 0 ' + (300 + h) + 'px, 0 0)'
+    shape.style.shapeOutside = shapeOutside
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no"/>
+  <title>移动端300ms点击延迟</title>
+  <style>
+    html {
+      /*touch-action: manipulation;*/
+    }
+  </style>
+</head>
+<body>
+<p>使用 fastclick 即可解决</p>
+<p>设置 touch-action: manipulation; 即可解决</p>
+<p>设置 width=device-width 或 user-scalable=no 即可解决</p>
+<button id="btn1">click me</button>
+<button id="clear">clear msg</button>
+<ul id="msgs"></ul>
+
+<script src="fastclick.js"></script>
+<script>
+  let clickTime = 0
+  let touchendTime = 0
+  let elBtn1 = document.querySelector('#btn1')
+  let elClear = document.querySelector('#clear')
+  let elList = document.querySelector('#msgs')
+
+  // fastclick.attach(document.body)
+  function appendMsg(msg) {
+    let li = document.createElement('li')
+    li.textContent = msg
+    elList.appendChild(li)
+  }
+
+  elClear.addEventListener('click', () => {
+    elList.innerHTML = ''
+  })
+  elBtn1.addEventListener('click', e => {
+    console.log('clicked')
+    clickTime = Date.now()
+    // fastclick.isAllowed = !fastclick.isAllowed
+    appendMsg('gap touchend: ' + (clickTime - touchendTime))
+  })
+  elBtn1.addEventListener('touchend', e => {
+    touchendTime = Date.now()
+    // 触发自定义事件，这里可以触发click事件
+    // e.target.dispatchEvent(customMouseEvents)
+    // 阻止click事件触发
+    // e.preventDefault()
+  })
+</script>
+</body>
+</html>

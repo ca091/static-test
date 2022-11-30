@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <style>
+    body {
+      /*font-family: "", "", , , /
+      /*font-family: 'Avenir', , , sans-serif;*/
+      /*font-family: Microsoft Yahei;*/
+      /*font-family: Helvetica;*/
+      /*font-family: Helvetica Neue;*/
+      /*font-family: serif;*/
+      font-family: Monaco, Helvetica Neue, serif;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+</head>
+<body>
+
+<select name="fonts" id="font-select">
+  <option value="Helvetica Neue">Helvetica Neue</option>
+  <option value="Helvetica">Helvetica</option>
+  <option value="Microsoft Yahei">Microsoft Yahei</option>
+  <option value="Arial">Arial</option>
+  <option value="sans-serif">sans-serif</option>
+  <option value="serif">serif</option>
+  <option value="Avenir">Avenir</option>
+  <option value="PingFang SC">PingFang SC</option>
+  <option value="-apple-system">-apple-system</option>
+  <option value="Monaco">Monaco</option>
+</select>
+
+<section style="font-family: Helvetica Neue">
+  <p>iiiiiiiiii</p>
+  <p>MMMMMMMMMM</p>
+  <p>1111111111</p>
+  <p>2222222222</p>
+  <p>7777777777</p>
+</section>
+
+<script>
+  let elSelect = document.querySelector('#font-select')
+  let elSection = document.querySelector('section')
+  elSelect.addEventListener('change', () => {
+    console.log(elSelect.value)
+    elSection.style.cssText = `font-family: ${elSelect.value}`
+  })
+</script>
+</body>
+</html>

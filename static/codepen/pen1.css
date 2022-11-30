@@ -1,0 +1,389 @@
+html * {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+p,
+body {
+  margin: 0;
+}
+a,
+button,
+input,
+textarea {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+html {
+  color: #333;
+}
+body {
+  font-family: "Helvetica Neue", "Microsoft Yahei", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.42857143;
+  font-size: 16px;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  border: none;
+}
+a,
+a:hover {
+  text-decoration: none;
+}
+a:link,
+a:visited {
+  color: #333;
+}
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+/* remember to highlight inserts somehow! */
+ins {
+  text-decoration: none;
+}
+del {
+  text-decoration: line-through;
+}
+b {
+  font-weight: normal;
+}
+i,
+em {
+  font-style: normal;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+button {
+  font: inherit;
+}
+.mask {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: .8;
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(opacity=50)';
+}
+.coll2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+.coll {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/*两栏自适应*/
+.cell {
+  display: table-cell;
+  width: 3000px;
+}
+/*清浮动*/
+.cf:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+/*常用*/
+.bc {
+  margin-left: auto;
+  margin-right: auto;
+}
+.tl {
+  text-align: left;
+}
+.tc {
+  text-align: center;
+}
+.tr {
+  text-align: right;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.abs {
+  position: absolute;
+}
+.ovh {
+  overflow: hidden;
+}
+body {
+  background-color: aliceblue;
+}
+.radios {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+.radios input[type='radio'] {
+  position: absolute;
+  right: 1000%;
+}
+.radios label {
+  float: left;
+  width: 15%;
+  padding-bottom: 15%;
+  margin: 0 2.5%;
+  background-color: teal;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.radios #slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10%;
+  margin: 2.5% 0 0 5%;
+  padding-bottom: 10%;
+  background-color: tan;
+  border-radius: 50%;
+  -webkit-transition: left 0.2s ease-in-out 0.05s;
+  transition: left 0.2s ease-in-out 0.05s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+}
+.radios #input1:checked ~ #slider {
+  -webkit-animation-name: input1;
+  animation-name: input1;
+  left: 0;
+}
+.radios #input2:checked ~ #slider {
+  -webkit-animation-name: input2;
+  animation-name: input2;
+  left: 20%;
+}
+.radios #input3:checked ~ #slider {
+  -webkit-animation-name: input3;
+  animation-name: input3;
+  left: 40%;
+}
+.radios #input4:checked ~ #slider {
+  -webkit-animation-name: input4;
+  animation-name: input4;
+  left: 60%;
+}
+.radios #input5:checked ~ #slider {
+  -webkit-animation-name: input5;
+  animation-name: input5;
+  left: 80%;
+}
+@-webkit-keyframes input1 {
+  30%,
+  70% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+@keyframes input1 {
+  30%,
+  70% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+@-webkit-keyframes input2 {
+  30%,
+  70% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+@keyframes input2 {
+  30%,
+  70% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+@-webkit-keyframes input3 {
+  30%,
+  70% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+@keyframes input3 {
+  30%,
+  70% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+@-webkit-keyframes input4 {
+  30%,
+  70% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+@keyframes input4 {
+  30%,
+  70% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+@-webkit-keyframes input5 {
+  30%,
+  70% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+@keyframes input5 {
+  30%,
+  70% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+}
+
+/*需要指定宽高*/
+.abs-center {
+  height: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+.nav-list {
+  background-color: #333;
+}
+.nav-list a {
+  display: block;
+  padding: 10px 20px;
+  color: #fff;
+}
+.nav-list > li {
+  position: relative;
+  float: left;
+}
+.nav-list > li > a {
+  border-left: 1px solid #595959;
+}
+.nav-list > li:hover {
+  background-color: gray;
+}
+.nav-list > li:hover .sec-list {
+  -webkit-transform: perspective(400) rotate3d(1, 0, 0, 0deg);
+  transform: perspective(400) rotate3d(1, 0, 0, 0deg);
+}
+.sec-list {
+  position: absolute;
+  z-index: 2;
+  background-color: #273754;
+  -webkit-transform: perspective(400) rotate3d(1, 0, 0, -90deg);
+  transform: perspective(400) rotate3d(1, 0, 0, -90deg);
+  -webkit-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+.sec-list > li {
+  width: 200px;
+}
+.sec-list > li:hover {
+  background-color: tan;
+}
+.bread-list {
+  margin-left: 100px;
+}
+.bread-list li {
+  float: left;
+  margin-right: 50px;
+}
+.bread-list li > a {
+  display: block;
+  padding: 10px 20px;
+  position: relative;
+  width: 100px;
+  height: 80px;
+  background-color: seagreen;
+}
+.bread-list li > a:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -40px;
+  border-top: 40px solid seagreen;
+  border-bottom: 40px solid seagreen;
+  border-left: 40px solid transparent;
+}
+.bread-list li > a:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -40px;
+  border-top: 40px solid transparent;
+  border-bottom: 40px solid transparent;
+  border-left: 40px solid seagreen;
+}
+.bread-list li > a:hover,
+.bread-list li > a:focus {
+  background-color: #30c8ff;
+}
+.bread-list li > a:hover:before,
+.bread-list li > a:focus:before {
+  border-top: 40px solid #30c8ff;
+  border-bottom: 40px solid #30c8ff;
+}
+.bread-list li > a:hover:after,
+.bread-list li > a:focus:after {
+  border-left: 40px solid #30c8ff;
+}

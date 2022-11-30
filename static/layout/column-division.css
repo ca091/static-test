@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+}
+
+ul {
+  padding-left: 0;
+  list-style-type: none;
+  margin: 3vw;
+  background-color: palegoldenrod;
+}
+
+li {
+  margin: 1vw 0;
+  text-align: center;
+}
+
+.list-start {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.list-start li {
+  width: 33.33%;
+}
+
+.list-start li > div {
+  display: inline-block;
+  width: 25vw;
+  background-color: lightblue;
+}
+
+.grid {
+  display: grid;
+  column-gap: 20px;
+  justify-content: space-between;
+}
+.grid-3 {
+  grid-template-columns: repeat(3, 25vw);
+}
+.grid-auto-fit {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.grid li {
+  background-color: lightblue;
+}

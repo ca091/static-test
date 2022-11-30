@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>google search style</title>
+  <style>
+    :root {
+      --pl: 8px;
+    }
+    ul {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    .box-query {
+      padding-left: var(--pl);
+      padding-right: 5px;
+      display: flex;
+      align-items: center;
+      height: 35px;
+      border-radius: 2px;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    }
+    .box-query:focus-within {
+      box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    }
+    .box-query img {
+      margin-left: 5px;
+      width: 25px;
+    }
+    [title^='input q'] {
+      padding: 0; /*resolve mobile bug*/
+      height: 30px;
+      flex: 1;
+      font-size: 16px;
+      border: 0 none;
+      outline: none; /*google focus 会出现边框*/
+    }
+
+    .result {
+      max-height: calc(26px * 10);
+      overflow-y: auto;
+      box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    }
+    .result ul {
+      background-color: #fff;
+    }
+    .result li {
+      padding-left: var(--pl);
+      line-height: 26px;
+    }
+    .result li:hover {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+<section>
+  <div class="box-query">
+    <input type="text" title="input query">
+    <img src="../asset/image/search.png" alt="">
+  </div>
+  <div class="result"></div>
+</section>
+<script type="module">
+  let data = [1, 1, 1, 1, 1, 1, 1, 1, 1, 11, 1, 1, 1, 11, 1, 11, 1]
+  let elResult = document.querySelector('.result')
+  let elInput = document.querySelector('input[title="input query"]')
+  elResult.style.display = 'none'
+  data = data.map((item, index) => {
+    return {id: index, name: `ce测试${index}`}
+  })
+  elInput.addEventListener('input', () => {
+    if (elInput.value) {
+      let re = data.filter(item => item.name.indexOf(elInput.value) !== -1)
+      setDom(re)
+    } else {
+      setDom()
+    }
+  })
+  //内容可变-用事件代理避免复杂的事件绑定
+  elResult.addEventListener('click', e => {
+    let tar = e.target
+    if (tar.tagName === 'LI') {
+      elInput.value = tar.textContent
+      elResult.style.display = 'none'
+    }
+  })
+
+  function setDom(re) {
+    if (re && re.length) {
+      let dom = '<ul>'
+      for (let item of re) {
+        dom += `<li>${item.name}</li>`
+      }
+      dom += '</ul>'
+      elResult.innerHTML = dom
+      elResult.style.display = 'block'
+    } else {
+      elResult.innerHTML = ''
+      elResult.style.display = 'none'
+    }
+  }
+</script>
+</body>
+</html>

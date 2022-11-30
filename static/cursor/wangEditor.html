@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>wangEditor demo</title>
+</head>
+<body>
+<div id="editor">
+</div>
+<div>
+  <button id="btn-insert">insert</button>
+</div>
+
+<!--<script type="text/javascript" src="../node_modules/wangeditor/release/wangEditor.min.js"></script>-->
+<!--<script type="text/javascript" src="./wangEditor.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/wangeditor@4.6.6/dist/wangEditor.min.js"></script>
+<script>
+  let E = window.wangEditor
+  let editor = new E('#editor')
+  // 或者 let editor = new E( document.getElementById('editor') )
+  editor.create()
+</script>
+<script>
+  let btnInsert = document.querySelector('#btn-insert')
+  btnInsert.addEventListener('click', function () {
+    // editor.txt.html('<p>用 JS 设置的内容</p>')
+    // editor.txt.append(str)
+    let str = `<span><span data-id="4746" id="4746" contenteditable="false" onclick='return false;' class="team-tag" style="color:#507DAF">@一个战队</span><span>&nbsp;</span></span>`
+    // let str2 = `<span>&nbsp;</span><span data-id="4746" id="4746" contenteditable="false" onclick='return false;' class="team-tag" style="color:#507DAF">@一个战队</span><span>&nbsp;</span>`
+    editor.cmd.do('insertHTML', str)
+  })
+</script>
+</body>
+</html>

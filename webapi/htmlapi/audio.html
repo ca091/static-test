@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AudioContext api</title>
+  <style>
+    .top-row {
+      display: flex;
+    }
+
+    .note-group {
+      display: flex;
+      margin-bottom: 5px;
+      margin-right: 5px;
+    }
+
+    .bottom-row {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .bottom-row > div {
+      flex: 0 0 auto;
+    }
+
+    .note {
+      width: 30px;
+      height: 70px;
+      font-weight: 900;
+      font-size: 14px;
+      line-height: 14px;
+      color: #333333;
+      text-align: center;
+      perspective: 200px;
+      user-select: none;
+    }
+
+    .note > div {
+      background-image: linear-gradient(-180deg, #E9D5D0 0%, #E6E5F2 98%);
+      box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.26);
+      border-radius: 3px;
+      width: 100%;
+      height: 100%;
+      padding: 8px 0;
+      box-sizing: border-box;
+      transform-origin: top center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-row">
+  <div class="note-group group-of-two group-1">
+    <div class="note note-1" data-frequency="207.65">
+      <div>G#</div>
+    </div>
+    <div class="note note-2" data-frequency="233.08">
+      <div>A#</div>
+    </div>
+  </div>
+  <div class="note-group group-of-two group-2">
+    <div class="note note-3" data-frequency="277.18">
+      <div>C#</div>
+    </div>
+    <div class="note note-4" data-frequency="311.13">
+      <div>D#</div>
+    </div>
+  </div>
+  <div class="note-group group-of-three group-3">
+    <div class="note note-5" data-frequency="369.99">
+      <div>F#</div>
+    </div>
+    <div class="note note-6" data-frequency="415.30">
+      <div>G#</div>
+    </div>
+    <div class="note note-7" data-frequency="466.16">
+      <div>A#</div>
+    </div>
+  </div>
+  <div class="note-group group-of-two group-4">
+    <div class="note note-8" data-frequency="554.37">
+      <div>C#</div>
+    </div>
+    <div class="note note-9" data-frequency="622.25">
+      <div>D#</div>
+    </div>
+  </div>
+  <div class="note-group group-of-three group-5">
+    <div class="note note-10" data-frequency="739.99">
+      <div>F#</div>
+    </div>
+    <div class="note note-11" data-frequency="830.61">
+      <div>G#</div>
+    </div>
+    <div class="note note-12" data-frequency="932.33">
+      <div>A#</div>
+    </div>
+  </div>
+</div>
+<div class="bottom-row">
+  <div class="note note-13" data-frequency="196.00">
+    <div>G</div>
+  </div>
+  <div class="note note-14" data-frequency="220.00">
+    <div>A</div>
+  </div>
+  <div class="note note-15" data-frequency="246.94">
+    <div>B</div>
+  </div>
+  <div class="note note-16" data-frequency="261.63">
+    <div>C</div>
+  </div>
+  <div class="note note-17" data-frequency="293.66">
+    <div>D</div>
+  </div>
+  <div class="note note-18" data-frequency="329.63">
+    <div>E</div>
+  </div>
+  <div class="note note-19" data-frequency="349.23">
+    <div>F</div>
+  </div>
+  <div class="note note-20" data-frequency="392.00">
+    <div>G</div>
+  </div>
+  <div class="note note-21" data-frequency="440.00">
+    <div>A</div>
+  </div>
+  <div class="note note-22" data-frequency="493.88">
+    <div>B</div>
+  </div>
+  <div class="note note-23" data-frequency="523.25">
+    <div>C</div>
+  </div>
+  <div class="note note-24" data-frequency="587.33">
+    <div>D</div>
+  </div>
+  <div class="note note-25" data-frequency="659.25">
+    <div>E</div>
+  </div>
+  <div class="note note-26" data-frequency="698.46">
+    <div>F</div>
+  </div>
+  <div class="note note-27" data-frequency="783.99">
+    <div>G</div>
+  </div>
+  <div class="note note-28" data-frequency="880.00">
+    <div>A</div>
+  </div>
+  <div class="note note-29" data-frequency="987.77">
+    <div>B</div>
+  </div>
+  <div class="note note-30" data-frequency="1046.50">
+    <div>C</div>
+  </div>
+</div>
+<script>
+  //    var context = new (window.AudioContext || window.webkitAudioContext)();
+  //    console.log(context)
+  //    var oscillator = context.createOscillator();
+
+  //    oscillator.type = 'sine';
+  //    oscillator.frequency.value = 440;
+  //    oscillator.connect(context.destination);
+  //    oscillator.start();
+
+  //    var gain = context.createGain()
+  //    oscillator.connect(gain)
+  //    gain.connect(context.destination)
+  //
+  //    var now = context.currentTime;
+  //    gain.gain.setValueAtTime(1, now)
+  //    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5)
+  //    oscillator.start(now)
+  //    oscillator.stop(now + 0.5)
+
+  function Sound(context) {
+    this.context = context
+  }
+
+  Sound.prototype = {
+    init: function () {
+      this.oscillator = this.context.createOscillator() //filter nodes 音调
+      this.gainNode = this.context.createGain() //filter nodes 音量
+
+      this.oscillator.connect(this.gainNode)
+      this.gainNode.connect(this.context.destination)//关联设备
+      this.oscillator.type = 'sine'
+    },
+    play: function (value) {
+      this.init()
+
+      this.oscillator.frequency.value = value//音频设置
+      this.gainNode.gain.setValueAtTime(0, this.context.currentTime) //音量设置
+      this.gainNode.gain.linearRampToValueAtTime(1, this.context.currentTime + 0.01) //0.01秒时间内音量线性变化
+
+      this.oscillator.start(this.context.currentTime)
+      this.stop(this.context.currentTime)
+    },
+    stop: function (time) {
+      this.gainNode.gain.exponentialRampToValueAtTime(0.001, time + 1)//0.01秒时间内音量指数变化
+      this.oscillator.stop(time + 1)
+    },
+  }
+  Sound.prototype.constructor = Sound
+
+  let context = new (window.AudioContext || window.webkitAudioContext)()
+
+  let doms = [...document.querySelectorAll('.note')]
+  let soundOfDom = doms.map(dom => {
+    return {sound: new Sound(context), value: dom.dataset.frequency, dom: dom}
+  })
+  for (let item of soundOfDom) {
+    item.dom.addEventListener('mouseenter', () => {
+      item.sound.play(item.value)
+    })
+  }
+
+  function SoundOfRecord(context, buffer) {
+    this.context = context
+    this.buffer = buffer
+  }
+
+  SoundOfRecord.prototype = {
+    init() {
+      this.gainNode = this.context.createGain()
+      this.source = this.context.createBufferSource()
+      this.source.buffer = this.buffer
+      this.source.connect(this.gainNode)
+      this.gainNode.connect(this.context.destination)
+    },
+    play() {
+      this.init()
+      this.source.start(this.context.currentTime)
+    },
+    stop() {
+      this.gainNode.gain.exponentialRampToValueAtTime(0.001, this.context.currentTime + 0.5)
+      this.source.stop(this.context.currentTime + 0.5)
+    },
+  }
+  SoundOfRecord.prototype.constructor = SoundOfRecord
+
+  function Buffer(context, urls) {
+    this.context = context
+    this.urls = urls
+    this.buffer = []
+  }
+
+  Buffer.prototype = {
+    loadSound: function (url, index) {
+      let request = new XMLHttpRequest()
+      request.open('get', url, true)
+      request.responseType = 'arraybuffer'
+      let thisBuffer = this
+      request.onload = function () {
+        thisBuffer.context.decodeAudioData(request.response, function (buffer) {
+          thisBuffer.buffer[index] = buffer
+//                    updateProgress(thisBuffer.urls.length);
+          if (index == thisBuffer.urls.length - 1) {
+            thisBuffer.loaded()
+          }
+        })
+      }
+      request.send()
+    },
+    loadAll() {
+      this.urls.forEach(function (url, index) {
+        this.loadSound(url, index)
+      }.bind(this))
+    },
+    loaded() {
+      console.log('all loaded')
+    },
+    getSoundByIndex(index) {
+      return this.buffer[index]
+    },
+  }
+  Buffer.prototype.constructor = Buffer
+
+  let sounds = [
+    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/355309/G4.mp3',
+    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/355309/A4.mp3',
+    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/355309/C5.mp3',
+    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/355309/D5.mp3',
+    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/355309/E5.mp3',
+  ]
+
+  let buffer = new Buffer(context, sounds)
+  buffer.loadAll()
+
+  let soundOfRecord = new SoundOfRecord(context, buffer.getSoundByIndex(1))
+  soundOfRecord.play()
+</script>
+</body>
+</html>

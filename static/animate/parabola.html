@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>parabola</title>
+  <style>
+    .box {
+      position: relative;
+      height: 500px;
+      border: 1px solid;
+    }
+
+    .thing {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #9a8672;
+    }
+
+    .thing2 {
+      position: absolute;
+      transition: all .5s linear 0ms;
+    }
+
+    .thing2 > img {
+      transition: all .5s cubic-bezier(.55, 0, .85, .36) 0ms;
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <div class="thing" style="top: 0; left: 0"></div>
+  <div class="thing2" style="top: 30px; left: 0">
+    <img src="../asset/image/car.png" alt="" width="30">
+  </div>
+</div>
+<script>
+  window.onload = function () {
+    let el_thing = document.querySelector('.thing')
+    let el_thing2 = document.querySelector('.thing2')
+    let el_thing2_img = document.querySelector('.thing2>img')
+    let timer = null, time = 0
+
+    function move() {
+      // let top = +(el_thing.style.top.replace(/px/, ''));
+      let left = +(el_thing.style.left.replace(/px/, ''))
+      if (left >= 320) {
+        cancelAnimationFrame(timer)
+      } else {
+        if (time) {
+          let t = performance.now() - time
+          el_thing.style.top = Math.floor(Math.pow(t / 16, 2) * 100) / 100 + 'px'//模拟重力公式
+          el_thing.style.left = t + 'px'
+        } else {
+          time = performance.now()
+        }
+        timer = requestAnimationFrame(move)
+      }
+    }
+
+    el_thing.addEventListener('click', e => {
+      move()
+    })
+    el_thing2.addEventListener('click', e => {
+      el_thing2.style.transform = 'translateX(300px)'
+      el_thing2_img.style.transform = 'translateY(400px)'
+    })
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>cursor blink</title>
+  <style>
+    @keyframes move-cursor {
+      from {
+        width: 0;
+      }
+      to {
+        width: 17.5em;
+      }
+    }
+    @keyframes move-cursor2 {
+      from {
+        width: 0;
+      }
+      to {
+        width: 27em;
+      }
+    }
+    /*模拟光标闪烁效果*/
+    @keyframes blink {
+      from, to {
+        box-shadow: 2px 0 0 0 transparent;
+      }
+      50% {
+        box-shadow: 2px 0 0 0;
+      }
+    }
+    p.blink {
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    p.p1 {
+      animation: move-cursor 3.5s steps(35, end) forwards, blink 1s step-end;
+    }
+    p.p2 {
+      animation: move-cursor2 5.4s steps(54, end) 3.5s forwards, blink 1s step-end infinite;
+    }
+  </style>
+</head>
+<body>
+
+<p class="blink p1">一人之下发了噶后果；transparent嘎嘎</p>
+<p class="blink p2">有了这些知识，我们现在可以完成我们最开始想实现的组件：</p>
+</body>
+</html>

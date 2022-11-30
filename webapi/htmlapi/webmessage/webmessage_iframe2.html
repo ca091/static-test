@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>frame 接收消息并反馈</title>
+</head>
+<body>
+<section>
+  <h1>frame 2</h1>
+  <ul></ul>
+</section>
+
+<script type="module">
+  import { appendMsg } from '../js/utils.js'
+
+  let elList = document.querySelector('ul')
+
+  // 接收消息
+  window.addEventListener('message', messageEvent => {
+    console.log('frame2 get message: ', messageEvent)
+    appendMsg(messageEvent.data, elList, 'li')
+    let port2 = messageEvent.ports[0]
+    if (port2) {
+      port2.onmessage = e => {
+        console.log('frame2 get port message: ', e)
+        appendMsg(e.data, elList, 'li')
+        port2.postMessage('frame2 received: "' + e.data + '"')
+      }
+    }
+  })
+</script>
+</body>
+</html>

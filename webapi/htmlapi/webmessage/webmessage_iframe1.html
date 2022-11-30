@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>frame 收发消息</title>
+</head>
+<body>
+<section>
+  <h1>frame 1</h1>
+  <input id="input" type="text" placeholder="put some">
+  <button id="btn-send">send message</button>
+  <ul></ul>
+</section>
+
+<script type="module">
+  import { appendMsg } from '../js/utils.js'
+
+  let elList = document.querySelector('ul')
+
+  // 接收消息
+  window.addEventListener('message', messageEvent => {
+    console.log('frame1 get message: ', messageEvent)
+    appendMsg(messageEvent.data, elList, 'li')
+  })
+
+  function init() {
+    let elInput = document.querySelector('#input')
+    let channel = new MessageChannel()
+    channel.port1.onmessage = e => {
+      appendMsg(e.data, elList, 'li')
+    }
+    // 通过 main page 搭建 messageChannel
+    window.parent.postMessage('port open [from frame1]', '*', [channel.port2])
+    // window.parent.frames[1].postMessage('port open', '*', [channel.port2])
+
+    document.querySelector('#btn-send').addEventListener('click', () => {
+      // window.parent.frames[1].postMessage(elInput.value, '*')
+      channel.port1.postMessage(elInput.value + ' [from frame1]')
+    })
+  }
+
+  window.addEventListener('DOMContentLoaded', init)
+</script>
+</body>
+</html>

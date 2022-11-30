@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <title>input</title>
+  <style>
+    .page {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .flex-content {
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+    }
+    .flex-side {
+      flex-shrink: 0;
+    }
+    .player {
+      height: 200px;
+      background-color: #9BA2AA;
+    }
+    .tabs {
+      height: 44px;
+      background-color: #1bbc9b;
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+    }
+    .say {
+      padding: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="player flex-side"></div>
+  <div class="tabs flex-side"></div>
+  <div class="content flex-content">
+    <div class="msg-items flex-content"></div>
+    <div class="say">
+      <input type="text">
+    </div>
+  </div>
+</div>
+
+<script>
+  function addEvents() {
+    let msgItems = document.querySelector('.msg-items')
+    let timerIn = null
+    let timerOut = null
+
+    document.addEventListener('focusin', () => {
+      clearTimeout(timerOut)
+      timerOut = setTimeout(() => {
+        // document.body.scrollTop = document.body.scrollHeight
+        // solve 唤起软键盘后会遮挡输入框
+        appendMsg('focusin', msgItems)
+        document.activeElement.scrollIntoView()
+      }, 200)
+    })
+
+    document.addEventListener('focusout', () => {
+      clearTimeout(timerIn)
+      timerIn = setTimeout(() => {
+        appendMsg('focusout', msgItems)
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        })
+      }, 200)
+    })
+  }
+
+  function init() {
+    addEvents()
+  }
+
+  function appendMsg(msg, root) {
+    let p = document.createElement('p')
+    p.textContent = msg
+    root.appendChild(p)
+  }
+
+  window.onload = init
+</script>
+</body>
+</html>

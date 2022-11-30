@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>use microphone</title>
+</head>
+<body>
+<section>
+  <audio src="" id="play" controls></audio>
+</section>
+
+<h3>method 1: use input</h3>
+<section>
+  <input type="file" accept="audio/*" capture="microphone">
+</section>
+
+<h3>method 2: 直连麦克风</h3>
+<section>
+  <button onclick="start()">start</button>
+  <button onclick="stop()">stop</button>
+</section>
+
+<footer>
+  from <a href="https://developers.google.com/web/fundamentals/media/recording-audio/?hl=zh-cn">developers.google.com -- media</a>
+</footer>
+
+<script>
+  let cacheMedia = {isStop: false, stopped: false}
+  let el_audio = document.querySelector('audio')
+  let el_audio_input = document.querySelector('input[type="file"]')
+  el_audio_input.addEventListener('change', e => {
+    let file = e.target.files[0]
+    el_audio.src = URL.createObjectURL(file)
+  })
+
+  function checkPermission() {
+    return new Promise(((resolve, reject) => {
+      navigator.permissions.query({name: 'microphone'}).then(result => {
+        if (result.state === 'denied') {
+          reject('未获取到麦克风权限')
+        } else {
+          resolve(result.state)
+        }
+      })
+    }))
+  }
+
+  function handleStream(stream) {
+    let chunks = []
+    let options = {
+      audioBitsPerSecond: 128000,
+      videoBitsPerSecond: 2500000,
+      mimeType: 'video/mp4',
+    }
+    let mediaRecorder = new MediaRecorder(stream, options)
+    mediaRecorder.addEventListener('dataavailable', e => {
+      console.log(e.data)
+      if (e.data.size > 0) chunks.push(e.data)
+
+      if (cacheMedia.isStop && !cacheMedia.stopped) {
+        mediaRecorder.stop()
+        cacheMedia.stopped = true
+      }
+    })
+    mediaRecorder.addEventListener('stop', () => {
+      el_audio.src = URL.createObjectURL(new Blob(chunks))
+    })
+    mediaRecorder.start()
+
+    // if(window.URL){
+    //     el_audio.src = URL.createObjectURL(stream)
+    // }else{
+    //     el_audio.src = stream
+    // }
+  }
+
+  function handleError(error) {
+    let errorMessage
+    switch (error.name) {
+      // 用户拒绝
+      case 'NotAllowedError':
+      case 'PermissionDeniedError':
+        errorMessage = '用户已禁止网页调用录音设备'
+        break
+      // 没接入录音设备
+      case 'NotFoundError':
+      case 'DevicesNotFoundError':
+        errorMessage = '录音设备未找到'
+        break
+      // 其它错误
+      case 'NotSupportedError':
+        errorMessage = '不支持录音功能'
+        break
+      default:
+        errorMessage = '录音调用错误'
+        console.log(error)
+    }
+  }
+
+  function start() {
+    checkPermission().then(state => {
+      navigator.mediaDevices.getUserMedia({audio: true, video: false}).then(handleStream).catch(handleError)
+    })
+  }
+
+  function stop() {
+    cacheMedia.isStop = true
+  }
+
+</script>
+</body>
+</html>

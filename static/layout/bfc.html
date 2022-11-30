@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>块级格式化上下文;两栏自适应布局</title>
+  <style>
+    div, input {
+      font-size: 14px;
+    }
+
+    input {
+      border: none;
+      outline: 0;
+    }
+
+    .cf {
+      *zoom: 1;
+    }
+
+    .cf:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    .ovh {
+      overflow: hidden;
+    }
+
+    .l {
+      float: left;
+    }
+
+    .cell {
+      display: table-cell;
+      width: 3000px;
+      *display: inline-block;
+      *width: auto;
+    }
+
+    .group {
+      padding-bottom: 10px;
+    }
+
+    .group .label {
+      padding-right: 10px;
+    }
+
+    .group .content {
+      padding-left: 10px;
+      border-bottom: 1px solid gray;
+    }
+
+    .group input {
+      width: 100%
+    }
+
+  </style>
+</head>
+<body>
+<div class="group ovh">
+  <div class="label l">mobile：</div>
+  <div class="content ovh">
+    <input type="tel" placeholder="请输入手机号">
+  </div>
+</div>
+<div class="group ovh">
+  <div class="label l">mobile：</div>
+  <div class="content ovh">
+    <input type="tel" placeholder="请输入手机号">
+  </div>
+</div>
+
+<div class="group cf">
+  <div class="label l">mobile：</div>
+  <div class="content cell">
+    <input type="tel" placeholder="请输入手机号">
+  </div>
+</div>
+
+<script>
+  function getStyle(selector, style) {
+    var result = getComputedStyle(document.querySelector(selector), '')
+    console.log(result[style])
+    return result[style]
+  }
+
+  getStyle('.label', 'fontSize')
+</script>
+</body>
+</html>

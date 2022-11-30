@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>circle</title>
+  <style>
+    .svg-circle {
+      width: 200px;
+      height: 200px;
+    }
+    .svg-circle > .path2 {
+      transition: stroke-dashoffset 600ms ease 0s;
+    }
+    input[type='range'] {
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+<svg viewBox="0 0 100 100" class="svg-circle">
+  <path class="path1" stroke-width="1" stroke="#d9d9d9" fill="none"></path>
+  <path class="path2" stroke-width="3" stroke="#ffa800" fill="none" stroke-linecap="round"></path>
+</svg>
+<div>
+  <input type="range" min="0" max="100" value="30" name="power" list="powers">
+  <datalist id="powers">
+    <option value="30" label="30%">
+    <option value="60" label="60%">
+  </datalist>
+</div>
+<script>
+  //半径
+  var radius = 47
+  //周长
+  var len = Math.PI * 2 * radius
+  var d = `M 50,50 m 0,${-radius} a ${radius},${radius} 0 1 1 0,${radius * 2} a ${radius},${radius} 0 1 1 0,${-radius * 2}`
+  var el_input_range = document.querySelector('input[type=range]')
+  var path1 = document.querySelector('.svg-circle>.path1')
+  var path2 = document.querySelector('.svg-circle>.path2')
+  path1.setAttribute('d', d)
+  path2.setAttribute('d', d)
+  // path2.style.strokeDasharray = `15px 5px`;
+  path2.style.strokeDasharray = `${len}px ${len}px`
+  changePercent(el_input_range.value)
+
+  function changePercent(percent) {
+    path2.style.strokeDashoffset = `${((100 - percent) / 100 * len)}px`
+  }
+
+  el_input_range.addEventListener('change', e => {
+    changePercent(el_input_range.value)
+  })
+
+  el_input_range.addEventListener('input', e => {
+    changePercent(el_input_range.value)
+  })
+</script>
+</body>
+</html>

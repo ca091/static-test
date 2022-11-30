@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+<pre id="p"></pre>
+<script>
+  //    n = setInterval("for(n+=7,i=k,P='p.\\n';i-=1/k;P+=P[i%2?(i%2*j-j+n/k^j)&1:2])j=k/i;p.innerHTML=P", k = 64)
+  var delay = 64
+  var draw = function () {
+    var i = delay
+    var P = 'p.\n'
+    var j
+    n += 7
+//        64*64=4096次循环; 32*128;
+//        for(n+=7; i-=1/delay; P+=P[i%2 ? (i%2*j-j+n/delay ^ j)&1 : 2]){
+//            j=delay/i;
+//            p.innerHTML=P;
+//        }
+
+    i -= 1 / delay
+    while (i > 0) {
+      p.innerHTML = P
+
+      j = delay / i
+      i -= 1 / delay
+
+      let index
+      let iIsOdd = (i % 2 != 0)
+      if (iIsOdd) {
+        index = (i % 2 * j - j + n / delay ^ j) & 1 // (i%2*j-j+n/delay ^ j) => 奇数：index=1；偶数：index=0
+//                index = (i%2*j-j ^ j)&1; // (i%2*j-j+n/delay ^ j) => 奇数：index=1；偶数：index=0
+//                表达式：i%2 * 64/i - 64/i ^ 64/i
+      } else {
+        index = 2 // i=0,2,4 => index=2； 根据显示结果，触发了32次
+      }
+      P += P[index]
+//            P+=P[i%2 ? (i%2*j-j+n/delay ^ j)&1 : 2];
+    }
+  }
+  var n = setInterval(draw, delay)
+</script>
+</body>
+</html>

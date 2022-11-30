@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>点击穿透</title>
+  <style>
+    #div1 {
+      height: 200px;
+      background-color: lightgray;
+    }
+    #div2, #div3 {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      text-align: center;
+      /*display: none;*/
+    }
+    #div2 {
+      padding-top: 250px;
+      z-index: 2;
+    }
+    #div3 {
+      padding-top: 300px;
+      z-index: 3;
+    }
+  </style>
+</head>
+<body>
+<p>穿透问题：在移动端，在 touchend 事件里移除元素，会派发click事件，并传递到下层元素，即点击穿透。跟300ms延迟没有关系</p>
+<p>解决方法 1：touchend 事件 换成 click 事件。
+  <mark>推荐</mark>
+  ，因为目前不用担心300ms延迟
+</p>
+<p>解决方法 2：在 touchend 事件里调用 e.preventDefault()</p>
+<section>
+  <div id="div1">子元素1</div>
+  <div id="div2">子元素2
+    <div id="div3">
+      <button>子元素3 click</button>
+      子元素3
+    </div>
+  </div>
+</section>
+
+
+<script>
+  let section = document.querySelector('section')
+  let div1 = document.querySelector('#div1')
+  let div2 = document.querySelector('#div2')
+  let div3 = document.querySelector('#div3')
+  let div3Btn = document.querySelector('#div3 button')
+  section.addEventListener('click', e => {
+    // 父元素事件会触发（由事件冒泡传递，若div2调用 e.stopPropagation()，则事件不会触发）
+    console.log('section clicked')
+    // e.stopPropagation()
+  }, true)
+  div1.addEventListener('click', e => {
+    // 兄弟元素事件不会触发
+    console.log('div1 clicked')
+  })
+  div2.addEventListener('click', e => {
+    console.log('div2 clicked')
+    // e.stopPropagation()
+  })
+  // 父子元素事件传播不受层级影响
+  div3.addEventListener('touchend', e => {
+    console.log('div3 clicked')
+    e.currentTarget.remove()
+    // 设置可解决穿透问题
+    e.preventDefault()
+    // 仅阻止同类事件的传播，即touchend
+    // e.stopPropagation()
+  })
+  div3Btn.addEventListener('click', e => {
+    console.log('div3 button clicked')
+  })
+</script>
+</body>
+</html>

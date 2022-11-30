@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>table-cell</title>
+  <style>
+    body, p, ul {
+      margin: 0;
+    }
+
+    ul {
+      padding: 0;
+    }
+
+    img {
+      vertical-align: middle;
+    }
+
+    /*测试盒子*/
+    .test-align-box {
+      margin-top: 15px;
+      text-align: center;
+      background-color: lavender;
+    }
+
+    /*行高控制 垂直居中 适用单行文字*/
+    .vertical-align-lineHeight {
+      height: 3em;
+      line-height: 3em;
+      color: #369;
+    }
+
+    /*多行*/
+    .vertical-align-multiplyRow {
+      width: 3000px;
+      height: 200px;
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    /*font-size控制了基线*/
+    .vertical-align-fontSize a {
+      display: inline-block;
+      width: 300px;
+      /*font-size: 100px;*/
+      /*vertical-align: middle;*/
+    }
+
+    /*透明图片控制另一张图片垂直居中*/
+    .vertical-align-blankImg {
+      height: 300px;
+    }
+
+    .blankImg {
+      height: 100%;
+      width: 1px;
+    }
+
+    /*等高布局*/
+    .equal-height-list {
+      /*display: table;*/
+      /*width: 100%;*/
+    }
+
+    .equal-height-list > li {
+      display: table-cell;
+      padding: 1%;
+      width: 30%;
+    }
+
+    /*inline-block 列布局*/
+    .line-height-list {
+      font-size: 0;
+      letter-spacing: -3px;
+    }
+
+    .line-height-list > li {
+      box-sizing: border-box;
+      width: 33%;
+      display: inline-block;
+      line-height: 14px;
+      padding: 15px;
+      font-size: 12px;
+      text-align: center;
+      letter-spacing: 0;
+      vertical-align: top;
+      zoom: 1;
+      border: 1px solid lightgray;
+    }
+
+  </style>
+
+</head>
+<body>
+<h2>height: 3em; line-height: 3em;垂直居中</h2>
+<p class="test-align-box vertical-align-lineHeight">
+  来源:http://www.zhangxinxu.com/wordpress/?p=1187
+</p>
+
+<h2>display: table-cell; vertical-align: middle;垂直居中</h2>
+<div class="test-align-box">
+  <div class="vertical-align-multiplyRow">
+    元素的垂直居中对齐，关联伸缩等<br>
+    display:table-cell的元素对宽度高度敏感，对margin值无反应，响应padding属性<br>
+    table-cell同样会被其他一些CSS属性破坏，例如float, position:absolute;<br>
+    应用:两栏自适应 和 等高布局
+  </div>
+</div>
+
+<div class="test-align-box">
+  <div class="vertical-align-multiplyRow">
+    <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+  </div>
+</div>
+
+<div class="test-align-box vertical-align-fontSize">
+  <!--如果只是一个图片，vertical-align:middle就只有与空格对齐了-->
+  <a href="#">
+    <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+  </a>
+  <a href="#">
+    <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+  </a>
+  xxgjao
+</div>
+
+<h2>透明图片控制另一张图片垂直居中</h2>
+<div class="test-align-box vertical-align-blankImg">
+  <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+  <img class="blankImg" src="http://www.zhangxinxu.com/study/image/pixel.gif" alt="">
+</div>
+
+<h2>等高布局</h2>
+<div class="test-align-box">
+  <ul class="equal-height-list">
+    <li>
+      <p>
+        你一定也有过这种感觉的。当你心事重重，渴望找一个人聊一聊的时候，
+        那个可以聊的人来了，可是你们却并没有聊什么。当然，聊是聊了，可是他聊他的，
+        你也试着开始聊你的，只是到后来，你放弃了……那么，最后的办法就是静下来，
+        啃啮自己的寂寞。或者反过来说，让寂寞来吞噬你。------罗兰《寂寞的感觉》
+      </p>
+    </li>
+    <li>
+      <p>
+        作为一个被基阿异捅过两个大血窟窿的人。告诉后来的基友们一句：一命二运三风水，四积阴功五读书。
+      </p>
+    </li>
+    <li>
+      <p>
+        奔波了一天，收到了无数的生日快乐，享受了电影见面会现场各种形式的祝福和礼物，
+        以及场面宏大的生日快乐歌，感谢＜西风烈＞，感谢支持我的朋友们！现在机场举长寿面祝你们都永远幸福快乐！
+      </p>
+    </li>
+  </ul>
+</div>
+
+<h2>
+  "匿名表格元素创建规则":<br>
+  所有的表格元素将会自动在自身周围生成所需的匿名table对象，
+  使其符合table/inline-table、table-row、table- cell的三层嵌套关系。
+</h2>
+<div class="test-align-box">
+  <ul class="equal-height-list">
+    <li>
+      <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+    </li>
+    <li>
+      <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+    </li>
+  </ul>
+</div>
+
+<h2>display:inline-block 列布局</h2>
+<div class="test-align-box">
+  <ul class="line-height-list">
+    <li>
+      <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+      <p>cool robot</p>
+    </li>
+    <li>
+      <p>奔波了一天，收到了无数的生日快乐</p>
+      <p>奔波了一天，收到了无数的生日快乐</p>
+      <p>奔波了一天，收到了无数的生日快乐</p>
+    </li>
+    <li>
+      <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+    </li>
+    <!--3个一行-->
+    <li>
+      <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+      <p>cool robot</p>
+    </li>
+    <li>
+      <p>奔波了一天，收到了无数的生日快乐，</p>
+    </li>
+    <li>
+      <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

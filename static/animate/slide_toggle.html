@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>slide toggle</title>
+  <style>
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none
+    }
+
+    .list-a {
+      text-align: center;
+    }
+
+    .content {
+      background-color: grey;
+      transition: all .2s ease-out;
+      height: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+<ul class="list-a">
+  <li>
+    <div class="top">title1</div>
+    <div class="content">
+      <p>yes</p>
+      <p>no</p>
+    </div>
+  </li>
+  <li>
+    <div class="top">title1</div>
+    <div class="content">
+      nothing
+    </div>
+  </li>
+  <li>
+    <div class="top">title1</div>
+    <div class="content">
+      ...
+    </div>
+  </li>
+</ul>
+
+<script>
+  let $ = document.querySelector.bind(document)
+  let $$ = document.querySelectorAll.bind(document)
+  let list = $('.list-a')
+  list.addEventListener('click', function (e) {
+    console.log(e.target.className)
+    let tar = e.target
+    if (tar.className === 'top') {
+      let next = tar.nextElementSibling
+      console.log(next.scrollHeight)
+      if (next.className.match(/content-show/g)) {
+        next.className = 'content'
+        next.style.height = '0'
+      } else {
+        next.className = 'content content-show'
+        next.style.height = next.scrollHeight + 'px'
+      }
+    }
+  })
+</script>
+</body>
+</html>

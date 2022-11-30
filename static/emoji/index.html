@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>emoji兼容不支持的机型 - 提供emoji ttf文件</title>
+  <!--<link rel="stylesheet" href="index.css">-->
+  <style>
+    .list > li {
+      padding: 10px 20px;
+    }
+
+    .list > li:nth-last-child(n+3) {
+      background-color: #ffa800;
+    }
+
+    .list > li:first-child:nth-last-child(n+5),
+    .list > li:first-child:nth-last-child(n+5) ~ li {
+      display: inline-block;
+    }
+
+    textarea {
+      font-family: emoji, serif;
+      width: 80%;
+      height: 200px;
+    }
+
+    h3 {
+      font-family: emoji, serif;
+    }
+
+    input {
+      width: 80%;
+      height: 50px;
+    }
+
+    @font-face {
+      font-family: emoji;
+      src: local('Apple Color Emoji'),
+      local('Android Emoji'),
+      local('Segoe UI'),
+      local(EmojiSymbols),
+      local(Symbola),
+        /*url('font/Symbola-Emoji.eot?#iefix') format('embedded-opentype'),*/ /*url('font/Symbola-Emoji.woff') format('woff'),*/ /*url('font/Symbola.ttf') format('truetype');*/ /*url('font/NotoColorEmoji.ttf') format('truetype');*/ url('../asset/font/NotoEmoji-Regular.ttf') format('truetype');
+
+      /* Emoji unicode blocks */
+      /*unicode-range: U+1F300-1F5FF, U+1F600-1F64F, U+1F680-1F6FF, U+2600-26FF;*/
+      /*unicode-range: U+0000-20E4;*/
+    }
+  </style>
+</head>
+<body>
+<div class="show-msg"></div>
+<div></div>
+
+<ul class="list">
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+  <li>4</li>
+</ul>
+
+<ul class="list">
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+  <li>4</li>
+  <li>5</li>
+  <li>6</li>
+</ul>
+
+<h3>textarea😁 9⃣ 🇨🇳</h3>
+<textarea>
+    ?引爆市场【美悦西藏】↵[强]暑期特惠：让我们约起来``
+    1⃣️品质，没有一个自费项目
+    2⃣️品质，西藏全景精华游
+    3⃣️品质，全程挂三酒店住宿
+    4⃣️品质，品尝特色美食石锅鸡
+    5⃣️品质，烤羊+藏式篝火晚会
+    6⃣️品质，参拜财神庙—扎基寺
+    7⃣️品质，每天都要用心玩
+    ?日期：7月-8月天天发[嘿哈]
+</textarea>
+
+<h3>input</h3>
+<input type="text" value="?引爆市场【美悦西藏】↵[强]暑期特惠：让我们约起来``↵1⃣️品质，没有一个自费项目↵2⃣️品质，西藏全景精华游↵3⃣️品质，全程挂三酒店住宿↵4⃣️品质，品尝特色美食石锅鸡↵5⃣️品质，烤羊+藏式篝火晚会↵6⃣️品质，参拜财神庙—扎基寺↵7⃣️品质，每天都要用心玩↵?日期：7月-8月天天发[嘿哈]">
+
+<input type="text" placeholder="input emoji">
+
+<script src="index.js"></script>
+</body>
+</html>

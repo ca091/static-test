@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用padding 实现图片宽高比 页面不晃动</title>
+  <style>
+    .box {
+      width: 20%;
+      border: 1px solid;
+    }
+
+    .box-img {
+      padding-bottom: 100%;
+      background-color: lightblue;
+      position: relative;
+    }
+
+    .box-img > img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <div class="box-img">
+    <img src="../asset/image/robot_72px_26120_easyicon.net.png" alt="">
+  </div>
+  <div>
+    一些描述
+  </div>
+</div>
+</body>
+</html>

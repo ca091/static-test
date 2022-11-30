@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>兼容主持人节点存在、删除情况</title>
+  <style>
+    html, body, .wrap {
+      height: 100%;
+      background-color: #f5f5f5;
+    }
+    .vh-streambox {
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      /*grid-template-rows: 2fr 1fr;*/
+      /*grid-template-areas: 'a a b b'*/
+      /*                     'c d e f';*/
+      grid-template-rows: 1fr;
+      /*grid-auto-flow: row dense;*/
+      /*grid-auto-columns: 25%;*/
+      grid-auto-rows: 34%;
+    }
+
+    /*.vh-streambox:has(.vh-stream.vh-interaction__host){*/
+    /*  color: red;*/
+    /*}*/
+
+    .vh-stream {
+      border: 1px solid gray;
+      background-color: #1bbc9b;
+    }
+
+    .vh-streambox.host-leave .vh-stream:nth-child(1) {
+      grid-column: 1 / 3;
+      grid-row-start: 1;
+    }
+    .vh-streambox.host-leave .vh-stream:nth-child(2) {
+      grid-column: 3 / 5;
+      grid-row-start: 1;
+    }
+
+    .vh-stream.vh-interaction__host {
+      grid-column: 1 / 3;
+      grid-row-start: 1;
+    }
+
+    .vh-stream:nth-child(1):not(.vh-interaction__host),
+    .vh-stream:nth-child(1).vh-interaction__host + .vh-stream:nth-child(2) {
+      grid-column: 3 / 5;
+      grid-row-start: 1;
+    }
+
+    .vh-stream:only-child {
+      grid-column: 1 / 5 !important;
+    }
+
+    /*.vh-stream:first-child:nth-last-child(2){*/
+    /*  grid-column-start: 1;*/
+    /*  grid-column-end: 3;*/
+    /*  grid-row-start: 1;*/
+    /*}*/
+
+    /*.vh-stream:first-child:nth-last-child(2)  + .vh-stream{*/
+    /*  grid-column-start: 3;*/
+    /*  grid-column-end: 5;*/
+    /*  grid-row-start: 1;*/
+    /*}*/
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="vh-streambox">
+    <div class="vh-stream">嘉宾1</div>
+    <div class="vh-stream vh-interaction__host">主持人</div>
+    <div class="vh-stream">嘉宾3</div>
+    <!--    <div class="vh-stream">嘉宾4</div>-->
+    <!--    <div class="vh-stream">嘉宾5</div>-->
+    <!--    <div class="vh-stream">嘉宾6</div>-->
+  </section>
+</div>
+
+<script>
+  function fullScreen(el) {
+    let element = el
+    if (element.requestFullscreen) {
+      element.requestFullscreen()
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen()
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen()
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen()
+    }
+    //element.addEventListener('click', exitFullscreen, false)
+  }
+
+  let events = ['webkitfullscreenchange', 'mozfullscreenchange', 'fullscreenchange', 'MSFullscreenChange']
+  for (let et of events) {
+    window.addEventListener(et, ev => {
+      console.log(ev) // 可得到目标元素
+      handleFullscreenChange()
+    })
+  }
+  // document.onfullscreenchange = handleFullscreenChange // 不兼容safari
+  let cacheFullEle = null
+
+  function handleFullscreenChange() {
+    let fullEle = document.fullscreenElement || document.webkitFullscreenElement
+    console.log(111, fullEle)
+    if (fullEle) { // 开启全屏
+      fullEle.style.width = '100vw'
+      fullEle.style.height = '100vh'
+      cacheFullEle = fullEle
+    } else { // 退出全屏
+      if (cacheFullEle) {
+        cacheFullEle.style.width = 'unset'
+        cacheFullEle.style.height = 'unset'
+      }
+    }
+    // console.log(document.fullscreenElement)
+    // console.log(document.webkitFullscreenElement)
+  }
+
+  let els = document.querySelectorAll('.vh-stream')
+  for (let el of [...els]) {
+    el.addEventListener('click', e => {
+      fullScreen(e.currentTarget)
+    })
+  }
+</script>
+</body>
+</html>

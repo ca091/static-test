@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Compositing and Blending</title>
+  <link rel="stylesheet" href="blend.css">
+</head>
+<body>
+<h3>background-blend-mode 背景的混合（背景图片、背景色），需要白底黑色背景图</h3>
+<section class="blend-jpg">
+  <div class="box1"></div>
+  <div class="box2"></div>
+  <div class="box3"></div>
+  <div class="box4"></div>
+  <div class="box5"></div>
+</section>
+
+<h3>filter滤镜赋色，需要色盘上0～360的色值</h3>
+<section class="filter">
+  <div class="box1">
+    <img src="../asset/image/qiye@3x.png" alt="">
+  </div>
+  <div class="box2">
+    <img src="../asset/image/qiye@3x.png" alt="">
+  </div>
+  <div class="box3">
+    <img src="../asset/image/qiye@3x.png" alt="">
+  </div>
+</section>
+
+<h3>测试background-blend-mode在透明、不透明图片上各个属性值的效果</h3>
+<section class="blend-png">
+  <p>透明背景图</p>
+  <div class="box1"></div>
+  <p>不透明背景图</p>
+  <div class="box2"></div>
+</section>
+<section>
+  <select name="mode" id="select">
+    <option selected>normal</option>
+    <option>multiply</option>
+    <option>screen</option>
+    <option>overlay</option>
+    <option>darken</option>
+    <option>lighten</option>
+    <option>color-dodge</option>
+    <option>color-burn</option>
+    <option>hard-light</option>
+    <option>soft-light</option>
+    <option>difference</option>
+    <option>exclusion</option>
+    <option>hue</option>
+    <option>saturation</option>
+    <option>color</option>
+    <option>luminosity</option>
+  </select>
+</section>
+
+<h3>mix-blend-mode：blend with the content of the element's parent and the element's background.</h3>
+<section class="blend-test">
+  <div></div>
+  <div></div>
+</section>
+
+<h3>mix-blend-mode</h3>
+<section class="loader-mix">
+  <div></div>
+  <div></div>
+  <div></div>
+</section>
+
+<h3>mix-blend-mode</h3>
+<section class="word-mix">
+  <div data-word="MixBlendMode">
+    MixBlendMode
+    <!--<div class="white"></div>-->
+  </div>
+</section>
+
+<script>
+  let el_blends = [...document.querySelectorAll('.blend-png div')]
+  let el_select = document.querySelector('select')
+  el_select.addEventListener('change', () => {
+    handler(...el_blends)
+  })
+
+  function handler(...args) {
+    for (let el of args) {
+      el.style.backgroundBlendMode = el_select.value
+    }
+  }
+</script>
+</body>
+</html>

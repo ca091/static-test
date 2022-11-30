@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>长按水波动画(录音效果)</title>
+  <style>
+    .warp {
+      width: 100px;
+      height: 100px;
+      margin: 150px auto;
+    }
+
+    .box {
+      position: relative;
+    }
+
+    .box > div {
+      position: relative;
+      z-index: 2;
+      width: 100px;
+      height: 100px;
+      color: #fff;
+      text-align: center;
+      line-height: 100px;
+      background: #6F0F96;
+      border-radius: 50%;
+      user-select: none;
+      -webkit-user-select: none; /*webkit浏览器*/
+    }
+
+    .box > .sun {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: none;
+    }
+
+    .box.active > .sun {
+      display: block;
+    }
+
+    .move1 {
+      animation: move3 2.5s ease-in-out infinite;
+      background-color: rgba(255, 168, 0, .8)
+    }
+
+    .move2 {
+      animation: move3 2.5s ease-in-out .5s infinite;
+      background-color: rgba(255, 168, 0, .7)
+    }
+
+    .move3 {
+      animation: move3 2.5s ease-in-out 1s infinite;
+      background-color: rgba(255, 168, 0, .6)
+    }
+
+    .move4 {
+      animation: move3 2.5s ease-in-out 1.5s infinite;
+      background-color: rgba(255, 168, 0, .5)
+    }
+
+    .move5 {
+      animation: move3 2.5s ease-in-out 2s infinite;
+      background-color: rgba(255, 168, 0, .4)
+    }
+
+    @keyframes move3 {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(3);
+        opacity: 0
+      }
+    }
+  </style>
+</head>
+<body>
+<h1>visit on mobile</h1>
+<div class="warp">
+  <div class="box box-say">
+    <div id="btn-say">say</div>
+    <!--<span class="sun"></span>-->
+    <span class="sun move1"></span>
+    <span class="sun move2"></span>
+    <span class="sun move3"></span>
+    <span class="sun move4"></span>
+    <span class="sun move5"></span>
+  </div>
+</div>
+
+<script>
+  window.onload = function () {
+    var el_box_say = document.querySelector('.box-say')
+    var el_say = document.querySelector('#btn-say')
+    el_say.addEventListener('touchstart', function (e) {
+      e.preventDefault()
+      begin()
+    })
+    el_say.addEventListener('touchend', function (e) {
+      e.preventDefault()
+      end()
+    })
+
+    function begin() {
+      el_box_say.className = el_box_say.className + ' active'
+    }
+
+    function end() {
+      el_box_say.className = el_box_say.className.replace(/\s*active\s*/, '')
+    }
+
+//        var arr = [];
+//        document.getElementById("clickme").onclick = function () {
+//            if (arr.length > 20)return;
+//            //box对象
+//            var pdom = this.parentElement;
+//            var spanDom = document.createElement("span");
+//            spanDom.className = "sun move3";
+//            spanDom.style.background = "linear-gradient(" + randomColor() + "," + randomColor() + ")";
+//            this.style.background = "linear-gradient(" + randomColor() + "," + randomColor() + ")";
+//            pdom.appendChild(spanDom);
+//            arr.push(spanDom);
+//            setTimeout(function () {
+//                var index = arr.indexOf(spanDom);
+//                pdom.removeChild(arr.splice(index, 1)[0]);
+//            }, 2000);
+//        }
+  }
+</script>
+</body>
+</html>

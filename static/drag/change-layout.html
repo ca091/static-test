@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>change layout</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    html, body, main {
+      height: 100%;
+    }
+
+    :root {
+      --gap-resizer: 17px;
+      --color-theme: #36383f;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    main .top {
+      display: flex;
+      min-height: 125px;
+    }
+
+    main .bottom {
+      background-color: lavender;
+      flex-grow: 1;
+    }
+
+    main .top .content {
+      color: #fff;
+      background-color: #1d1e22;
+      width: calc((100% - var(--gap-resizer) * 3) / 3);
+    }
+
+    .resizer-col {
+      width: var(--gap-resizer);
+      cursor: col-resize;
+      background-color: var(--color-theme);
+      border-left: rgba(255, 255, 255, .1);
+      border-right: rgba(0, 0, 0, .4)
+    }
+
+    .resizer-row {
+      height: var(--gap-resizer);
+      cursor: row-resize;
+      background-color: var(--color-theme);
+      box-shadow: 0 0 1px #000;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <div class="top" style="height: 125px;">
+    <div class="resizer resizer-col" title="Drag to resize"></div>
+    <div class="left content">left</div>
+    <div class="resizer resizer-col" title="Drag to resize"></div>
+    <div class="center content">center</div>
+    <div class="resizer resizer-col" title="Drag to resize"></div>
+    <div class="right content">right</div>
+  </div>
+  <div class="resizer resizer-row" title="Drag to resize"></div>
+  <div class="bottom">bottom</div>
+</main>
+
+<script src="../asset/js/utils.js"></script>
+<script>
+  let el_top = document.querySelector('.top')
+
+  let el_top_content = document.querySelectorAll('.top .content')
+  let el_top_content1 = el_top_content[0]
+  let el_top_content2 = el_top_content[1]
+  let el_top_content3 = el_top_content[2]
+
+  let el_resizer_cols = document.querySelectorAll('.resizer-col')
+  let el_resizer_col1 = el_resizer_cols[0]
+  let el_resizer_col2 = el_resizer_cols[1]
+  let el_resizer_col3 = el_resizer_cols[2]
+
+  let el_resizer_row = document.querySelector('.resizer-row')
+
+  let obj_col_resize2 = {}
+  let obj_col_resize3 = {}
+  let obj_row_resize = {}
+
+  init()
+
+  //代理模式
+  document.addEventListener('mousedown', e => {
+    if (e.target === el_resizer_row) {
+      obj_row_resize.y = e.clientY
+      obj_row_resize.can = true
+      obj_row_resize.top_height = +el_top.style.height.replace(/px/, '')
+    } else if (e.target === el_resizer_col2) {
+      obj_col_resize2.x = e.clientX
+      obj_col_resize2.can = true
+      obj_col_resize2.w1 = +el_top_content1.style.width.replace(/px/, '')
+      obj_col_resize2.w2 = +el_top_content2.style.width.replace(/px/, '')
+    } else if (e.target === el_resizer_col3) {
+      obj_col_resize3.x = e.clientX
+      obj_col_resize3.can = true
+      obj_col_resize3.w2 = +el_top_content2.style.width.replace(/px/, '')
+      obj_col_resize3.w3 = +el_top_content3.style.width.replace(/px/, '')
+    }
+  })
+  document.addEventListener('mousemove', throttle(e => {
+    if (obj_row_resize.can) {
+      let moveY = e.clientY - obj_row_resize.y
+      el_top.style.height = (obj_row_resize.top_height + moveY) + 'px'
+    } else if (obj_col_resize2.can) {
+      let moveX = e.clientX - obj_col_resize2.x
+      el_top_content1.style.width = (obj_col_resize2.w1 + moveX) + 'px'
+      el_top_content2.style.width = (obj_col_resize2.w2 - moveX) + 'px'
+    } else if (obj_col_resize3.can) {
+      let moveX = e.clientX - obj_col_resize3.x
+      el_top_content2.style.width = (obj_col_resize3.w2 + moveX) + 'px'
+      el_top_content3.style.width = (obj_col_resize3.w3 - moveX) + 'px'
+    }
+  }, 30))
+  document.addEventListener('mouseup', e => {
+    obj_row_resize.can = false
+    obj_col_resize2.can = false
+    obj_col_resize3.can = false
+  })
+
+  function init() {
+    for (let item of Array.from(el_top_content)) {
+      item.style.width = getComputedStyle(item).width
+    }
+  }
+</script>
+</body>
+</html>

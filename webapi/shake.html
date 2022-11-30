@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>shake</title>
+</head>
+<body>
+<p>
+  1、deviceOrientation：封装了方向传感器数据的事件，可以获取手机静止状态下的方向数据，例如手机所处角度、方位、朝向等。
+</p>
+
+<p>
+  2、deviceMotion：封装了运动传感器数据的事件，可以获取手机运动状态下的运动加速度等数据。
+</p>
+<p>
+  please shake
+</p>
+<p id="result"></p>
+
+<script src="js/shake.js"></script>
+<script>
+  let result = document.querySelector('#result')
+
+  let arr = ['a', 'b', 'c', 'd']
+  let myShake = new Shake()
+  myShake.start()
+
+  window.addEventListener('shake', shakeHandler, false)
+
+  function shakeHandler() {
+    let num = Math.floor(Math.random() * 4)
+    result.innerHTML = 'u get ' + arr[num] + ' !'
+  }
+</script>
+</body>
+</html>

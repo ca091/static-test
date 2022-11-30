@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>scroll-snap</title>
+  <style>
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+  </style>
+  <style>
+    ul {
+      display: flex;
+      width: 300px;
+      height: 300px;
+      overflow: auto;
+      scroll-snap-type: x mandatory;
+      border: 1px solid;
+    }
+    li {
+      flex: 1 0 300px;
+      scroll-snap-align: center;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+<ul>
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+</ul>
+
+<script>
+  let lis = Array.from(document.querySelectorAll('ul>li'))
+  for (let li of lis) {
+    li.style.backgroundColor = '#' + Math.floor(Math.random() * 0xffffff).toString(16)
+  }
+</script>
+</body>
+</html>

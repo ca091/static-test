@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>web component in</title>
+  <style>
+    app-drawer {
+      border: 1px solid;
+    }
+  </style>
+</head>
+<body>
+
+<section>
+  <app-drawer>app-drawer1</app-drawer>
+  <app-drawer>app-drawer2</app-drawer>
+</section>
+
+<section>
+  <button>11</button>
+  <!--<fancy-button>fancy-button</fancy-button>-->
+  <button is="fancy-button">fancy-button</button>
+  <x-foo-shadowdom>
+    <p><b>User's</b> custom text</p>
+  </x-foo-shadowdom>
+</section>
+
+<script src="web-component.js"></script>
+</body>
+</html>

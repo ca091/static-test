@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>popup</title>
+  <style>
+    html, body, .content {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    .content {
+      background-color: silver;
+    }
+
+    .popup {
+      position: fixed;
+      transition: transform 300ms;
+      background-color: #fff;
+      z-index: 2;
+    }
+
+    .popup-top {
+      height: 400px;
+      left: 0;
+      right: 0;
+      top: 0;
+      transform: translateY(-100%);
+    }
+
+    .popup-right {
+      width: 300px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      transform: translateX(100%);
+    }
+
+    .popup-bottom {
+      height: 400px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transform: translateY(100%);
+    }
+
+    .popup-left {
+      width: 300px;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      transform: translateX(-100%);
+    }
+
+    .mask {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      background-color: rgba(0, 0, 0, .5);
+    }
+  </style>
+</head>
+<body>
+<section class="content">
+  <button onclick="moveIn('.popup-top')">top in</button>
+  <button onclick="moveIn('.popup-right')">right in</button>
+  <button onclick="moveIn('.popup-bottom')">bottom in</button>
+  <button onclick="moveIn('.popup-left')">left in</button>
+</section>
+
+<section class="popup popup-top">
+  this is popup-top
+  <button onclick="moveOut('.popup-top')">top out</button>
+</section>
+
+<section class="popup popup-right">
+  this is popup-right
+  <button onclick="moveOut('.popup-right')">right out</button>
+</section>
+
+<section class="popup popup-bottom">
+  this is popup-bottom
+  <button onclick="moveOut('.popup-bottom')">bottom out</button>
+</section>
+
+<section class="popup popup-left">
+  this is popup-left
+  <button onclick="moveOut('.popup-left')">left out</button>
+</section>
+
+<script src="js/Popup.js"></script>
+<script>
+  let popup = new Popup({clear: false})
+
+  function moveIn(el) {
+    popup.moveIn(el)
+  }
+
+  function moveOut(el) {
+    popup.moveOut(el)
+  }
+</script>
+</body>
+</html>

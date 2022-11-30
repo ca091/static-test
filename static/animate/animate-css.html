@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>动画 animate.css</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+  <style>
+    .content {
+      margin-top: 200px;
+    }
+  </style>
+</head>
+<body>
+<div class="content">
+  <button class="download">下载APP</button>
+  <img class="ma-img" src="../asset/image/ma.png" alt="">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script>
+  $.fn.animateCss = function (animationName) {
+    let animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend'
+    $(this).addClass('animate__animated ' + animationName).one(animationEnd, function () {
+      $(this).removeClass('animate__animated ' + animationName)
+    })
+  }
+
+  $('.download').on('click', function () {
+    $('.ma-img').animateCss('animate__tada')
+  })
+</script>
+</body>
+</html>

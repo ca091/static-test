@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>图片 响应式 + object-fit 、 object-position</title>
+  <style>
+    picture {
+      display: block;
+    }
+    picture > img {
+      width: 800px;
+      height: 600px;
+      border: 1px solid lightskyblue;
+    }
+  </style>
+</head>
+<body>
+<section>
+  <p>picture支持情况<span style="text-decoration: line-through">不良好,还需等待...</span> 还好</p>
+
+  <select name="size">
+    <option value="fill">fill</option>
+    <option value="contain">contain</option>
+    <option value="cover">cover</option>
+    <option value="scale-down">scale-down</option>
+    <option value="none">none</option>
+  </select>
+
+  <select name="position">
+    <option value="center">center</option>
+    <option value="right top">right top</option>
+    <option value="left bottom">left bottom</option>
+    <option value="100px 100px">100px 100px</option>
+  </select>
+
+  <picture>
+    <source srcset="../img/1.jpeg" media="(max-width: 1000px)">
+    <source srcset="../img/2.jpeg">
+    <img srcset="../img/2.jpeg" alt="default img" src="">
+  </picture>
+</section>
+
+<section>
+  <img srcset="../img/2.jpeg 2x" alt="" src="../img/1.jpeg">
+</section>
+
+<section>
+  <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/img">img MDN</a>
+  <div>
+    <img srcset="../img/1.jpeg 200w, ../img/2.jpeg 400w" sizes="(max-width: 600px) 200px, 50vw" alt="" src="">
+  </div>
+</section>
+
+<script>
+  let elPictureImg = document.querySelector('picture>img')
+  let elSelectSize = document.querySelector('select[name="size"]')
+  let elSelectPosition = document.querySelector('select[name="position"]')
+
+  elSelectSize.addEventListener('change', () => {
+    elPictureImg.style.objectFit = elSelectSize.value // 默认 fill
+  })
+
+  elSelectPosition.addEventListener('change', () => {
+    elPictureImg.style.objectPosition = elSelectPosition.value // 默认 center
+  })
+</script>
+</body>
+</html>

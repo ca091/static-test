@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>滚动穿透问题</title>
+  <style>
+    .layout {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .body {
+      flex: 1;
+      overflow: auto;
+      overflow-scrolling: touch;
+    }
+
+    .body > div {
+      height: 300px;
+    }
+
+    .up {
+      display: none;
+    }
+
+    .mask {
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .up .wrap {
+      position: fixed;
+      z-index: 5000;
+      max-width: 300px;
+      width: 100%;
+      height: 200px;
+      background-color: #efefef;
+      border-radius: 6px;
+      overflow: scroll;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
+    }
+    .up .content div {
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <header>header</header>
+  <div class="body">
+    <div>1</div>
+    <button id="js-show">show mask</button>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+  </div>
+  <footer>footer</footer>
+</div>
+<div class="up">
+  <div class="mask"></div>
+  <div class="wrap">
+    <div class="content">
+      <div>content 11</div>
+      <div>content 22</div>
+      <div>content 33</div>
+      <div>content 33</div>
+      <div>content 33</div>
+      <div>content 33</div>
+      <div>content 33</div>
+      <div>content 33</div>
+      <div>content 33</div>
+      <div>content 33</div>
+      <div>content 33</div>
+    </div>
+  </div>
+</div>
+<script src="move.js"></script>
+<script>
+  let btn = document.querySelector('#js-show')
+  let up = document.querySelector('.up')
+  let wrap = document.querySelector('.wrap')
+  let content = document.querySelector('.content')
+  let scroll = null
+
+  btn.addEventListener('click', function (e) {
+    up.style.display = 'block'
+    if (!scroll) {
+      scroll = new Scroll({
+        scrollElem: up,
+        scrollwp: wrap,
+        scrollCon: content,
+      })
+    }
+    // document.documentElement.style.cssText="height:100%;overflow:hidden;position: relative;";
+  })
+</script>
+</body>
+</html>

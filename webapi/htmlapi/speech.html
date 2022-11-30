@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Title</title>
+  <style>
+    button {
+      padding: 5px 10px;
+      background-color: #a0b3d6;
+    }
+
+    span {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<p id="p1">
+  对于盲人或弱视用户，往往会借助一些辅助设备或者软件访问我们的网页，其原理是通过触摸或定位某些元素发出声音，来让用户感知内容。
+</p>
+<p id="p2">
+  有了语音合成Speech Synthesis API，对于这类用户，以及开发人员自己，都会带来一定的便利性。
+  首先对于视觉有障碍的用户，他们就不需要再安装其他软件或购买其他设备，就可以无障碍地访问我们的产品。
+  对于开发人员自己，我们的无障碍建设可以变得更加灵活，不一定要百分百契合ARIA无障碍规范（可参见我之前文章“WAI-ARIA无障碍网页应用属性完全展示”），
+  因为我们可以直接让浏览器合成我想要的语音内容，
+  例如，VoiceOver在对一些标签读取的时候，总会附带一句“标志性内容”，就算对于我这样专业从业者，这个词也是有点生涩难懂的，
+  我们其实可以把这个语音合成交给自己，使用更通俗易懂的词反馈给用户，我想体验上应该是更好的。
+</p>
+<p>你好</p>
+
+<section>
+  <p id="p-msg"></p>
+  <button id="btn1">请说话</button>
+</section>
+<script>
+  //语音合成=>翻译
+  let synth = window.speechSynthesis
+  let utterThis = new window.SpeechSynthesisUtterance()
+  //语音识别
+  let SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition
+  let recognition = new SpeechRec()
+  recognition.onresult = function (event) {
+    alert(event.results[0][0].transcript)
+    appendMsg(event.results[0][0].transcript)
+  }
+  recognition.onerror = function (event) {
+    appendMsg('has error')
+  }
+  //    utterThis.lang = 'ko-KR'
+  //    utterThis.voiceURI = 'Google 한국의'
+  let ps = document.querySelectorAll('p')
+  let btn1 = document.querySelector('#btn1')
+  let pMsg = document.querySelector('#p-msg')
+  let i = 0, l = ps.length
+  for (; i < l; i++) {
+    ps[i].addEventListener('click', function (e) {
+      synth.cancel()
+      utterThis.text = this.textContent
+      synth.speak(utterThis)
+    })
+  }
+
+  //say
+  btn1.addEventListener('click', function () {
+    recognition.start()
+  })
+
+  window.onload = function () {
+    synth.cancel()
+  }
+
+  function appendMsg(msg) {
+    let span = document.createElement('span')
+    span.textContent = msg
+    span.style.backgroundColor = '#' + Math.random()
+    pMsg.appendChild(span)
+  }
+
+</script>
+</body>
+</html>

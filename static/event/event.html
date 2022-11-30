@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+<body>
+<div id="parent">
+  <div>
+    <p>some text</p>
+  </div>
+  <div>
+    <input type="text" id="input1">
+  </div>
+  <button id="btn1">trigger event</button>
+</div>
+
+<script>
+  let divParent = document.getElementById('parent')
+  let input1 = document.getElementById('input1')
+  let btn1 = document.getElementById('btn1')
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Backspace' && document.activeElement === input1) {
+      console.log('禁止删除')
+      e.preventDefault() // 导致控制台报错
+    }
+  }, {passive: true})
+
+  divParent.addEventListener('click', function (e) {
+    console.log('trigger divParent click')
+    // 阻止捕获和冒泡阶段中当前事件的进一步传播。
+    // e.stopPropagation();
+  }, false)
+
+  btn1.addEventListener('click', function (e) {
+    console.log('trigger btn1 click')
+    // 阻止事件传播并且阻止相同事件的其他侦听器被调用。
+    // 点击btn时不触发父元素事件
+    e.stopImmediatePropagation()
+  }, {})
+
+  // btn1.addEventListener('go', function (e) {
+  //   console.log('btn1 go')
+  // }, {}, false, true)
+  //
+  // dispatchEvent('go')
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>遮照层不能阻止下层元素滚动</title>
+  <link rel="stylesheet" href="./common.css">
+</head>
+<body>
+<div>这个div可以阻止h1的margin让body产生滚动条</div>
+<h1>h1</h1>
+<h1>h1</h1>
+<div class="info rel">
+  <p>info</p>
+  <div>
+    <div class="mask"></div>
+    <div class="mask-up abs">mask up</div>
+  </div>
+</div>
+<h1>h1</h1>
+<h1>h1</h1>
+<label>
+  <input type="text">
+</label>
+<div>这个div可以阻止h1的margin让body产生滚动条</div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no, email=no"/>
+  <meta name="description" content=""/>
+  <meta name="keywords" content=""/>
+  <meta name="robots" content="index,follow"/>
+  <title>drag</title>
+  <style>
+    .fr {
+      float: right;
+    }
+
+    .cf:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    .btn {
+      padding: 5px 13px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      /*background: -webkit-linear-gradient(rgba(255, 255, 255, 0.2), transparent) tan;*/
+      background: linear-gradient(rgba(255, 255, 255, 0.2), transparent) tan;
+      border-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+      color: white;
+      font-size: 125%;
+      cursor: pointer;
+    }
+
+    .btn-add {
+      background-color: lightseagreen;
+    }
+
+    .btn-del {
+      background-color: #c00;
+    }
+
+    .btn-sub {
+      background-color: #6b0;
+    }
+
+    .btn-upload {
+      background-color: orange;
+    }
+
+    .file-box {
+      position: relative;
+      background-color: seagreen;
+      margin-bottom: 15px;
+    }
+
+    .file-box img {
+      float: left;
+      margin-right: 20px;
+      width: 300px;
+      height: 140px;
+    }
+
+    .file-box .group {
+      display: table-cell;
+      width: 3000px;
+    }
+
+    .group > p {
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+
+    .group input {
+      width: 200px;
+      height: 20px;
+      border: none;
+    }
+
+    .control {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .box-sub {
+      padding-right: 10px;
+      padding-top: 10px;
+    }
+
+    #module {
+      display: none;
+    }
+  </style>
+
+</head>
+<body>
+<button class="btn btn-add">新增</button>
+
+<div class="files-box" ondragover="dragover(event)">
+  <div class="file-box cf" id="module" draggable="true" ondragstart="drag(event)" ondrop="drop(event)">
+    <img src="" alt="">
+    <div class="group">
+      <p>
+        链接: <input type="text" name="path"/>
+      </p>
+      <p>
+        <input type="file" name="uploadImg"/>
+      </p>
+      <p>
+        <button class="btn btn-upload">上传图片</button>
+      </p>
+    </div>
+    <div class="control">
+      <button class="btn btn-del">删除</button>
+    </div>
+  </div>
+</div>
+
+<div class="box-sub cf">
+  <button class="btn btn-sub fr">提交</button>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="drag.js"></script>
+</body>
+</html>

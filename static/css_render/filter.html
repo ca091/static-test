@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="css3滤镜--灰度、深褐色、饱和度、色调旋转...">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>css3滤镜,可继承;作用于img、background、border等</title>
+  <style>
+    /*网页整体过滤*/
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      /*filter: grayscale(30%);*/
+    }
+
+    .f-grayscale {
+      filter: grayscale(50%);
+    }
+
+    .f-sepia {
+      filter: sepia(80%);
+    }
+
+    .f-saturate {
+      filter: saturate(200%);
+    }
+
+    .f-hue-rotate {
+      filter: hue-rotate(0deg);
+    }
+
+    .f-invert {
+      filter: invert(100%);
+    }
+
+    .f-opacity {
+      filter: opacity(50%);
+    }
+
+    .f-brightness {
+      filter: brightness(130%);
+    }
+
+    .f-contrast {
+      filter: contrast(200%);
+    }
+
+    .f-blur {
+      filter: blur(5px);
+    }
+
+    .f-drop-shadow {
+      filter: drop-shadow(3px 3px 3px cadetblue);
+    }
+
+    section {
+      flex: none;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    .box2 {
+      width: 400px;
+      height: 300px;
+      background: url("../asset/image/pencil.jpg") no-repeat;
+      background-size: cover;
+    }
+
+    @keyframes hueRotate {
+      from {
+        filter: hue-rotate(0deg);
+      }
+      to {
+        filter: hue-rotate(360deg);
+      }
+    }
+
+    .hue-rotate {
+      animation: hueRotate 6s linear 0s infinite;
+    }
+
+    .btn {
+      min-width: 50px;
+      padding: 9px 15px;
+      line-height: 20px;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: border-color .15s, background-color .15s, opacity .15s;
+
+      /*.btn-primary*/
+      border: 1px solid #2486ff;
+      background-color: #2486ff;
+      color: #fff;
+    }
+
+    .btn:hover {
+      border-color: #0160d5;
+      background-color: #0160d5;
+    }
+
+    .btn:active {
+      border-color: #0057c3;
+      background-color: #0057c3;
+    }
+
+    .btn-primary {
+      filter: hue-rotate(0deg);
+    }
+
+    .btn-warning {
+      filter: hue-rotate(120deg);
+    }
+
+    .btn-info {
+      filter: hue-rotate(240deg);
+    }
+  </style>
+</head>
+<body>
+<main>
+  <section>
+    <h4>原始图像</h4>
+    <div>
+      <img src="../asset/image/pencil.jpg" alt="">
+    </div>
+  </section>
+
+  <section>
+    <h4>灰度 filter: grayscale(50%);</h4>
+    <div class="f-grayscale">
+      <img src="../asset/image/pencil.jpg" alt="">
+    </div>
+  </section>
+
+  <section>
+    <h4>深褐色 filter: sepia(80%);</h4>
+    <div class="box2 f-sepia">
+      use bg
+    </div>
+  </section>
+
+  <section>
+    <h4>饱和度 filter: saturate(200%);</h4>
+    <div class="f-saturate">
+      <img src="../asset/image/pencil.jpg" alt="">
+    </div>
+  </section>
+
+  <section>
+    <h4>色调旋转(所有颜色都会在色盘上移动相同的“角度”) filter: hue-rotate(120deg);</h4>
+    <div class="f-hue-rotate hue-rotate">
+      <img src="../asset/image/pencil.jpg" alt="">
+    </div>
+  </section>
+
+  <section>
+    <h4>颜色反转 filter: invert(100%);</h4>
+    <div class="f-invert">
+      <img src="../asset/image/pencil.jpg" alt="">
+    </div>
+  </section>
+
+  <section>
+    <h4>透明度 filter: opacity(50%);</h4>
+    <div class="f-opacity">
+      <img src="../asset/image/pencil.jpg" alt="">
+    </div>
+  </section>
+
+  <section>
+    <h4>亮度 filter: brightness(130%);</h4>
+    <div class="f-brightness">
+      <img src="../asset/image/pencil.jpg" alt="">
+    </div>
+  </section>
+
+  <section>
+    <h4>对比度(adjust the difference between the darkest and lightest) filter: contrast(200%);</h4>
+    <div class="f-contrast">
+      <img src="../asset/image/pencil.jpg" alt="">
+    </div>
+  </section>
+
+  <section>
+    <h4>模糊(半径越大，渲染越耗时) filter: blur(5px);</h4>
+    <div class="f-blur">
+      <img src="../asset/image/pencil.jpg" alt="">
+    </div>
+  </section>
+
+  <section>
+    <h4>阴影(模糊半径越大，渲染越耗时) filter: drop-shadow(3px 3px 3px cadetblue);</h4>
+    <div class="f-drop-shadow">
+      <img src="../asset/image/pencil.jpg" alt="">
+    </div>
+  </section>
+</main>
+
+<section>
+  <h4>filter实现多色按钮</h4>
+  <div class="btns">
+    <button class="btn btn-primary">可以瞎点</button>
+    <button class="btn btn-warning">别瞎点</button>
+    <button class="btn btn-info">没事就点</button>
+  </div>
+</section>
+
+<script>
+  let el_btns = document.querySelector('.btns')
+
+  function createBtn(hueRotate) {
+    let el_btn = document.createElement('button')
+    el_btn.textContent = `hueRotate-${hueRotate}`
+    el_btn.className = 'btn'
+    el_btn.style.filter = `hue-rotate(${hueRotate}deg)`
+    el_btns.appendChild(el_btn)
+  }
+
+  //批量生成按钮
+  let btn_count = new Array(18)
+  for (let [index, item] of btn_count.entries()) {
+    createBtn(index * 20)
+  }
+</script>
+</body>
+</html>

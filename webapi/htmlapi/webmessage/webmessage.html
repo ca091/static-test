@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>iframe 通信</title>
+  <style>
+    iframe {
+      border: 1px solid lightskyblue;
+      height: 100%;
+    }
+    #frames {
+      position: fixed;
+      left: 25vw;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+  </style>
+</head>
+<body>
+<section>
+  <button>send web message</button>
+  <ul></ul>
+</section>
+
+<section id="frames">
+  <iframe src="webmessage_iframe1.html"></iframe>
+  <iframe src="webmessage_iframe2.html"></iframe>
+</section>
+
+<script type="module">
+  import { appendMsg } from '../js/utils.js'
+
+  let frame = document.querySelectorAll('iframe')
+  let elList = document.querySelector('ul')
+
+  // frame1 => this => frame2 => frame1
+  window.addEventListener('message', messageEvent => {
+    console.log('page get message: ', messageEvent)
+    appendMsg(messageEvent.data, elList, 'li')
+    if (/^port open \[from frame1]$/.test(messageEvent.data) && messageEvent.ports.length) { // 传递 port 到frame2
+      frame[1].addEventListener('load', () => {
+        frame[1].contentWindow.postMessage('init', '*', messageEvent.ports)
+      })
+    }
+  })
+
+  function init() {
+    document.querySelector('button').addEventListener('click', () => {
+      frame[0].contentWindow.postMessage('hi [from window]', '*')
+      frame[1].contentWindow.postMessage('hi [from window]', '*')
+    })
+  }
+
+  window.addEventListener('DOMContentLoaded', init)
+</script>
+</body>
+</html>

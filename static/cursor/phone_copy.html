@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>拨打电话 复制粘贴</title>
+  <style>
+    p {
+      margin: 0
+    }
+
+    body {
+      padding-top: 100px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .box-input {
+      position: relative;
+    }
+
+    #dom-show {
+      width: 100%;
+      line-height: 50px;
+      border: none;
+      font-size: 24px;
+      /*-webkit-user-select: text;*/
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    li {
+      margin: 5px;
+      width: 25%;
+      line-height: 45px;
+      text-align: center;
+      flex: 1 0 auto;
+      background-color: lightblue;
+    }
+
+    #l {
+      height: 40px;
+      width: 1px;
+      position: absolute;
+      top: 7px;
+      left: 105px;
+      background-color: lightblue;
+    }
+  </style>
+</head>
+<body>
+<div class="box-input">
+  <input type="text" id="dom-show" value="+86123456789*#" readonly>
+  <span id="l"></span>
+</div>
+
+<!--<p id="dom-show" contenteditable="true" readonly>+86</p>-->
+<ul class="list-num">
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+  <li>4</li>
+  <li>5</li>
+  <li>6</li>
+  <li>7</li>
+  <li>8</li>
+  <li>9</li>
+  <li>*</li>
+  <li>0</li>
+  <li>#</li>
+</ul>
+<ul>
+  <li id="move-left"><-</li>
+  <li id="move-right">-></li>
+  <li id="del">del</li>
+</ul>
+<script>
+  var $$ = document.querySelectorAll.bind(document)
+  var $ = document.querySelector.bind(document)
+  var dom_ul = $('.list-num')
+  var dom_show = $('#dom-show')
+  var dom_del = $('#del')
+  var dom_move_left = $('#move-left')
+  var dom_move_right = $('#move-right')
+  var l = $('#l')
+  var val = dom_show.value
+  var start
+
+  dom_ul.addEventListener('click', function (event) {
+    event.preventDefault()
+    var tar = event.target
+    if (tar.nodeName == 'LI') {
+      var text = tar.textContent
+      val += text
+      dom_show.value = val
+//            dom_show.textContent = val
+    }
+  })
+  dom_del.addEventListener('click', function (event) {
+    event.preventDefault()
+    var tar = event.target
+    if (tar.nodeName == 'LI') {
+      start = doGetCaretPosition(dom_show)
+      console.log(start)
+      if (start == 0) return
+      val = val.substring(0, start - 1) + val.substring(start, val.length)
+      dom_show.value = val
+    }
+  })
+  dom_move_left.addEventListener('click', function (event) {
+    event.preventDefault()
+//        start = doGetCaretPosition(dom_show)
+//        console.log(start)
+    insertText(dom_show, '8')
+  })
+  dom_move_right.addEventListener('click', function (event) {
+    dom_show.focus()
+    var sle = window.getSelection()
+    console.log(sle)
+//        var ranges = sle.getRangeAt(2);
+//        console.log(ranges)
+//        document.createRange()
+//        console.log(start)
+  })
+
+  dom_show.addEventListener('click', function (event) {
+    event.preventDefault()
+    var x = event.offsetX
+    console.log(event)
+    l.style.left = x + 'px'
+    start = doGetCaretPosition(dom_show)
+    console.log(start)
+  })
+
+  /*
+   ** Returns the caret (cursor) position of the specified text field.
+   ** Return value range is 0-oField.value.length.
+   */
+  function doGetCaretPosition(oField) {
+    // Initialize
+    var iCaretPos = 0
+    // IE Support
+    if (document.selection) {
+      // Set focus on the element
+      oField.focus()
+      // To get cursor position, get empty selection range
+      var oSel = document.selection.createRange()
+      // Move selection start to 0 position
+      oSel.moveStart('character', -oField.value.length)
+      // The caret position is selection length
+      iCaretPos = oSel.text.length
+    }
+    // Firefox support
+    else if (oField.selectionStart || oField.selectionStart == '0') iCaretPos = oField.selectionStart
+    // Return results
+    return iCaretPos
+  }
+
+  function insertText(oField, str) {
+    oField.focus()
+    var sel, range
+    if (window.getSelection) {
+// IE9 and non-IE
+      sel = window.getSelection()
+      if (sel.getRangeAt && sel.rangeCount) {
+        range = sel.getRangeAt(0)
+//                range.deleteContents();
+//                Range.createContextualFragment() would be useful here but is
+//                non-standard and not supported in all browsers (IE9, for one)
+//                var el = document.createElement("div");
+//                el.innerHTML = html;
+        var frag = document.createTextNode(str)
+        range.insertNode(frag)
+// Preserve the selection
+
+        range = range.cloneRange()
+        range.setStartAfter(frag)
+        range.collapse(true)
+        sel.removeAllRanges()
+        sel.addRange(range)
+      }
+    }
+    // IE < 9
+    else if (document.selection && document.selection.type != 'Control') {
+      document.selection.createRange().pasteHTML(html)
+    }
+  }
+</script>
+</body>
+</html>

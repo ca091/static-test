@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>重力感应</title>
+  <style>
+    .west {
+      width: 222px;
+      border-bottom: 2px solid green;
+      text-align: right;
+    }
+
+    .ball {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: coral;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+<h1>重力感应</h1>
+绕z轴旋转
+<p class="alpha"></p>
+绕x轴旋转
+<p class="beta"></p>
+绕y轴旋转
+<p class="gamma"></p>
+
+指南
+<p class="west">south</p>
+
+<div class="ball"></div>
+
+<script>
+  let dom_alpha = document.querySelector('.alpha')
+  let dom_beta = document.querySelector('.beta')
+  let dom_gamma = document.querySelector('.gamma')
+
+  let west = document.querySelector('.west')
+  let ball = document.querySelector('.ball')
+
+  window.addEventListener('deviceorientation', orientationHandler, true)
+
+  window.addEventListener('compassneedscalibration', function (event) {
+    alert('Your compass needs calibrating! Wave your device in a figure-eight motion')
+    event.preventDefault()
+  }, true)
+
+  function orientationHandler(event) {
+    // process event.alpha, event.beta and event.gamma
+
+    let alpha = event.alpha
+    let beta = event.beta
+    let gamma = event.gamma
+
+    dom_alpha.innerHTML = alpha
+    dom_beta.innerHTML = beta
+    dom_gamma.innerHTML = gamma
+
+    west.style.transform = 'rotateZ(' + alpha + 'deg)'
+
+    //由beta, gamma 正负决定
+    ball.style.top = (beta / 10 + ball.offsetTop) + 'px'
+    ball.style.left = (gamma / 10 + ball.offsetLeft) + 'px'
+  }
+</script>
+</body>
+</html>

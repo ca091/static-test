@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>screen orientation (wd)</title>
+</head>
+<body>
+<p class="msg"></p>
+<p class="lock">lock</p>
+<p onclick="screen.orientation.unlock()">unlock</p>
+<script type="module">
+  window.onerror = function (msg, source, line, col, error) {
+    if (msg === 'Script error.' && !source) return false
+    showMsg(error)
+  }
+  let elMsg = document.querySelector('.msg')
+  let elLock = document.querySelector('.lock')
+
+  function apiCheck() {
+    return screen.orientation !== undefined
+  }
+
+  function fullScreenCheck() {
+    if (document.fullscreenElement) return
+    return document.documentElement.requestFullscreen()
+  }
+
+  function showMsg(msg) {
+    elMsg.textContent += `\n ${msg}`
+  }
+
+  function show() {
+    let {type, angle} = screen.orientation
+    showMsg(`${type}, ${angle}`)
+  }
+
+  function getOrientation() {
+    let {type} = screen.orientation
+    return type.match(/^portrait/) ? 'landscape' : 'portrait'
+  }
+
+  function updateDetail() {
+    elLock.textContent = `lock to ${getOrientation()}`
+  }
+
+  async function rotate() {
+    try {
+      await fullScreenCheck()
+    } catch (e) {
+      console.warn(e)
+    }
+    await screen.orientation.lock(getOrientation())
+    updateDetail()
+  }
+
+  if (apiCheck()) {
+    window.addEventListener('load', () => {
+      show()
+      updateDetail()
+    })
+    screen.orientation.addEventListener('change', () => {
+      show()
+      updateDetail()
+    })
+    elLock.addEventListener('click', rotate)
+  } else {
+    showMsg('screen.orientation is undefined')
+  }
+</script>
+</body>
+</html>

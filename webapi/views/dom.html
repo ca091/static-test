@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no, email=no"/>
+  <meta name="description" content=""/>
+  <meta name="keywords" content=""/>
+  <meta name="robots" content="index,follow"/>
+  <title>dom test</title>
+  <style>
+    #indented {
+      background-color: #222;
+      width: 400px;
+    }
+
+    #indented li {
+      border-top: 1px solid #111;
+      border-bottom: 1px solid #333;
+      color: #ccc;
+      line-height: 1.8;
+    }
+
+    #indented li p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    #pressed {
+      background-color: #222;
+      padding: 10px;
+      width: 380px;
+    }
+
+    #pressed p {
+      background-color: #111;
+      border: 1px solid;
+      border-color: #000 #353535 #353535 #000;
+      padding: 10px;
+      color: #ccc;
+      margin-bottom: 0;
+    }
+
+    mark:before {
+      content: '\25ba';
+    }
+
+    mark:after {
+      content: '\25ba';
+      transform: scaleX(-1);
+    }
+
+    span:before {
+      content: '\2714';
+      color: red;
+    }
+
+    span:after {
+      content: '\00bb';
+      margin-left: 3px;
+      color: red;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .css-counter {
+      counter-reset: fir;
+    }
+
+    .css-counter > div {
+      counter-increment: fir;
+      counter-reset: sec;
+    }
+
+    .css-counter > div:before {
+      content: "Step " counter(fir);
+    }
+
+    .css-counter > div > ul {
+      padding-left: 20px;
+      counter-increment: sec;
+      counter-reset: thi;
+    }
+
+    .css-counter > div > ul:before {
+      content: counter(fir) "." counter(sec) "章"
+    }
+
+    .css-counter > div > ul > li {
+      padding-left: 20px;
+      counter-increment: thi;
+    }
+
+    .css-counter > div > ul > li:before {
+      content: counter(fir) "." counter(sec) "." counter(thi) "节";
+      display: block;
+    }
+
+    #accordion2 h3 {
+      margin: 0;
+    }
+
+    #accordion2 li {
+      height: 26px;
+      overflow: hidden;
+      -webkit-transition: height 0.3s ease;
+      transition: height 0.3s ease;
+    }
+
+    #accordion2:hover li {
+      height: 26px;
+    }
+
+    #accordion2 li:hover {
+      height: 180px;
+    }
+
+  </style>
+</head>
+<body>
+<abbr title="The Most Valueable People">MVP</abbr> is curry
+<span contenteditable="true" spellcheck="true">test contenteditable</span>
+<em>this is em</em>
+<mark>this is mark</mark>
+<ol id="indented" class="demo">
+  <li><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p></li>
+  <li><p>Aliquam tincidunt mauris eu risus.</p></li>
+  <li><p>Vestibulum auctor dapibus neque.</p></li>
+</ol>
+<div id="pressed" class="demo">
+  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
+    quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
+    ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+</div>
+
+<div class="css-counter">
+  <div>
+    <ul>
+      <li>this is content</li>
+      <li>this is content</li>
+      <li>this is content</li>
+      <li>this is content4</li>
+    </ul>
+  </div>
+  <div>
+    <ul>
+      <li>this is content</li>
+      <li>this is content</li>
+      <li>this is content</li>
+      <li>this is content4</li>
+    </ul>
+  </div>
+  <div>
+    <ul>
+      <li>this is content</li>
+      <li>this is content</li>
+      <li>this is content</li>
+      <li>this is content4</li>
+    </ul>
+  </div>
+</div>
+<section class="demozone">
+  <ul id="accordion2" class="demo nostyle">
+    <li>
+      <h3 class="accordion-title">青，取之于蓝，而青于蓝</h3>
+
+      <div class="accordion-content">
+        <p>学恶乎始？恶乎终？曰：其数则始乎诵经，终乎读礼；其义则始乎为士，终乎为圣人， 真积力久则入，学至乎没而后止也。故学数有终，若其义则不可须臾舍也。为之，人也；舍
+          之，禽兽也。故书者，政事之纪也；诗者，中声之所止也；礼者，法之大分，类之纲纪也。故学至乎礼而止矣。夫是之谓道德之极。礼之敬文也，乐之中和也，诗书之博也，春秋之微</p>
+      </div>
+    </li>
+    <li>
+      <h3 class="accordion-title">冰，水为之，而寒于水</h3>
+
+      <div class="accordion-content">
+        <p>
+          积土成山，风雨兴焉；积水成渊，蛟龙生焉；积善成德，而神明自得，圣心备焉。故不积跬步，无以至千里；不积小流，无以成江海。骐骥一跃，不能十步；驽马十驾，功在不舍。锲而舍之，朽木不折；锲而不舍，金石可镂。蚓无爪牙之利，筋骨之强，上食埃土，下饮黄泉，用心一也。蟹六跪而二螯，非蛇鳝之穴无可寄托者，用心躁也。</p>
+      </div>
+    </li>
+    <li>
+      <h3 class="accordion-title">君子博学而日参省乎己</h3>
+
+      <div class="accordion-content">
+        <p>学恶乎始？恶乎终？曰：其数则始乎诵经，终乎读礼；其义则始乎为士，终乎为圣人， 真积力久则入，学至乎没而后止也。故学数有终，若其义则不可须臾舍也。为之，人也；舍
+          之，禽兽也。故书者，政事之纪也；诗者，中声之所止也；礼者，法之大分，类之纲纪也。故学至乎礼而止矣。夫是之谓道德之极。礼之敬文也，乐之中和也，诗书之博也，春秋之微。</p>
+      </div>
+    </li>
+    <li>
+      <h3 class="accordion-title">君子学不可以已</h3>
+
+      <div class="accordion-content">
+        <p>
+          积土成山，风雨兴焉；积水成渊，蛟龙生焉；积善成德，而神明自得，圣心备焉。故不积跬步，无以至千里；不积小流，无以成江海。骐骥一跃，不能十步；驽马十驾，功在不舍。锲而舍之，朽木不折；锲而不舍，金石可镂。蚓无爪牙之利，筋骨之强，上食埃土，下饮黄泉，用心一也。蟹六跪而二螯，非蛇鳝之穴无可寄托者，用心躁也。</p>
+      </div>
+    </li>
+  </ul>
+</section>
+</body>
+</html>

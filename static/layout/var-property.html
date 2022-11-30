@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="css变量 + calc计算属性的响应式布局，支持线性变换">
+  <title>css变量 + calc计算属性的响应式布局</title>
+  <style>
+    .list {
+      --columns: 1;
+      --margins: calc(-1.333px * var(--columns) + 13.333px);
+      --fontSize: calc(18px - var(--columns) * 1px);
+      overflow: hidden;
+    }
+    .list .item {
+      float: left;
+      margin: var(--margins);
+      width: calc((100% - var(--margins) * var(--columns) * 2) / var(--columns));
+      min-height: 150px;
+      box-shadow: 0 1px 3px 1px rgba(0, 0, 0, .25);
+    }
+    .item-content {
+      font-size: var(--fontSize);
+    }
+
+    @media screen and (min-width: 600px) {
+      .list {
+        --columns: 2
+      }
+    }
+
+    @media screen and (min-width: 900px) {
+      .list {
+        --columns: 3
+      }
+    }
+
+    @media screen and (min-width: 1200px) {
+      .list {
+        --columns: 4
+      }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <section class="list">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+  </section>
+</main>
+
+<script>
+  let items = document.querySelectorAll('.list>.item')
+  for (let [index, el_item] of [...items].entries()) {
+    el_item.innerHTML = `<h2>${index}</h2><div class="item-content">这是第 ${index} 个条目</div>`
+  }
+</script>
+</body>
+</html>

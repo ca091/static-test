@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>drag simulate jira</title>
+  <style>
+    html, body, main {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    main,
+    .bug-title,
+    .bug-main {
+      display: flex;
+    }
+
+    main {
+      flex-direction: column;
+    }
+
+    .bug-main > div {
+      margin: 0 5px;
+      flex: 1;
+      background-color: #eee;
+    }
+
+    .bug-item {
+      position: relative;
+      margin-top: -1px;
+      height: 80px;
+      border: 1px solid #bbb;
+      cursor: move;
+    }
+
+    .bug-title > div {
+      flex: 1;
+      padding: 5px;
+    }
+
+    .bug-main {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <section class="bug-title">
+    <div>Bug列表</div>
+    <div>开发中</div>
+    <div>验证中</div>
+    <div>验证通过</div>
+  </section>
+  <section class="bug-main">
+    <div class="bug-box">
+      <div class="bug-item" draggable="true"></div>
+      <div class="bug-item" draggable="true"></div>
+      <div class="bug-item" draggable="true"></div>
+    </div>
+    <div class="bug-box">
+      <div class="bug-item" draggable="true"></div>
+      <div class="bug-item" draggable="true"></div>
+    </div>
+    <div class="bug-box">
+      <div class="bug-item" draggable="true"></div>
+      <div class="bug-item" draggable="true"></div>
+    </div>
+    <div class="bug-box">
+      <div class="bug-item" draggable="true"></div>
+      <div class="bug-item" draggable="true"></div>
+      <div class="bug-item" draggable="true"></div>
+    </div>
+  </section>
+</main>
+
+<script src="../asset/js/utils.js"></script>
+<script src="../asset/js/DragLikeJira.js"></script>
+<script>
+  new DragLikeJira({})
+</script>
+<!--<script src="drag-simulate-jira.js"></script>-->
+</body>
+</html>
