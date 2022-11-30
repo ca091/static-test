@@ -14,7 +14,6 @@
 <button id="btn-long-start">持续振动 start</button>
 <button id="btn-long-stop">持续振动 stop</button>
 
-<script src="js/utils.js"></script>
 <script>
   let $ = document.querySelector.bind(document)
   let timer = null
@@ -41,6 +40,21 @@
   })
 
   appendMessage(typeof navigator.vibrate === 'function' ? 'support' : 'not support')
+
+  /**
+   * 页面输出日志消息
+   * @param args
+   */
+  function appendMessage(...args) {
+    let [ele, msg] = args
+    if (args.length === 1) {
+      msg = ele
+      ele = 'p'
+    }
+    let element = document.createElement(ele)
+    element.textContent = msg
+    document.body.appendChild(element)
+  }
 </script>
 </body>
 </html>
