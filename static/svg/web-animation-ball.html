@@ -24,7 +24,7 @@
 
 <!-- <script src="js/web-animations-next.min.js"></script> -->
 <script>
-  var car = document.querySelector('.car')
+  let car = document.querySelector('.car')
   if (car.style.offsetDistance !== undefined) {
     moveCar()
   } else {
@@ -32,7 +32,7 @@
   }
 
   function moveCar() {
-    var player = car.animate([
+    let player = car.animate([
       {offsetDistance: '100%'},
       {offsetDistance: 0},
     ], {

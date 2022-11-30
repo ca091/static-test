@@ -4,8 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   <title>边框填充效果</title>
-  <link rel="stylesheet" href="../asset/css/common.css">
   <style>
+    /*边框填充动画*/
+    .border-full {
+      position: relative;
+    }
+    .border-full:before,
+    .border-full:after {
+      content: '';
+      position: absolute;
+      box-sizing: border-box;
+      border-style: solid;
+      transition: all 500ms linear 0ms;
+    }
+    .border-full:before {
+      top: 50%;
+      width: 100%;
+      height: 0;
+      border-width: 0 3px;
+    }
+    .border-full:after {
+      left: 50%;
+      width: 0;
+      height: 100%;
+      border-width: 3px 0;
+    }
+    .border-full:hover:before {
+      top: 0;
+      height: 100%;
+    }
+    .border-full:hover:after {
+      left: 0;
+      width: 100%;
+    }
     .box {
       width: 300px;
       height: 300px;

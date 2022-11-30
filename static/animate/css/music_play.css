@@ -78,6 +78,32 @@
   animation: rotate 5s linear 0s infinite;
 }
 
+.lyric {
+  overflow-y: scroll;
+  text-align: center;
+}
+
+/*文字背景色移动-歌词风格*/
+.lyric p {
+  margin: 2px 0;
+  display: inline-block;
+  background-image: linear-gradient(to right, deeppink, deeppink 50%, dodgerblue 51%, dodgerblue);
+  -webkit-background-clip: text;
+  color: transparent;
+  box-decoration-break: clone;
+  background-size: 200% 100%;
+}
+
+/*文字背景色移动*/
+@keyframes bg-move {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
 /*音乐播放动画*/
 @keyframes music_play {
   0% {

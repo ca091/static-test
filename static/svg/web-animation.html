@@ -40,12 +40,12 @@
 
 <script src="js/web-animations-next.min.js"></script>
 <script>
-  var tar = {}
+  let tar = {}
   tar.ball = document.querySelector('.ball')
   tar.ctrl = document.querySelector('.controls')
 
   //    //关键帧
-  var ballKeyframes = new KeyframeEffect(
+  let ballKeyframes = new KeyframeEffect(
     tar.ball, // element to animate
     [
       {transform: 'translateY(0px)'}, // keyframe
@@ -55,7 +55,7 @@
   )
 
   //方式1
-  //    var ballAnimation = tar.ball.animate([
+  //    let ballAnimation = tar.ball.animate([
   //        // keyframes
   //        { transform: 'translateY(0px) rotateZ(0deg)'},
   //        { transform: 'translateY(300px) rotateZ(1000deg)' }
@@ -69,14 +69,14 @@
 
 
   //方式2
-  var ballAni = new Animation(ballKeyframes, document.timeline)
+  let ballAni = new Animation(ballKeyframes, document.timeline)
   ballAni.play()
 
   //how to path move like svg ?
 
   tar.ctrl.addEventListener('click', function (event) {
     if (event.target) {
-      var targetElement = event.target
+      let targetElement = event.target
 
       switch (targetElement.id) {
         case 'keyframe-start':
