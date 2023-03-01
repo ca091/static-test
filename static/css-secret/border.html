@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>border</title>
+  <link rel="stylesheet" href="./common.css">
+  <style>
+    body {
+      background: url("./bj.jpg") center top / contain no-repeat;
+    }
+    #box-a {
+      width: 30vw;
+      height: 30vw;
+      padding: 10px;
+      /*background: url("./2.jpg") center / cover no-repeat;*/
+      background: #fff padding-box;
+      border: 20px solid hsla(0,0%,100%,.5);
+    }
+    #box-b {
+      margin-top: 50px;
+      width: 30vw;
+      height: 30vw;
+      padding: 30px;
+      background: yellowgreen;
+      box-shadow: 0 0 0 10px blue inset, 0 0 0 20px deeppink inset, 0 0 10px 3px #655;
+      cursor: pointer;
+    }
+    #box-c {
+      margin-top: 50px;
+      width: 30vw;
+      height: 30vw;
+      padding: 30px;
+      color: #eee;
+      background: url("./moon.svg") no-repeat bottom right / 100px 100px #111;
+      background-position: right 20px bottom 20px;
+      outline: 1px dashed #fff;
+      outline-offset: -10px;
+    }
+  </style>
+</head>
+<body>
+<div id="box-a">
+  使用 background-clip 实现半透明边框
+</div>
+
+<ul class="tip">
+   <li>background-clip: 当背景为颜色值时，默认值为 border-box</li>
+   <li>background-clip: 当背景为图片时，默认值为 padding-box</li>
+</ul>
+
+<div id="box-b">
+  使用 box-shadow 实现多层边框
+</div>
+
+<div id="box-c">
+  使用 outline 实现缝线效果
+</div>
+</body>
+</html>

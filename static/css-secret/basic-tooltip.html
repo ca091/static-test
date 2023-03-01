@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>basic-tooltip</title>
+  <style>
+    p {
+      margin: 0;
+    }
+    .callout {
+      display: none;
+      position: absolute;
+      margin-top: 4px;
+      padding: .4em .8em;
+      border-radius: .2em;
+      border: 1px solid gray;
+      background: #ddc390;
+    }
+    .callout::after {
+      content: '';
+      position: absolute;
+      top: -.4em;
+      left: 1em;
+      padding: .35em;
+      transform: rotate(45deg);
+      border: inherit;
+      background: inherit;
+      border-right: 0;
+      border-bottom: 0;
+    }
+    input:focus + .callout {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<h1>- page 10: 使用继承、currentColor</h1>
+<input type="text">
+<div class="callout">
+  Only numbers allowed
+</div>
+<p>other</p>
+</body>
+</html>

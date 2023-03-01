@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>basic-button</title>
+  <style>
+    body {
+      font-size: 20px;
+    }
+
+    button {
+      padding: .3em .8em;
+      border: 1px solid rgba(0,0,0,.1);
+      border-radius: .2em;
+      box-shadow: 0 .05em .25em rgba(0,0,0,.5);
+      text-shadow: 0 -.05em .05em rgba(0,0,0,.5);
+      color: #fff;
+      background: #58a linear-gradient(hsla(0,0%,100%,.2), transparent); /** 半透明白色 **/
+      font-size: 125%;
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    button.ok {
+      background-color: #6b0;
+    }
+
+    button.danger {
+      background-color: #c00;
+    }
+
+    button + button {
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+<ul>
+  <li>- page 8：写样式时，考虑父子样式是否具有相关性，使用em、rem、百分比单位</li>
+  <li>- page 8：把半透明黑色或白色叠加到主色调上，即可产生主色调的亮色和暗色变体</li>
+  <li>- 使用 hsla(0,0%,100%,.2) 表示半透明白色</li>
+</ul>
+<button>Normal</button>
+<button class="ok">OK</button>
+<button class="danger">Danger</button>
+</body>
+</html>

@@ -1,0 +1,20 @@
+.tip {
+  position: relative;
+  margin-top: 8px;
+  padding: .4em .8em;
+  border-radius: .2em;
+  border: 1px solid gray;
+  background: #ddc390;
+}
+.tip::after {
+  content: '';
+  position: absolute;
+  top: -.4em;
+  left: 1em;
+  padding: .35em;
+  transform: rotate(45deg);
+  border: inherit;
+  background: inherit;
+  border-right: 0;
+  border-bottom: 0;
+}
