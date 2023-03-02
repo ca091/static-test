@@ -21,30 +21,13 @@
   </style>
 </head>
 <body>
-
-<section>
-  <h1>text with form</h1>
-  <form action="javascript: return true">
-    <input type="text" inputmode="text">
-  </form>
-
-  <h1>text without form</h1>
-  <input type="text" inputmode="text">
-</section>
-
-<section>
-  <h1>search with form</h1>
-  <form action="javascript: return true">
-    <input type="search" inputmode="text">
-  </form>
-
-  <h1>search without form</h1>
-  <input type="search" inputmode="text">
-</section>
-
-
-<section>
-  <a href="./t2.html">to another page</a>
-</section>
+<script>
+  let reg =
+    /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/
+  let url = 'http://www.org.com:80/goods?q#fragment'
+  let result = reg.exec(url)
+  console.log(reg)
+  console.log(result)
+</script>
 </body>
 </html>

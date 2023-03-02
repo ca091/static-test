@@ -15,7 +15,6 @@
     }
     body > div {
       margin: 1.5vw;
-      width: 30.33vw;
       height: 30.33vw;
     }
     #box-a {
@@ -75,6 +74,51 @@
         linear-gradient(90deg, #655 41px, transparent 0);
       background-size: 41px 100%, 61px 100%, 83px 100%;
     }
+    #box-j {
+      padding: 1em;
+      border: 1em solid transparent;
+      background: linear-gradient(#fff, #fff) padding-box,
+        url("./bj.jpg") border-box 0 / cover;
+    }
+    #box-k {
+      padding: 1em;
+      border: 1em solid transparent;
+      background: linear-gradient(#fff, #fff),
+        repeating-linear-gradient(-45deg,
+          red 0,
+          red 20px,
+          transparent 0,
+          transparent 40px,
+          #58a 0,
+          #58a 60px,
+          transparent 0,
+          transparent 80px);
+      background-size: cover;
+      background-clip: padding-box, border-box;
+      background-origin: border-box;
+    }
+    @keyframes ants {
+      to {
+        background-position: 100%;
+      }
+    }
+    #box-l {
+      padding: 1em;
+      border: 1px solid transparent;
+      background: linear-gradient(#fff, #fff) padding-box,
+      repeating-linear-gradient(-45deg,
+        #000 0,
+        #000 25%,
+        #fff 0,
+        #fff 50%) 0 / .6em .6em;
+      animation: ants 12s linear infinite;
+    }
+    #box-m {
+      padding-top: 1em;
+      border-top: .2em solid transparent;
+      border-image: 100% 0 0 linear-gradient(90deg, currentColor 4em, transparent 0);
+      background: lightyellow;
+    }
   </style>
 </head>
 <body>
@@ -104,6 +148,18 @@
 </div>
 <div id="box-i">
   i 使用 大质数 生成随机条纹
+</div>
+<div id="box-j">
+  j 使用 层叠背景 生成背景边框
+</div>
+<div id="box-k">
+  k 使用 层叠背景 生成信封样式
+</div>
+<div id="box-l">
+  l 使用 层叠背景 生成蚂蚁边框
+</div>
+<div id="box-m">
+  m 使用 border-image 生成脚注
 </div>
 </body>
 </html>
