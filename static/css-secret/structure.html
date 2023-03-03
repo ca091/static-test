@@ -15,33 +15,33 @@
       column-gap: 10vw;
       row-gap: 10vw;
     }
+    body > div {
+      height: calc((100vw - 40vw) / 3);
+      background: lightcoral;
+    }
     #box-a {
       height: 100px;
       border-radius: 50%;
-      background: lightcoral;
     }
     #box-b {
       height: 100px;
-      background: #ddc390;
       border-radius: 50% / 100% 100% 0 0;
     }
     #box-c {
       height: 100px;
-      background: #ddc390;
       border-radius: 100% 0 0 100% / 50%;
     }
     #box-d {
       height: 100px;
-      background: #ddc390;
       border-radius: 100% 0 0 0;
     }
     #box-e {
       height: 100px;
-      background: #6F0F96;
       transform: skewX(-45deg);
     }
     #box-f {
       height: 100px;
+      background: transparent;
     }
     #box-f::after {
       background: #58a;
@@ -49,22 +49,24 @@
       z-index: -1;
     }
     #box-g {
-      position: relative;
-      padding-top: 100%;
-    }
-    #box-g > div {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
       transform: rotate(45deg);
       overflow: hidden;
     }
-    #box-g > div > img {
+    #box-g > img {
       width: 100%;
       height: 100%;
       transform: rotate(-45deg) scale(1.42);
+      object-fit: cover;
+    }
+    #box-h {
+      background: transparent;
+    }
+    #box-h > img {
+      clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+      transition: 300ms clip-path;
+    }
+    #box-h > img:hover {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
   </style>
 </head>
@@ -88,9 +90,10 @@
     f 使用 transform skew + ::after 生成内容不倾斜的平行四边形
   </div>
   <div id="box-g">
-    <div>
-      <img src="./bj.jpg" alt="">
-    </div>
+    <img src="./bj.jpg" alt="">
+  </div>
+  <div id="box-h">
+    <img src="./bj.jpg" alt="">
   </div>
 </body>
 </html>
