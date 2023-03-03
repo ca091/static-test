@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>structure-pro</title>
+  <link rel="stylesheet" href="./common.css">
+  <style>
+    #box-a {
+      padding: .5em 2em;
+      width: 40vw;
+      text-align: center;
+    }
+    #box-a::after {
+      z-index: -1;
+      transform: perspective(.5em) rotateX(5deg) scaleY(1.4);
+      transform-origin: bottom;
+      background: lightgray;
+    }
+    nav > a {
+      display: inline-block;
+      padding: 0 1em;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    nav > a:not(:first-child) {
+      margin-left: -10px;
+    }
+    nav > a.active {
+      padding-top: 1px;
+      transform: translateY(1px);
+      z-index: 2;
+    }
+    nav > a::after {
+      z-index: -1;
+      background: linear-gradient(hsla(0,0%,100%,.6), hsla(0,0%,100%,0)) #ccc;
+      border: 1px solid #333;
+      border-bottom: none;
+      border-radius: .5em .5em 0 0;
+      transform: perspective(.5em) rotateX(5deg) scaleY(1.3);
+      transform-origin: bottom;
+    }
+    .content {
+      padding: 1em;
+      border: 1px solid #333;
+    }
+    .content > div {
+      display: none;
+    }
+    .content > div.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="box-a" class="root-cover-box">
+    使用 transform 实现梯形
+  </div>
+  <h1>梯形的运用</h1>
+  <nav>
+    <a href="javascript:void(0);" class="root-cover-box">Home</a>
+    <a href="javascript:void(0);" class="root-cover-box active">Projects</a>
+    <a href="javascript:void(0);" class="root-cover-box">About</a>
+  </nav>
+  <div class="content">
+    <div>content Home</div>
+    <div class="active">content Projects</div>
+    <div>content About</div>
+  </div>
+
+  <script>
+    function getActiveLink() {
+      return document.querySelector('nav > a.active')
+    }
+    function getActiveContent() {
+      return document.querySelector('.content > div.active')
+    }
+    let contents = document.querySelectorAll('.content > div')
+    let links = document.querySelectorAll('nav > a')
+    ;[...links].forEach((link, index) => {
+      link.addEventListener('click', () => {
+        getActiveLink().classList.remove('active')
+        getActiveContent().classList.remove('active')
+        link.classList.add('active')
+        contents[index].classList.add('active')
+      })
+    })
+  </script>
+</body>
+</html>

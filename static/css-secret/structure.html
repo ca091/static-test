@@ -68,6 +68,48 @@
     #box-h > img:hover {
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
+    #box-i {
+      background: linear-gradient(-45deg, transparent 15px, #58a 0);
+    }
+    #box-j {
+      background:
+        linear-gradient(135deg, transparent 15px, #58a 0) top left,
+        linear-gradient(-135deg, transparent 15px, #58a 0) top right,
+        linear-gradient(-45deg, transparent 15px, #58a 0) right bottom,
+        linear-gradient(45deg, transparent 15px, #58a 0) left bottom;
+      background-size: 50% 50%;
+      background-repeat: no-repeat;
+    }
+    #box-k {
+      background:
+        radial-gradient(circle at top left, transparent 15px, #58a 0) top left,
+        radial-gradient(circle at top right, transparent 15px, #58a 0) top right,
+        radial-gradient(circle at bottom right, transparent 15px, #58a 0) right bottom,
+        radial-gradient(circle at bottom left, transparent 15px, #58a 0) left bottom;
+      background-size: 50% 50%;
+      background-repeat: no-repeat;
+    }
+    #box-l {
+      border: 20px solid #58a;
+      border-image: 1 url('data:image/svg+xml,\
+        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="3" fill="%2358a">\
+          <polygon points="0,1 1,0 2,0 3,1 3,2 2,3 1,3 0,2" />\
+        </svg>');
+      /*background: #58a;*/
+      background: radial-gradient(hsla(0,0%,100%,.2), transparent 75%) #58a;
+      /*background: url("./bj.jpg");*/
+      background-clip: padding-box;
+      transition: all 300ms;
+      box-sizing: border-box;
+    }
+    #box-l:hover {
+      border-width: 0;
+      padding: 20px;
+    }
+    #box-m {
+      border-radius: 20px;
+      corner-shape: bevel;
+    }
   </style>
 </head>
 <body>
@@ -93,7 +135,24 @@
     <img src="./bj.jpg" alt="">
   </div>
   <div id="box-h">
+    h 使用 clip-path 裁剪图片
     <img src="./bj.jpg" alt="">
+  </div>
+  <div id="box-i">
+    i 使用 渐变背景 生成单个切角
+  </div>
+  <div id="box-j">
+    j 使用 渐变背景 生成4个切角
+  </div>
+  <div id="box-k">
+    k 使用 径向渐变背景 生成内凹圆角
+  </div>
+  <div id="box-l">
+    l 使用 svg + border-image 生成切角;
+    弊端：不能用图片当背景
+  </div>
+  <div id="box-m">
+    m 切角未来
   </div>
 </body>
 </html>
