@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>structure</title>
+  <link rel="stylesheet" href="./common.css">
+  <style>
+    body {
+      margin: 10vw;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 10vw;
+      row-gap: 10vw;
+    }
+    #box-a {
+      height: 100px;
+      border-radius: 50%;
+      background: lightcoral;
+    }
+    #box-b {
+      height: 100px;
+      background: #ddc390;
+      border-radius: 50% / 100% 100% 0 0;
+    }
+    #box-c {
+      height: 100px;
+      background: #ddc390;
+      border-radius: 100% 0 0 100% / 50%;
+    }
+    #box-d {
+      height: 100px;
+      background: #ddc390;
+      border-radius: 100% 0 0 0;
+    }
+    #box-e {
+      height: 100px;
+      background: #6F0F96;
+      transform: skewX(-45deg);
+    }
+    #box-f {
+      height: 100px;
+    }
+    #box-f::after {
+      background: #58a;
+      transform: skewX(-45deg);
+      z-index: -1;
+    }
+    #box-g {
+      position: relative;
+      padding-top: 100%;
+    }
+    #box-g > div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: rotate(45deg);
+      overflow: hidden;
+    }
+    #box-g > div > img {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-45deg) scale(1.42);
+    }
+  </style>
+</head>
+<body>
+  <div id="box-a">
+    a 使用 border-radius 生成自适应椭圆
+  </div>
+  <div id="box-b">
+    b 使用 border-radius 生成半椭圆
+  </div>
+  <div id="box-c">
+    c 使用 border-radius 生成半椭圆
+  </div>
+  <div id="box-d">
+    d 使用 border-radius 生成单个圆角
+  </div>
+  <div id="box-e">
+    e 使用 transform skew 生成平行四边形
+  </div>
+  <div id="box-f" class="root-cover-box">
+    f 使用 transform skew + ::after 生成内容不倾斜的平行四边形
+  </div>
+  <div id="box-g">
+    <div>
+      <img src="./bj.jpg" alt="">
+    </div>
+  </div>
+</body>
+</html>
