@@ -19,15 +19,14 @@
 <h3>method 2: 直连麦克风</h3>
 <section>
   <button onclick="start()">start</button>
-  <button onclick="stop()">stop</button>
 </section>
 
 <footer>
   from <a href="https://developers.google.com/web/fundamentals/media/recording-audio/?hl=zh-cn">developers.google.com -- media</a>
 </footer>
 
+<script src="../js/u.js"></script>
 <script>
-  let cacheMedia = {isStop: false, stopped: false}
   let el_audio = document.querySelector('audio')
   let el_audio_input = document.querySelector('input[type="file"]')
   el_audio_input.addEventListener('change', e => {
@@ -54,26 +53,20 @@
       videoBitsPerSecond: 2500000,
       mimeType: 'video/mp4',
     }
-    let mediaRecorder = new MediaRecorder(stream, options)
+    // let mediaRecorder = new MediaRecorder(stream, options)
+    let mediaRecorder = new MediaRecorder(stream)
+    mediaRecorder.start()
     mediaRecorder.addEventListener('dataavailable', e => {
-      console.log(e.data)
+      console.log(111, e.data)
       if (e.data.size > 0) chunks.push(e.data)
-
-      if (cacheMedia.isStop && !cacheMedia.stopped) {
-        mediaRecorder.stop()
-        cacheMedia.stopped = true
-      }
     })
     mediaRecorder.addEventListener('stop', () => {
+      console.log('stopped')
       el_audio.src = URL.createObjectURL(new Blob(chunks))
     })
-    mediaRecorder.start()
-
-    // if(window.URL){
-    //     el_audio.src = URL.createObjectURL(stream)
-    // }else{
-    //     el_audio.src = stream
-    // }
+    setTimeout(() => {
+      mediaRecorder.stop()
+    }, 8000)
   }
 
   function handleError(error) {
@@ -104,11 +97,6 @@
       navigator.mediaDevices.getUserMedia({audio: true, video: false}).then(handleStream).catch(handleError)
     })
   }
-
-  function stop() {
-    cacheMedia.isStop = true
-  }
-
 </script>
 </body>
 </html>

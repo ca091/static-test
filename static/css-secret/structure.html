@@ -8,15 +8,18 @@
   <title>structure</title>
   <link rel="stylesheet" href="./common.css">
   <style>
+    :root {
+      --gap: 8vw;
+    }
     body {
-      margin: 10vw;
+      margin: var(--gap);
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      column-gap: 10vw;
-      row-gap: 10vw;
+      column-gap: var(--gap);
+      row-gap: var(--gap);
     }
     body > div {
-      height: calc((100vw - 40vw) / 3);
+      height: calc((100vw - var(--gap) * 4) / 3);
       background: lightcoral;
     }
     #box-a {

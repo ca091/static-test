@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>pie-chart</title>
+  <style>
+    :root {
+      --gap: 6vw;
+    }
+    body {
+      margin: var(--gap);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: var(--gap);
+      row-gap: var(--gap);
+    }
+    body > div {
+      height: calc((100vw - var(--gap) * 4) / 3);
+      background: lightcoral;
+    }
+    #box-a {
+      border-radius: 50%;
+      background-image: linear-gradient(to right, transparent 50%, #65a 0);
+    }
+    #box-a::after {
+      content: '';
+      display: block;
+      margin-left: 50%;
+      height: 100%;
+      border-radius: 0 100% 100% 0 / 50%;
+      background-color: inherit;
+      transform-origin: left;
+    }
+  </style>
+</head>
+<body>
+  <div id="box-a"></div>
+</body>
+</html>
