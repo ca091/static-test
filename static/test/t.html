@@ -14,24 +14,37 @@
     input[type="text"] {
       -webkit-appearance: none;
     }
-    img {
-      width: 90%;
-      height: auto;
-    }
   </style>
 </head>
 <body>
-<p class="msg" id="msg">一个段落</p>
+<div id="user-agent">111</div>
+<div id="user-agent-info"></div>
+<div id="standalone"></div>
+<div id="support"></div>
 
 <script>
-  new Promise((resolve) => {
-    console.log(3);
-    resolve();
-  }).then(() => {
-    console.log(4);
-  }).then(() => {
-    console.log(5);
-  });
+  var $userAgent = document.getElementById('user-agent')
+  var $support = document.getElementById('support')
+  // let $userAgentInfo = document.getElementById('user-agent-info');
+  // let $standalone = document.getElementById('standalone');
+
+  // const navigator = window.navigator;
+  // const userAgent = navigator.userAgent;
+  // const normalizedUserAgent = userAgent.toLowerCase();
+  // const standalone = navigator.standalone;
+  //
+  // const isIos = /ip(ad|hone|od)/.test(normalizedUserAgent) || navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+  // const isAndroid = /android/.test(normalizedUserAgent);
+  // const isSafari = /safari/.test(normalizedUserAgent);
+  // const isWebview = (isAndroid && /; wv\)/.test(normalizedUserAgent)) || (isIos && !standalone && !isSafari);
+
+  // const osText = isIos ? 'iOS' : isAndroid ? 'Android' : 'Other';
+  // const webviewText = isWebview ? 'Yes' : 'No';
+
+  $userAgent.textContent = navigator.userAgent
+  $support.textContent = typeof Array.prototype.flatMap
+  // $userAgentInfo.innerHTML = `OS: ${osText}, Webview: ${webviewText}`;
+  // $standalone.textContent = `navigator.standalone: ${standalone}; isSafari: ${isSafari}`
 </script>
 </body>
 </html>

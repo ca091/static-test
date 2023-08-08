@@ -7,35 +7,35 @@
 <!--0 0 0 1 0 // A = 0*R + 0*G + 0*B + 1*A + 0-->
 
 <svg>
-    <defs>
-        <!-- lacking the B & G channels (only R at 1) -->
-        <filter id="red">
-            <feColorMatrix
-                    type="matrix"
-                    values="1   0   0   0   0
+  <defs>
+    <!-- lacking the B & G channels (only R at 1) -->
+    <filter id="red">
+      <feColorMatrix
+        type="matrix"
+        values="1   0   0   0   0
                             0   0   0   0   0
                             0   0   0   0   0
                             0   0   0   1   0 "/>
-        </filter>
+    </filter>
 
-        <!-- lacking the R & G channels (only B at 1) -->
-        <filter id="blue">
-            <feColorMatrix
-                    type="matrix"
-                    values="0   0   0   0   0
+    <!-- lacking the R & G channels (only B at 1) -->
+    <filter id="blue">
+      <feColorMatrix
+        type="matrix"
+        values="0   0   0   0   0
                             0   0   0   0   0
                             0   0   1   0   0
                             0   0   0   1   0 "/>
-        </filter>
+    </filter>
 
-        <!-- lacking the R & B channels (only G at 1) -->
-        <filter id="green">
-            <feColorMatrix
-                    type="matrix"
-                    values="0   0   0   0   0
+    <!-- lacking the R & B channels (only G at 1) -->
+    <filter id="green">
+      <feColorMatrix
+        type="matrix"
+        values="0   0   0   0   0
                             0   1   0   0   0
                             0   0   0   0   0
                             0   0   0   1   0 "/>
-        </filter>
-    </defs>
+    </filter>
+  </defs>
 </svg>

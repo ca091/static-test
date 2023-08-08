@@ -35,7 +35,7 @@
     }
     nav > a::after {
       z-index: -1;
-      background: linear-gradient(hsla(0,0%,100%,.6), hsla(0,0%,100%,0)) #ccc;
+      background: linear-gradient(hsla(0, 0%, 100%, .6), hsla(0, 0%, 100%, 0)) #ccc;
       border: 1px solid #333;
       border-bottom: none;
       border-radius: .5em .5em 0 0;
@@ -55,38 +55,40 @@
   </style>
 </head>
 <body>
-  <div id="box-a" class="root-cover-box">
-    使用 transform 实现梯形
-  </div>
-  <h1>梯形的运用</h1>
-  <nav>
-    <a href="javascript:void(0);" class="root-cover-box">Home</a>
-    <a href="javascript:void(0);" class="root-cover-box active">Projects</a>
-    <a href="javascript:void(0);" class="root-cover-box">About</a>
-  </nav>
-  <div class="content">
-    <div>content Home</div>
-    <div class="active">content Projects</div>
-    <div>content About</div>
-  </div>
+<div id="box-a" class="root-cover-box">
+  使用 transform 实现梯形
+</div>
+<h1>梯形的运用</h1>
+<nav>
+  <a href="javascript:void(0);" class="root-cover-box">Home</a>
+  <a href="javascript:void(0);" class="root-cover-box active">Projects</a>
+  <a href="javascript:void(0);" class="root-cover-box">About</a>
+</nav>
+<div class="content">
+  <div>content Home</div>
+  <div class="active">content Projects</div>
+  <div>content About</div>
+</div>
 
-  <script>
-    function getActiveLink() {
-      return document.querySelector('nav > a.active')
-    }
-    function getActiveContent() {
-      return document.querySelector('.content > div.active')
-    }
-    let contents = document.querySelectorAll('.content > div')
-    let links = document.querySelectorAll('nav > a')
-    ;[...links].forEach((link, index) => {
-      link.addEventListener('click', () => {
-        getActiveLink().classList.remove('active')
-        getActiveContent().classList.remove('active')
-        link.classList.add('active')
-        contents[index].classList.add('active')
-      })
+<script>
+  function getActiveLink() {
+    return document.querySelector('nav > a.active')
+  }
+
+  function getActiveContent() {
+    return document.querySelector('.content > div.active')
+  }
+
+  let contents = document.querySelectorAll('.content > div')
+  let links = document.querySelectorAll('nav > a')
+  ;[...links].forEach((link, index) => {
+    link.addEventListener('click', () => {
+      getActiveLink().classList.remove('active')
+      getActiveContent().classList.remove('active')
+      link.classList.add('active')
+      contents[index].classList.add('active')
     })
-  </script>
+  })
+</script>
 </body>
 </html>

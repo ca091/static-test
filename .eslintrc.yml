@@ -15,13 +15,13 @@ rules:
   no-alert: 2
   no-console: 1
   no-unused-vars: 1
-  indent: [2, 2]
+  indent: [ 2, 2 ]
   quotes:
     - 1
     - single
 # 定义特定文件的规则
 overrides:
-  - files: ['*-test.js', '*.spec.js']
+  - files: [ '*-test.js', '*.spec.js' ]
     rules:
       no-unused-vars: 2
 noInlineConfig: true

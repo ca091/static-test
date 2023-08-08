@@ -75,20 +75,18 @@
       background: linear-gradient(-45deg, transparent 15px, #58a 0);
     }
     #box-j {
-      background:
-        linear-gradient(135deg, transparent 15px, #58a 0) top left,
-        linear-gradient(-135deg, transparent 15px, #58a 0) top right,
-        linear-gradient(-45deg, transparent 15px, #58a 0) right bottom,
-        linear-gradient(45deg, transparent 15px, #58a 0) left bottom;
+      background: linear-gradient(135deg, transparent 15px, #58a 0) top left,
+      linear-gradient(-135deg, transparent 15px, #58a 0) top right,
+      linear-gradient(-45deg, transparent 15px, #58a 0) right bottom,
+      linear-gradient(45deg, transparent 15px, #58a 0) left bottom;
       background-size: 50% 50%;
       background-repeat: no-repeat;
     }
     #box-k {
-      background:
-        radial-gradient(circle at top left, transparent 15px, #58a 0) top left,
-        radial-gradient(circle at top right, transparent 15px, #58a 0) top right,
-        radial-gradient(circle at bottom right, transparent 15px, #58a 0) right bottom,
-        radial-gradient(circle at bottom left, transparent 15px, #58a 0) left bottom;
+      background: radial-gradient(circle at top left, transparent 15px, #58a 0) top left,
+      radial-gradient(circle at top right, transparent 15px, #58a 0) top right,
+      radial-gradient(circle at bottom right, transparent 15px, #58a 0) right bottom,
+      radial-gradient(circle at bottom left, transparent 15px, #58a 0) left bottom;
       background-size: 50% 50%;
       background-repeat: no-repeat;
     }
@@ -99,7 +97,7 @@
           <polygon points="0,1 1,0 2,0 3,1 3,2 2,3 1,3 0,2" />\
         </svg>');
       /*background: #58a;*/
-      background: radial-gradient(hsla(0,0%,100%,.2), transparent 75%) #58a;
+      background: radial-gradient(hsla(0, 0%, 100%, .2), transparent 75%) #58a;
       /*background: url("./bj.jpg");*/
       background-clip: padding-box;
       transition: all 300ms;
@@ -116,46 +114,46 @@
   </style>
 </head>
 <body>
-  <div id="box-a">
-    a 使用 border-radius 生成自适应椭圆
-  </div>
-  <div id="box-b">
-    b 使用 border-radius 生成半椭圆
-  </div>
-  <div id="box-c">
-    c 使用 border-radius 生成半椭圆
-  </div>
-  <div id="box-d">
-    d 使用 border-radius 生成单个圆角
-  </div>
-  <div id="box-e">
-    e 使用 transform skew 生成平行四边形
-  </div>
-  <div id="box-f" class="root-cover-box">
-    f 使用 transform skew + ::after 生成内容不倾斜的平行四边形
-  </div>
-  <div id="box-g">
-    <img src="./bj.jpg" alt="">
-  </div>
-  <div id="box-h">
-    h 使用 clip-path 裁剪图片
-    <img src="./bj.jpg" alt="">
-  </div>
-  <div id="box-i">
-    i 使用 渐变背景 生成单个切角
-  </div>
-  <div id="box-j">
-    j 使用 渐变背景 生成4个切角
-  </div>
-  <div id="box-k">
-    k 使用 径向渐变背景 生成内凹圆角
-  </div>
-  <div id="box-l">
-    l 使用 svg + border-image 生成切角;
-    弊端：不能用图片当背景
-  </div>
-  <div id="box-m">
-    m 切角未来
-  </div>
+<div id="box-a">
+  a 使用 border-radius 生成自适应椭圆
+</div>
+<div id="box-b">
+  b 使用 border-radius 生成半椭圆
+</div>
+<div id="box-c">
+  c 使用 border-radius 生成半椭圆
+</div>
+<div id="box-d">
+  d 使用 border-radius 生成单个圆角
+</div>
+<div id="box-e">
+  e 使用 transform skew 生成平行四边形
+</div>
+<div id="box-f" class="root-cover-box">
+  f 使用 transform skew + ::after 生成内容不倾斜的平行四边形
+</div>
+<div id="box-g">
+  <img src="./bj.jpg" alt="">
+</div>
+<div id="box-h">
+  h 使用 clip-path 裁剪图片
+  <img src="./bj.jpg" alt="">
+</div>
+<div id="box-i">
+  i 使用 渐变背景 生成单个切角
+</div>
+<div id="box-j">
+  j 使用 渐变背景 生成4个切角
+</div>
+<div id="box-k">
+  k 使用 径向渐变背景 生成内凹圆角
+</div>
+<div id="box-l">
+  l 使用 svg + border-image 生成切角;
+  弊端：不能用图片当背景
+</div>
+<div id="box-m">
+  m 切角未来
+</div>
 </body>
 </html>
