@@ -14,7 +14,7 @@
     body {
       margin: var(--gap);
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       column-gap: var(--gap);
       row-gap: var(--gap);
     }
@@ -23,27 +23,27 @@
       background: lightcoral;
     }
     #box-a {
-      height: 100px;
+      height: 130px;
       border-radius: 50%;
     }
     #box-b {
-      height: 100px;
+      height: 130px;
       border-radius: 50% / 100% 100% 0 0;
     }
     #box-c {
-      height: 100px;
+      height: 130px;
       border-radius: 100% 0 0 100% / 50%;
     }
     #box-d {
-      height: 100px;
+      height: 130px;
       border-radius: 100% 0 0 0;
     }
     #box-e {
-      height: 100px;
+      height: 130px;
       transform: skewX(-45deg);
     }
     #box-f {
-      height: 100px;
+      height: 130px;
       background: transparent;
     }
     #box-f::after {
