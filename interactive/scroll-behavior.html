@@ -35,7 +35,7 @@
 <script>
   let divs = [...document.querySelectorAll('main>div')]
   let getColor = () => ~~(Math.random() * 256)
-  divs.map(div => div.style.backgroundColor = `rgba(${getColor()},${getColor()},${getColor()},.2)`)
+  divs.forEach(div => div.style.backgroundColor = `rgba(${getColor()},${getColor()},${getColor()},.2)`)
 
   function toTopUseScrollTo() {
     scrollTo({top: 0, behavior: 'smooth'})
