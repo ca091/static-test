@@ -26,7 +26,7 @@ class TabsLineMove {
   }
 
   addEvent() {
-    [...this.items].map((item, index) => {
+    [...this.items].forEach((item, index) => {
       item.dataset.id = index + ''
       item.addEventListener('click', e => {
         this.moveTo(e.currentTarget.dataset.id)
