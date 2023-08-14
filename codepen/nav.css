@@ -1,5 +1,5 @@
-@import url("../shared/reset.css");
-@import url("../shared/common.css");
+@import url("../asset/style/reset.css");
+@import url("../asset/style/common.css");
 html {
   color: #333;
 }

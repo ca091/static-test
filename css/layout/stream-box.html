@@ -73,60 +73,10 @@
     <div class="vh-stream">嘉宾1</div>
     <div class="vh-stream vh-interaction__host">主持人</div>
     <div class="vh-stream">嘉宾3</div>
-    <!--    <div class="vh-stream">嘉宾4</div>-->
-    <!--    <div class="vh-stream">嘉宾5</div>-->
-    <!--    <div class="vh-stream">嘉宾6</div>-->
+    <div class="vh-stream">嘉宾4</div>
+    <div class="vh-stream">嘉宾5</div>
+    <div class="vh-stream">嘉宾6</div>
   </section>
 </div>
-
-<script>
-  function fullScreen(el) {
-    let element = el
-    if (element.requestFullscreen) {
-      element.requestFullscreen()
-    } else if (element.mozRequestFullScreen) {
-      element.mozRequestFullScreen()
-    } else if (element.msRequestFullscreen) {
-      element.msRequestFullscreen()
-    } else if (element.webkitRequestFullscreen) {
-      element.webkitRequestFullscreen()
-    }
-    //element.addEventListener('click', exitFullscreen, false)
-  }
-
-  let events = ['webkitfullscreenchange', 'mozfullscreenchange', 'fullscreenchange', 'MSFullscreenChange']
-  for (let et of events) {
-    window.addEventListener(et, ev => {
-      console.log(ev) // 可得到目标元素
-      handleFullscreenChange()
-    })
-  }
-  // document.onfullscreenchange = handleFullscreenChange // 不兼容safari
-  let cacheFullEle = null
-
-  function handleFullscreenChange() {
-    let fullEle = document.fullscreenElement || document.webkitFullscreenElement
-    console.log(111, fullEle)
-    if (fullEle) { // 开启全屏
-      fullEle.style.width = '100vw'
-      fullEle.style.height = '100vh'
-      cacheFullEle = fullEle
-    } else { // 退出全屏
-      if (cacheFullEle) {
-        cacheFullEle.style.width = 'unset'
-        cacheFullEle.style.height = 'unset'
-      }
-    }
-    // console.log(document.fullscreenElement)
-    // console.log(document.webkitFullscreenElement)
-  }
-
-  let els = document.querySelectorAll('.vh-stream')
-  for (let el of [...els]) {
-    el.addEventListener('click', e => {
-      fullScreen(e.currentTarget)
-    })
-  }
-</script>
 </body>
 </html>

@@ -58,3 +58,15 @@
 .ovh {
   overflow: hidden;
 }
+.expand-click-area {
+  position: relative;
+  cursor: pointer;
+}
+.expand-click-area::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -8px;
+}

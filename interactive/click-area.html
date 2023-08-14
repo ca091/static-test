@@ -7,25 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>使用 ::after 伪类扩大可点击区域</title>
   <style>
-    button {
-      position: relative;
-      cursor: pointer;
-    }
-    button::after {
-      content: '';
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      bottom: -8px;
-      left: -8px;
+    @import "../asset/style/common.css";
+    .click-me {
+      display: inline-block;
+      padding: 2px 4px;
+      border: 1px solid;
     }
   </style>
 </head>
 <body>
-<button>click</button>
+<div class="click-me expand-click-area">click me</div>
 
 <script>
-  document.querySelector('button').addEventListener('click', console.log)
+  document.querySelector('.click-me').addEventListener('click', console.log)
 </script>
 </body>
 </html>
