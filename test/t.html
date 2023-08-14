@@ -11,21 +11,5 @@
 <button id="start">start</button>
 <button id="stop1">stop</button>
 
-<script src="../shared/u.js"></script>
-<script>
-  function cb() {
-    console.log('run')
-  }
-
-  let loopRunner = getRunner()
-
-  start.addEventListener('click', () => {
-    loopRunner.run(cb, 1000)
-  })
-
-  stop1.addEventListener('click', () => {
-    loopRunner.destroy()
-  })
-</script>
 </body>
 </html>

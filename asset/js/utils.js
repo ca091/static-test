@@ -42,6 +42,7 @@ function print(options, el = document.body) {
 function getRunner() {
   let lastTime = 0
   let id = null
+
   function runner(callback, t) {
     let currTime = new Date().getTime()
     let timeWait = Math.max(0, t - (currTime - lastTime))
@@ -51,6 +52,7 @@ function getRunner() {
     }, timeWait)
     lastTime = currTime + timeWait
   }
+
   return {
     run(callback, t) {
       if (!id) runner(callback, t)
@@ -58,7 +60,7 @@ function getRunner() {
     destroy() {
       window.clearTimeout(id)
       id = null
-    }
+    },
   }
 }
 
