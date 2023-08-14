@@ -10,7 +10,7 @@ Clip.prototype = {
    * 裁切成三角形的DIV
    * @returns {boolean}
    */
-  clipPath: function () {
+  clipPath() {
     var t = this.ele
     t.removeAttribute('id')
     var r = {height: t.clientHeight, width: t.clientWidth, distance: 60, html: t.outerHTML}
@@ -36,20 +36,6 @@ Clip.prototype = {
               }).join(' ')
             }).join()
             var e = '-webkit-clip-path: polygon(' + n + '); transition: all 1s;'
-
-            //var i = Math.random();
-            //var h = i < .5 ? -1 : 1;
-            ///**
-            // * -300 ~ 300
-            // * -360deg ~ 360deg
-            // * @type {*[]}
-            // */
-            //var u = [600 * (.5 - Math.random()), 600 * (.5 - Math.random())];
-            //var l = "translate(" + u.map(function (t) {
-            //		return t + "px"
-            //	}).join() + ") rotate(" + Math.round(h * 360 * Math.random()) + "deg)";
-            //
-            //var trans = "-webkit-transform:" + l + ";transform:" + l + ";";
             o = o + r.html.replace('">', '" style="' + e + '">')
           })
         }

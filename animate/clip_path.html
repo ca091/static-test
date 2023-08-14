@@ -16,7 +16,7 @@
       width: 200px;
       height: 200px;
       background-color: lightcyan;
-      transition: all .5s;
+      transition: all 1.5s;
     }
 
     .path {
@@ -40,14 +40,6 @@
 
     .active .clip[style] {
       will-change: transform;
-      /*animation: noTransform 1s both;*/
-    }
-
-    @keyframes noTransform {
-      to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) rotate(0deg);
-      }
     }
 
     @keyframes fadeIn {
@@ -61,20 +53,19 @@
   </style>
 </head>
 <body>
+<button class="btn btn1" id="btn1">clip animation</button>
 
 <div class="box path" id="box1"></div>
-<button class="btn btn1" id="btn1">clip animation</button>
 
 <div id="box2">
   <img src="../asset/image/car.png" class="abs clip" id="car" alt="">
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 <script src="../asset/js/classie.js"></script>
 <script src="../asset/js/Clip.js"></script>
+<script src="../asset/js/utils.js"></script>
 <script>
   let btn1 = document.getElementById('btn1')
-
   let box1 = document.getElementById('box1')
   let box2 = document.getElementById('box2')
   let car = document.getElementById('car')
@@ -90,34 +81,26 @@
       classie.add(box2, 'explode')
     }
 
-    let clips = $('.explode .clip[style]')
-    clips.each(function (ind, ele) {
+    let clips = [...$$('.explode .clip[style]')]
+
+    clips.forEach(function (ele) {
       let i = Math.random()
       let h = i < .5 ? -1 : 1
       let u = [600 * (.5 - Math.random()), 600 * (.5 - Math.random())]
-      let l = 'rotate(' + Math.round(h * 360 * Math.random()) + 'deg) translate(' + u.map(function (t) {
-        return t + 'px'
-      }).join() + ')'
-
-      $(ele).css({
-        transform: l,
-      })
+      ele.style.transform = 'rotate(' + Math.round(h * 360 * Math.random()) + 'deg) translate(' + u.map(t => t + 'px').join() + ')'
     })
 
     setTimeout(function () {
+      classie.remove(box1, 'path1')
       classie.remove(box2, 'explode')
       if (!classie.has(box2, 'active')) {
         classie.add(box2, 'active')
       }
-      clips.each(function (ind, ele) {
-        let l = 'translate3d(0, 0, 0) rotate(0deg)'
-        $(ele).css({
-          transform: l,
-        })
+      clips.forEach(function (ele) {
+        ele.style.transform = 'translate3d(0, 0, 0) rotate(0deg)'
       })
     }, 2000)
   })
-
 </script>
 </body>
 </html>
