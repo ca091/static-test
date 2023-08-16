@@ -59,6 +59,25 @@
       filter: drop-shadow(5px 5px 10px black);
     }
 
+    .icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      overflow: hidden;
+    }
+
+    .icon-del {
+      background: url(../../asset/image/skull.png) center / contain no-repeat;
+    }
+
+    .icon > .icon {
+      position: relative;
+      left: -20px;
+      border-right: 20px solid transparent;
+      -webkit-filter: drop-shadow(20px 0 0 red);
+      filter: drop-shadow(20px 0 0 red);
+    }
+
     .box2 {
       width: 400px;
       height: 300px;
@@ -207,18 +226,34 @@
 
   <section>
     <h4>box shadow</h4>
+
+    <div class="multi-border">box</div>
+
+    <div class="box box-shadow">
+      <i class="cor"></i>
+      box-shadow: 5px 5px 10px black;
+    </div>
+
+    <div class="box drop-shadow">
+      <i class="cor"></i>
+      filter: drop-shadow(5px 5px 10px black)
+    </div>
+  </section>
+
+  <section>
+    <h4>change icon color，不兼容safari</h4>
+
     <div>
-      <div class="multi-border">box</div>
+      <p><strong>原始图标</strong></p>
+      <i class="icon icon-del"></i>
+      <img src="../../asset/image/skull.png" alt="">
+    </div>
 
-      <div class="box box-shadow">
-        <i class="cor"></i>
-        box-shadow: 5px 5px 10px black;
-      </div>
-
-      <div class="box drop-shadow">
-        <i class="cor"></i>
-        filter: drop-shadow(5px 5px 10px black)
-      </div>
+    <div>
+      <p><strong>可变色图标</strong></p>
+      <i class="icon">
+        <i class="icon icon-del"></i>
+      </i>
     </div>
   </section>
 </main>
