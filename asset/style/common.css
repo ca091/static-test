@@ -1,6 +1,6 @@
 .mask {
   position: fixed;
-  z-index: 10;
+  z-index: 9;
   left: 0;
   top: 0;
   right: 0;
@@ -52,11 +52,17 @@
 .fr {
   float: right;
 }
+.rel {
+  position: relative;
+}
 .abs {
   position: absolute;
 }
 .ovh {
   overflow: hidden;
+}
+.bold {
+  font-weight: bold;
 }
 .expand-click-area {
   position: relative;

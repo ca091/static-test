@@ -7,29 +7,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>scroll-snap</title>
   <style>
+    body, ul {
+      margin: 0;
+    }
     ul {
       list-style-type: none;
       padding-left: 0;
     }
-  </style>
-  <style>
-    ul {
+    .direct-x {
       display: flex;
-      width: 300px;
-      height: 300px;
+      width: 100dvw;
+      height: 100dvh;
       overflow: auto;
       scroll-snap-type: x mandatory;
-      border: 1px solid;
+      display: none;
     }
-    li {
-      flex: 1 0 300px;
-      scroll-snap-align: center;
+    .direct-x li {
+      flex: 0 0 100dvw;
       height: 100%;
+      scroll-snap-align: center;
+    }
+    .direct-y {
+      display: flex;
+      flex-direction: column;
+      width: 100dvw;
+      height: 100dvh;
+      overflow: auto;
+      scroll-snap-type: y mandatory;
+    }
+    .direct-y li {
+      width: 100dvw;
+      flex: 0 0 100dvh;
+      scroll-snap-align: center;
     }
   </style>
 </head>
 <body>
-<ul>
+<ul class="direct-x">
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+</ul>
+
+<ul class="direct-y">
   <li>1</li>
   <li>2</li>
   <li>3</li>
