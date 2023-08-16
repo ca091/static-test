@@ -1,11 +1,19 @@
-function throttle(handler, duration) {
-  let begin = new Date()
-  let current = null
+function throttle(handler, duration){
+  let begin = 0
+  let current
+  let lastExecuteTimer
   return (...args) => {
-    current = new Date()
-    if (current - begin > duration) {
-      handler.call(this, ...args)
+    current = Date.now()
+    if(current - begin > duration){
+      window.clearTimeout(lastExecuteTimer)
+      handler(...args)
       begin = current
+    } else {
+      window.clearTimeout(lastExecuteTimer)
+      lastExecuteTimer = window.setTimeout(() => {
+        handler(...args)
+        begin = Date.now()
+      }, duration)
     }
   }
 }

@@ -9,10 +9,12 @@
   <style>
     /*网页整体过滤*/
     main {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
       /*filter: grayscale(30%);*/
+    }
+    .slider {
+      display: inline-block;
+      width: 400px;
+      margin-bottom: 16px;
     }
 
     .f-grayscale {
@@ -55,16 +57,10 @@
       filter: drop-shadow(3px 3px 3px cadetblue);
     }
 
-    section {
-      flex: none;
-      margin-right: 10px;
-      margin-bottom: 10px;
-    }
-
     .box2 {
       width: 400px;
       height: 300px;
-      background: url("../asset/image/pencil.jpg") no-repeat;
+      background: url("../../asset/image/pencil.jpg") no-repeat;
       background-size: cover;
     }
 
@@ -124,19 +120,21 @@
   <section>
     <h4>原始图像</h4>
     <div>
-      <img src="../asset/image/pencil.jpg" alt="">
+      <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
 
   <section>
     <h4>灰度 filter: grayscale(50%);</h4>
+    <input type="range" min="0" max="100" value="50" class="slider" oninput="handleRangeChange(event, '.f-grayscale')">
     <div class="f-grayscale">
-      <img src="../asset/image/pencil.jpg" alt="">
+      <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
 
   <section>
     <h4>深褐色 filter: sepia(80%);</h4>
+    <input type="range" min="0" max="100" value="50" class="slider" oninput="handleRangeChange(event, '.f-sepia')">
     <div class="box2 f-sepia">
       use bg
     </div>
@@ -144,57 +142,64 @@
 
   <section>
     <h4>饱和度 filter: saturate(200%);</h4>
+    <input type="range" min="0" max="500" value="200" class="slider" oninput="handleRangeChange(event, '.f-saturate')">
     <div class="f-saturate">
-      <img src="../asset/image/pencil.jpg" alt="">
+      <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
 
   <section>
     <h4>色调旋转(所有颜色都会在色盘上移动相同的“角度”) filter: hue-rotate(120deg);</h4>
+    <input type="range" min="0" max="360" value="120" class="slider" oninput="handleRangeChange(event, '.f-hue-rotate', 'deg')">
     <div class="f-hue-rotate hue-rotate">
-      <img src="../asset/image/pencil.jpg" alt="">
+      <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
 
   <section>
     <h4>颜色反转 filter: invert(100%);</h4>
+    <input type="range" min="0" max="100" value="100" class="slider" oninput="handleRangeChange(event, '.f-invert')">
     <div class="f-invert">
-      <img src="../asset/image/pencil.jpg" alt="">
+      <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
 
   <section>
     <h4>透明度 filter: opacity(50%);</h4>
+    <input type="range" min="0" max="100" value="50" class="slider" oninput="handleRangeChange(event, '.f-opacity')">
     <div class="f-opacity">
-      <img src="../asset/image/pencil.jpg" alt="">
+      <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
 
   <section>
     <h4>亮度 filter: brightness(130%);</h4>
+    <input type="range" min="0" max="500" value="130" class="slider" oninput="handleRangeChange(event, '.f-brightness')">
     <div class="f-brightness">
-      <img src="../asset/image/pencil.jpg" alt="">
+      <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
 
   <section>
     <h4>对比度(adjust the difference between the darkest and lightest) filter: contrast(200%);</h4>
+    <input type="range" min="0" max="500" value="200" class="slider" oninput="handleRangeChange(event, '.f-contrast')">
     <div class="f-contrast">
-      <img src="../asset/image/pencil.jpg" alt="">
+      <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
 
   <section>
     <h4>模糊(半径越大，渲染越耗时) filter: blur(5px);</h4>
+    <input type="range" min="0" max="10" value="5" class="slider" oninput="handleRangeChange(event, '.f-blur', 'px')">
     <div class="f-blur">
-      <img src="../asset/image/pencil.jpg" alt="">
+      <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
 
   <section>
     <h4>阴影(模糊半径越大，渲染越耗时) filter: drop-shadow(3px 3px 3px cadetblue);</h4>
     <div class="f-drop-shadow">
-      <img src="../asset/image/pencil.jpg" alt="">
+      <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
 </main>
@@ -208,6 +213,7 @@
   </div>
 </section>
 
+<script src="../../asset/js/utils.js"></script>
 <script>
   let el_btns = document.querySelector('.btns')
 
@@ -224,6 +230,12 @@
   for (let [index, item] of btn_count.entries()) {
     createBtn(index * 20)
   }
+
+  let handleRangeChange = throttle(function ($event, selector, unit = '%') {
+    console.log($event.target.value, selector)
+    $(selector).style.filter = `${[selector.slice(3)]}(${$event.target.value}${unit})`
+  }, 800)
+
 </script>
 </body>
 </html>
