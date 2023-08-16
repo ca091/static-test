@@ -7,6 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>css3滤镜,可继承;作用于img、background、border等</title>
   <style>
+    :root {
+      --bgTip: #ccc;
+    }
     /*网页整体过滤*/
     main {
       /*filter: grayscale(30%);*/
@@ -17,44 +20,43 @@
       margin-bottom: 16px;
     }
 
-    .f-grayscale {
-      filter: grayscale(50%);
-    }
-
-    .f-sepia {
-      filter: sepia(80%);
-    }
-
-    .f-saturate {
-      filter: saturate(200%);
-    }
-
-    .f-hue-rotate {
-      filter: hue-rotate(0deg);
-    }
-
-    .f-invert {
-      filter: invert(100%);
-    }
-
-    .f-opacity {
-      filter: opacity(50%);
-    }
-
-    .f-brightness {
-      filter: brightness(130%);
-    }
-
-    .f-contrast {
-      filter: contrast(200%);
-    }
-
-    .f-blur {
-      filter: blur(5px);
-    }
-
     .f-drop-shadow {
       filter: drop-shadow(3px 3px 3px cadetblue);
+    }
+
+    .multi-border {
+      width: 200px;
+      height: 200px;
+      padding: 30px;
+      background-color: lightcyan;
+      text-align: center;
+      border: 5px solid blue;
+      box-shadow: 0 0 0 5px orange inset,
+        0 0 0 10px lightblue inset,
+        0 0 0 15px red inset;
+    }
+
+    .box {
+      margin: 40px;
+      padding: 50px;
+      background-color: var(--bgTip);
+      position: relative;
+    }
+
+    .cor {
+      position: absolute;
+      left: -40px;
+      overflow: hidden;
+      border: 20px solid transparent;
+      border-right-color: var(--bgTip);
+    }
+
+    .box-shadow {
+      box-shadow: 5px 5px 10px black;
+    }
+
+    .drop-shadow {
+      filter: drop-shadow(5px 5px 10px black);
     }
 
     .box2 {
@@ -127,15 +129,15 @@
   <section>
     <h4>灰度 filter: grayscale(50%);</h4>
     <input type="range" min="0" max="100" value="50" class="slider" oninput="handleRangeChange(event, '.f-grayscale')">
-    <div class="f-grayscale">
+    <div class="f-grayscale" style="filter: grayscale(50%);">
       <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
 
   <section>
     <h4>深褐色 filter: sepia(80%);</h4>
-    <input type="range" min="0" max="100" value="50" class="slider" oninput="handleRangeChange(event, '.f-sepia')">
-    <div class="box2 f-sepia">
+    <input type="range" min="0" max="100" value="80" class="slider" oninput="handleRangeChange(event, '.f-sepia')">
+    <div class="box2 f-sepia" style="filter: sepia(80%);">
       use bg
     </div>
   </section>
@@ -143,7 +145,7 @@
   <section>
     <h4>饱和度 filter: saturate(200%);</h4>
     <input type="range" min="0" max="500" value="200" class="slider" oninput="handleRangeChange(event, '.f-saturate')">
-    <div class="f-saturate">
+    <div class="f-saturate" style="filter: saturate(200%);">
       <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
@@ -151,7 +153,7 @@
   <section>
     <h4>色调旋转(所有颜色都会在色盘上移动相同的“角度”) filter: hue-rotate(120deg);</h4>
     <input type="range" min="0" max="360" value="120" class="slider" oninput="handleRangeChange(event, '.f-hue-rotate', 'deg')">
-    <div class="f-hue-rotate hue-rotate">
+    <div class="f-hue-rotate hue-rotate" style="filter: hue-rotate(120deg);">
       <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
@@ -159,7 +161,7 @@
   <section>
     <h4>颜色反转 filter: invert(100%);</h4>
     <input type="range" min="0" max="100" value="100" class="slider" oninput="handleRangeChange(event, '.f-invert')">
-    <div class="f-invert">
+    <div class="f-invert" style="filter: invert(100%);">
       <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
@@ -167,7 +169,7 @@
   <section>
     <h4>透明度 filter: opacity(50%);</h4>
     <input type="range" min="0" max="100" value="50" class="slider" oninput="handleRangeChange(event, '.f-opacity')">
-    <div class="f-opacity">
+    <div class="f-opacity" style="filter: opacity(50%);">
       <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
@@ -175,7 +177,7 @@
   <section>
     <h4>亮度 filter: brightness(130%);</h4>
     <input type="range" min="0" max="500" value="130" class="slider" oninput="handleRangeChange(event, '.f-brightness')">
-    <div class="f-brightness">
+    <div class="f-brightness" style="filter: brightness(130%);">
       <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
@@ -183,7 +185,7 @@
   <section>
     <h4>对比度(adjust the difference between the darkest and lightest) filter: contrast(200%);</h4>
     <input type="range" min="0" max="500" value="200" class="slider" oninput="handleRangeChange(event, '.f-contrast')">
-    <div class="f-contrast">
+    <div class="f-contrast" style="filter: contrast(200%);">
       <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
@@ -191,7 +193,7 @@
   <section>
     <h4>模糊(半径越大，渲染越耗时) filter: blur(5px);</h4>
     <input type="range" min="0" max="10" value="5" class="slider" oninput="handleRangeChange(event, '.f-blur', 'px')">
-    <div class="f-blur">
+    <div class="f-blur" style="filter: blur(5px);">
       <img src="../../asset/image/pencil.jpg" alt="">
     </div>
   </section>
@@ -200,6 +202,23 @@
     <h4>阴影(模糊半径越大，渲染越耗时) filter: drop-shadow(3px 3px 3px cadetblue);</h4>
     <div class="f-drop-shadow">
       <img src="../../asset/image/pencil.jpg" alt="">
+    </div>
+  </section>
+
+  <section>
+    <h4>box shadow</h4>
+    <div>
+      <div class="multi-border">box</div>
+
+      <div class="box box-shadow">
+        <i class="cor"></i>
+        box-shadow: 5px 5px 10px black;
+      </div>
+
+      <div class="box drop-shadow">
+        <i class="cor"></i>
+        filter: drop-shadow(5px 5px 10px black)
+      </div>
     </div>
   </section>
 </main>
@@ -235,7 +254,6 @@
     console.log($event.target.value, selector)
     $(selector).style.filter = `${[selector.slice(3)]}(${$event.target.value}${unit})`
   }, 800)
-
 </script>
 </body>
 </html>
