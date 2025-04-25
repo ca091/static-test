@@ -17,31 +17,34 @@
 
     .image-container {
       position: relative;
-      width: 500px;
-      height: 500px;
+      width: 666px;
+      height: 666px;
       overflow: hidden;
     }
 
-    .bottom-image {
+    #bottom-image,
+    #canvas-bg,
+    #origin-image,
+    #result-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 100%;
+    }
+
+    #bottom-image {
       background: #f0f0f0;
       background-image: linear-gradient(45deg, #fff 25%, transparent 0, transparent 75%, #fff 0), linear-gradient(45deg, #fff 25%, transparent 0, transparent 75%, #fff 0);
       background-position: 0 0, 7.5px 7.5px;
       background-size: 15px 15px;
     }
 
-    .image-container img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    #origin-image {
+      clip-path: inset(0 50% 0 0);
     }
-    .top-image {
-      clip-path: inset(0 0 0 50%); /* 初始显示一半 */
-    }
-    .slider {
+
+    #slider {
       position: absolute;
       top: 0;
       bottom: 0;
@@ -55,15 +58,27 @@
 </head>
 <body>
 <div class="image-container">
-  <div class="bottom-image"></div>
-  <img src="../../asset/image/pg_test.jpeg" alt="顶层图片" class="top-image">
-  <div class="slider" draggable="true"></div>
+  <!-- 透明底图  -->
+  <div id="bottom-image" draggable="false"></div>
+  <!-- 自定义背景层  -->
+  <canvas id="canvas-bg" draggable="false"></canvas>
+  <!-- 原图 -->
+  <img src="../../asset/image/girl_origin.png" id="origin-image" alt="原图" draggable="false">
+  <!-- 顶层图片 -->
+  <img src="../../asset/image/girl_rgba.png" id="result-image" alt="透明背景图片" draggable="false">
+  <div id="slider" draggable="true"></div>
 </div>
 
+<section>
+  <button onclick="render2Canvas('red')">render color</button>
+  <button onclick="render2Canvas('', '../../asset/image/2111540456957_.pic.jpg')">render image</button>
+  <button onclick="render2Canvas('transparent')">clear</button>
+</section>
+
 <script>
-  const slider = document.querySelector('.slider');
-  const topImage = document.querySelector('.top-image');
   const container = document.querySelector('.image-container');
+  const originImage = document.querySelector('#origin-image');
+  const slider = document.querySelector('#slider');
 
   slider.addEventListener('dragstart', (e) => {
     e.dataTransfer.setDragImage(new Image(), 0, 0); // 隐藏拖拽影像
@@ -77,12 +92,56 @@
     const percentage = (offsetX / rect.width) * 100;
 
     slider.style.left = `${percentage}%`;
-    topImage.style.clipPath = `inset(0 0 0 ${percentage}%)`;
+    originImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
   });
 
   slider.addEventListener('dragend', () => {
     // 拖拽结束时可以添加额外逻辑
   });
+
+  function render2Canvas(bgColor, imageSrc) {
+    const canvas = document.getElementById('canvas-bg');
+    const ctx = canvas.getContext('2d');
+    // console.log(canvas.width, canvas.height);
+    // console.log(canvas.clientWidth, canvas.clientHeight);
+    canvas.width = 666;
+    canvas.height = 666;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // 绘制背景
+    if (bgColor) {
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // 绘制图片
+    if (imageSrc) {
+      const img = new Image();
+      img.src = imageSrc;
+      img.onload = () => {
+        const imgRatio = img.width / img.height;
+        const canvasRatio = canvas.width / canvas.height;
+
+        let drawWidth, drawHeight, offsetX, offsetY;
+
+        if (imgRatio > canvasRatio) {
+          // 图片更宽，按高度缩放
+          drawHeight = canvas.height;
+          drawWidth = img.width * (canvas.height / img.height);
+          offsetX = (canvas.width - drawWidth) / 2;
+          offsetY = 0;
+        } else {
+          // 图片更高，按宽度缩放
+          drawWidth = canvas.width;
+          drawHeight = img.height * (canvas.width / img.width);
+          offsetX = 0;
+          offsetY = (canvas.height - drawHeight) / 2;
+        }
+
+        // 绘制图片
+        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+      }
+    }
+  }
 </script>
 </body>
 </html>
