@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG 图片裁切与拖拽</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    #render-box {
+      margin: auto;
+      width: 1000px;
+      height: 1000px;
+      border: 1px solid;
+    }
+    .gird-center {
+      display: grid;
+      place-items: center;
+    }
+    svg {
+      background-color: #f0f0f0;
+    }
+    .draggable {
+      cursor: grab;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="render-box" class="gird-center">
+    <svg id="svgCanvas" viewBox="0 0 1000 1000" width="1000" height="1000">
+      <!-- 定义裁切路径 -->
+      <defs>
+        <clipPath id="clipPath">
+          <path data-v-20a462ac="" data-v-ba4d550e="" d="M 507.777763,932.669815 L 921.831553,517.656808 C 1026.05619,413.19072 1026.05642,243.815576 921.830608,139.348307 C 817.611239,34.8874986 648.621781,34.8806128 544.396488,139.347359 L 500,183.846698 L 455.603512,139.347359 C 351.378219,34.8806128 182.388761,34.8874986 78.1693922,139.348307 C -26.056423,243.815576 -26.0561899,413.19072 78.1684466,517.656808 L 492.222237,932.669815 C 494.643023,935.096209 497.098748,937.466243 499.587787,939.779917 C 502.901252,937.466243 505.356977,935.096209 507.777763,932.669815 Z" fill="transparent" id="PathLayerComp-6a5eeb61-a7d2-4adc-a385-ccad1e94e9dc"></path>
+
+        </clipPath>
+      </defs>
+
+      <!-- 渲染图片 -->
+      <g clip-path="url(#clipPath)">
+        <image id="image" href="../../asset/image/pg_test.jpeg" x="0" y="0" width="1000" height="1500" class="draggable" />
+      </g>
+    </svg>
+  </div>
+
+  <script>
+    const image = document.getElementById('image');
+    let isDragging = false;
+    let startX, startY;
+
+    // 图片拖拽功能
+    image.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX - parseFloat(image.getAttribute('x'));
+      startY = e.clientY - parseFloat(image.getAttribute('y'));
+      image.style.cursor = 'grabbing';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        const x = e.clientX - startX;
+        const y = e.clientY - startY;
+        image.setAttribute('x', x);
+        image.setAttribute('y', y);
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      image.style.cursor = 'grab';
+    });
+  </script>
+
+</body>
+</html>
