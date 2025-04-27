@@ -17,9 +17,10 @@
 
     .image-container {
       position: relative;
-      width: 666px;
-      height: 666px;
+      width: 888px;
+      height: 888px;
       overflow: hidden;
+      border: 1px solid;
     }
 
     #bottom-image,
@@ -27,10 +28,9 @@
     #origin-image,
     #result-image {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
     #bottom-image {
@@ -70,14 +70,43 @@
 </div>
 
 <section>
-  <button onclick="render2Canvas('red')">render color</button>
-  <button onclick="render2Canvas('', '../../asset/image/2111540456957_.pic.jpg')">render image</button>
-  <button onclick="render2Canvas('transparent')">clear</button>
+  <button onclick="renderBg('red')">render color</button>
+  <button onclick="renderBg('', '../../asset/image/2111540456957_.pic.jpg')">render image</button>
+  <button onclick="renderBg('transparent')">clear</button>
+  <button onclick="download()">download</button>
 </section>
 
 <script>
+  window.onload = () => {
+    let w = container.clientWidth
+    let h = container.clientHeight
+
+    // 根据图片尺寸渲染到容器
+    let img = new Image()
+    img.src = '../../asset/image/girl_origin.png'
+    // img.src = '../../asset/image/2111540456957_.pic.jpg'
+    img.onload = () => {
+      let imgW = img.width
+      let imgH = img.height
+      // imgW * scale = w
+      // imgH * scale = h
+      let scaleW = w / imgW
+      let scaleH = h / imgH
+      console.log('scaleW', scaleW)
+      console.log('scaleH', scaleH)
+      let scale = Math.min(scaleW, scaleH)
+      setWH(bottomImage, imgW * scale, imgH * scale)
+      setWH(canvasBg, imgW * scale, imgH * scale)
+      setWH(originImage, imgW * scale, imgH * scale)
+      setWH(resultImage, imgW * scale, imgH * scale)
+    }
+  }
+
   const container = document.querySelector('.image-container');
+  const bottomImage = document.querySelector('#bottom-image');
+  const canvasBg = document.querySelector('#canvas-bg');
   const originImage = document.querySelector('#origin-image');
+  const resultImage = document.querySelector('#result-image');
   const slider = document.querySelector('#slider');
 
   slider.addEventListener('dragstart', (e) => {
@@ -99,48 +128,91 @@
     // 拖拽结束时可以添加额外逻辑
   });
 
-  function render2Canvas(bgColor, imageSrc) {
-    const canvas = document.getElementById('canvas-bg');
-    const ctx = canvas.getContext('2d');
-    // console.log(canvas.width, canvas.height);
-    // console.log(canvas.clientWidth, canvas.clientHeight);
-    canvas.width = 666;
-    canvas.height = 666;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // 绘制背景
+  // 下载前绘制到canvas：bgColor => bgImg => resultImg
+  async function render2Canvas(bgColor, bgImg, resultImg) {
+    let canvas = document.createElement('canvas')
+    let ctx = canvas.getContext('2d')
+    let img = await getImg(resultImg)
+    canvas.width = img.width
+    canvas.height = img.height
+    // 绘制背景色
     if (bgColor) {
       ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
-
-    // 绘制图片
-    if (imageSrc) {
-      const img = new Image();
-      img.src = imageSrc;
-      img.onload = () => {
-        const imgRatio = img.width / img.height;
-        const canvasRatio = canvas.width / canvas.height;
-
-        let drawWidth, drawHeight, offsetX, offsetY;
-
-        if (imgRatio > canvasRatio) {
-          // 图片更宽，按高度缩放
-          drawHeight = canvas.height;
-          drawWidth = img.width * (canvas.height / img.height);
-          offsetX = (canvas.width - drawWidth) / 2;
-          offsetY = 0;
-        } else {
-          // 图片更高，按宽度缩放
-          drawWidth = canvas.width;
-          drawHeight = img.height * (canvas.width / img.width);
-          offsetX = 0;
-          offsetY = (canvas.height - drawHeight) / 2;
-        }
-
-        // 绘制图片
-        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-      }
+    // 绘制背景图片
+    if (bgImg) {
+      await renderImg2Canvas(canvas, bgImg);
     }
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    return canvas
+  }
+
+  function renderBg(bgColor, imageSrc) {
+    const canvas = document.getElementById('canvas-bg');
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.clientWidth
+    canvas.height = canvas.clientHeight
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // 绘制背景色
+    if (bgColor) {
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    // 绘制背景图片
+    if (imageSrc) {
+      renderImg2Canvas(canvas, imageSrc);
+    }
+  }
+
+  function getImg(imgSrc) {
+    return new Promise(resolve => {
+      let img = new Image()
+      img.src = imgSrc
+      img.onload = () => resolve(img)
+    })
+  }
+
+  // 居中绘制图片
+  async function renderImg2Canvas(canvas, imageSrc) {
+    const ctx = canvas.getContext('2d')
+    const img = await getImg(imageSrc)
+    const imgRatio = img.width / img.height;
+    const canvasRatio = canvas.width / canvas.height;
+
+    let drawWidth, drawHeight, offsetX, offsetY;
+
+    if (imgRatio > canvasRatio) {
+      // 图片更宽，按高度缩放
+      drawHeight = canvas.height;
+      drawWidth = img.width * (canvas.height / img.height);
+      offsetX = (canvas.width - drawWidth) / 2;
+      offsetY = 0;
+    } else {
+      // 图片更高，按宽度缩放
+      drawWidth = canvas.width;
+      drawHeight = img.height * (canvas.width / img.width);
+      offsetX = 0;
+      offsetY = (canvas.height - drawHeight) / 2;
+    }
+
+    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+  }
+
+  function setWH(el, w, h) {
+    el.style.width = w + 'px'
+    el.style.height = h + 'px'
+  }
+
+  // 下载图片
+  async function download() {
+    let canvas = await render2Canvas('', '../../asset/image/2111540456957_.pic.jpg', '../../asset/image/girl_rgba.png');
+    // let canvas = await render2Canvas('lightblue', '', '../../asset/image/girl_rgba.png');
+    // let canvas = await render2Canvas('', '', '../../asset/image/girl_rgba.png');
+    const link = document.createElement('a');
+    link.download = 'canvas-image.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
   }
 </script>
 </body>
