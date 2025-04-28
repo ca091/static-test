@@ -42,17 +42,23 @@
 
     #origin-image {
       clip-path: inset(0 50% 0 0);
+      &.ani {
+        transition: all 300ms ease-in-out;
+      }
     }
 
     #slider {
       position: absolute;
       top: 0;
       bottom: 0;
-      left: 50%;
+      transform: translateX(444px);
       width: 10px;
       margin-left: -5px;
       background-color: blue;
       cursor: ew-resize;
+      &.ani {
+        transition: all 300ms ease-in-out;
+      }
     }
   </style>
 </head>
@@ -63,10 +69,10 @@
   <!-- 自定义背景层  -->
   <canvas id="canvas-bg" draggable="false"></canvas>
   <!-- 原图 -->
-  <img src="../../asset/image/girl_origin.png" id="origin-image" alt="原图" draggable="false">
+  <img src="../../asset/image/girl_origin.png" id="origin-image" class="ani" alt="原图" draggable="false">
   <!-- 顶层图片 -->
   <img src="../../asset/image/girl_rgba.png" id="result-image" alt="透明背景图片" draggable="false">
-  <div id="slider" draggable="true"></div>
+  <div id="slider" class="ani" draggable="true"></div>
 </div>
 
 <section>
@@ -74,6 +80,7 @@
   <button onclick="renderBg('', '../../asset/image/2111540456957_.pic.jpg')">render image</button>
   <button onclick="renderBg('transparent')">clear</button>
   <button onclick="download()">download</button>
+  <button onclick="comparing()">comparing</button>
 </section>
 
 <script>
@@ -110,6 +117,8 @@
   const slider = document.querySelector('#slider');
 
   slider.addEventListener('dragstart', (e) => {
+    originImage.classList.remove('ani')
+    slider.classList.remove('ani')
     e.dataTransfer.setDragImage(new Image(), 0, 0); // 隐藏拖拽影像
   });
 
@@ -120,12 +129,13 @@
     offsetX = Math.max(0, Math.min(offsetX, rect.width));
     const percentage = (offsetX / rect.width) * 100;
 
-    slider.style.left = `${percentage}%`;
+    slider.style.transform = `translateX(${offsetX}px)`;
     originImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
   });
 
   slider.addEventListener('dragend', () => {
-    // 拖拽结束时可以添加额外逻辑
+    originImage.classList.add('ani')
+    slider.classList.add('ani')
   });
 
   // 下载前绘制到canvas：bgColor => bgImg => resultImg
@@ -213,6 +223,19 @@
     link.download = 'canvas-image.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
+  }
+
+  // 对比图片，滑杆动画
+  function comparing() {
+    let clipPath = originImage.style.clipPath
+    console.log(1, clipPath)
+    if (/100/.test(clipPath)) {
+      originImage.style.clipPath = `inset(0 0 0 0)`
+      slider.style.transform = `translateX(888px)`
+    } else {
+      originImage.style.clipPath = `inset(0 100% 0 0)` // 从右侧完全隐藏
+      slider.style.transform = `translateX(0)`
+    }
   }
 </script>
 </body>
