@@ -2,19 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-touch-fullscreen" content="yes">
   <meta name="format-detection" content="telephone=no,email=no">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>test</title>
-
 </head>
 <body>
 <!--Web animations-->
 <div class="animation-wrapper">
-    <span id="ball-container">
-        <img src="https://webdesigner-webdeveloper.com/chris-des-dev/wp-content/uploads/2015/01/ball.svg" class="ball" alt=""/>
-    </span>
+  <span id="ball-container">
+    <img src="./svgs/success.svg" class="ball" alt=""/>
+  </span>
 </div>
 
 <ul class="controls" id="controls">
@@ -38,13 +37,26 @@
   </li>
 </ul>
 
-<script src="js/web-animations-next.min.js"></script>
+<!--<script src="./js/web-animations-next.min.js"></script>-->
 <script>
   let tar = {}
   tar.ball = document.querySelector('.ball')
   tar.ctrl = document.querySelector('.controls')
 
-  //    //关键帧
+  // 方式1
+  let ballAnimation = tar.ball.animate([
+     // keyframes
+     { transform: 'translateY(0px) rotateZ(0deg)'},
+     { transform: 'translateY(300px) rotateZ(1000deg)' }
+  ], {
+     // timing options
+     duration: 2000,
+     iterations: Infinity,
+     easing: 'ease-in-out',
+     direction: 'alternate'
+  });
+
+  // 关键帧
   let ballKeyframes = new KeyframeEffect(
     tar.ball, // element to animate
     [
@@ -53,26 +65,11 @@
     ],
     {duration: 2000, fill: 'forwards', iterations: Infinity}, // keyframe options
   )
-
-  //方式1
-  //    let ballAnimation = tar.ball.animate([
-  //        // keyframes
-  //        { transform: 'translateY(0px) rotateZ(0deg)'},
-  //        { transform: 'translateY(300px) rotateZ(1000deg)' }
-  //    ], {
-  //        // timing options
-  //        duration: 2000,
-  //        iterations: Infinity,
-  //        easing: 'ease-in-out',
-  //        direction: 'alternate'
-  //    });
-
-
-  //方式2
+  // 方式2
   let ballAni = new Animation(ballKeyframes, document.timeline)
-  ballAni.play()
+  // ballAni.play()
 
-  //how to path move like svg ?
+  // how to path move like svg ?
 
   tar.ctrl.addEventListener('click', function (event) {
     if (event.target) {
@@ -80,10 +77,10 @@
 
       switch (targetElement.id) {
         case 'keyframe-start':
-          ballAnimation = document.timeline.play(Animations.animationGroupRoll)
+          ballAnimation = document.timeline.play(Animations.animationGroupRoll) // not work
           break
         case 'motionpath-start':
-          ballAnimation = document.timeline.play(Animations.animationGroupBounce)
+          ballAnimation = document.timeline.play(Animations.animationGroupBounce) // not work
           break
         case 'pause':
           ballAnimation.pause()
