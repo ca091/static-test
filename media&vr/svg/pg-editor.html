@@ -30,48 +30,111 @@
 
 <body>
   <div id="render-box" class="gird-center">
-    <svg id="svgCanvas" viewBox="0 0 1000 1000" width="1000" height="1000">
-      <!-- 定义裁切路径 -->
+    <svg id="svg-box" viewBox="0 0 1200 1200" width="888" height="888">
+      <!-- clipPath group1 -> use polygon -->
       <defs>
-        <clipPath id="clipPath">
-          <path data-v-20a462ac="" data-v-ba4d550e="" d="M 507.777763,932.669815 L 921.831553,517.656808 C 1026.05619,413.19072 1026.05642,243.815576 921.830608,139.348307 C 817.611239,34.8874986 648.621781,34.8806128 544.396488,139.347359 L 500,183.846698 L 455.603512,139.347359 C 351.378219,34.8806128 182.388761,34.8874986 78.1693922,139.348307 C -26.056423,243.815576 -26.0561899,413.19072 78.1684466,517.656808 L 492.222237,932.669815 C 494.643023,935.096209 497.098748,937.466243 499.587787,939.779917 C 502.901252,937.466243 505.356977,935.096209 507.777763,932.669815 Z" fill="transparent" id="PathLayerComp-6a5eeb61-a7d2-4adc-a385-ccad1e94e9dc"></path>
+        <clipPath data-v-ba4d550e="" id="clipPath-1">
+          <polygon data-v-3a4dffe7="" data-v-ba4d550e="" points="0,0 1000,0 0,1000" fill="transparent"></polygon>
+        </clipPath>
+        <clipPath data-v-ba4d550e="" id="clipPath-2">
+          <polygon data-v-3a4dffe7="" data-v-ba4d550e="" points="1000,0 1000,1000 500,500" fill="transparent"></polygon>
+        </clipPath>
+        <clipPath data-v-ba4d550e="" id="clipPath-3">
+          <polygon data-v-3a4dffe7="" data-v-ba4d550e="" points="500,500 1000,1000 0,1000" fill="transparent"></polygon>
+        </clipPath>
+      </defs>
 
+      <!-- clipPath group2 -> use path -->
+      <defs data-v-ba4d550e="">
+        <clipPath data-v-ba4d550e="" id="clipPath-5">
+          <path data-v-20a462ac="" data-v-ba4d550e="" d="M 0 0 L 1200 0 C 1200 0 1200 0 1200 0 L 1200 450 C 1200 450 1200 450 1200 450 L 0 750 C 0 750 0 750 0 750 L 0 0 C 0 0 0 0 0 0 Z " fill="transparent"></path>
+        </clipPath>
+        <clipPath data-v-ba4d550e="" id="clipPath-6">
+          <path data-v-20a462ac="" data-v-ba4d550e="" d="M 0 750 L 600 600 C 600 600 600 600 600 600 L 750 1200 C 750 1200 750 1200 750 1200 L 0 1200 C 0 1200 0 1200 0 1200 L 0 750 C 0 750 0 750 0 750 Z " fill="transparent"></path>
+        </clipPath>
+        <clipPath data-v-ba4d550e="" id="clipPath-7">
+          <path data-v-20a462ac="" data-v-ba4d550e="" d="M 600 600 L 1200 450 C 1200 450 1200 450 1200 450 L 1200 1200 C 1200 1200 1200 1200 1200 1200 L 750 1200 C 750 1200 750 1200 750 1200 L 600 600 C 600 600 600 600 600 600 Z " fill="transparent"></path>
         </clipPath>
       </defs>
 
       <!-- 渲染图片 -->
-      <g clip-path="url(#clipPath)">
-        <image id="image" href="../../asset/image/pg_test.jpeg" x="0" y="0" width="1000" height="1500" class="draggable" />
+      <g clip-path="url(#clipPath-5)">
+        <image id="image1" href="../../asset/image/pg_test.jpeg" x="0" y="0" width="1200" height="1200" preserveAspectRatio="xMidYMid slice" class="draggable" />
+      </g>
+      <g clip-path="url(#clipPath-6)">
+        <image id="image2" href="../../asset/image/girl_origin.png" x="0" y="0" width="1200" height="1200" preserveAspectRatio="xMidYMid slice" class="draggable" />
+      </g>
+      <g clip-path="url(#clipPath-7)">
+        <image id="image3" href="../../asset/image/2111540456957_.pic.jpg" x="0" y="0" width="1200" height="1200" preserveAspectRatio="xMidYMid slice" class="draggable" />
       </g>
     </svg>
   </div>
 
   <script>
-    const image = document.getElementById('image');
-    let isDragging = false;
+    let dragEl = null;
     let startX, startY;
 
-    // 图片拖拽功能
-    image.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.clientX - parseFloat(image.getAttribute('x'));
-      startY = e.clientY - parseFloat(image.getAttribute('y'));
-      image.style.cursor = 'grabbing';
-    });
+    function imgDragAble(imageEl) {
+      const image = document.querySelector(imageEl);
+      // 图片拖拽功能
+      image.addEventListener('mousedown', (e) => {
+        dragEl = image;
+        startX = e.clientX - parseFloat(image.getAttribute('x'));
+        startY = e.clientY - parseFloat(image.getAttribute('y'));
+        image.style.cursor = 'grabbing';
+      });
+    }
 
     document.addEventListener('mousemove', (e) => {
-      if (isDragging) {
+      if (dragEl) {
         const x = e.clientX - startX;
         const y = e.clientY - startY;
-        image.setAttribute('x', x);
-        image.setAttribute('y', y);
+        dragEl.setAttribute('x', x);
+        dragEl.setAttribute('y', y);
       }
     });
 
     document.addEventListener('mouseup', () => {
-      isDragging = false;
-      image.style.cursor = 'grab';
+      dragEl.style.cursor = 'grab';
+      dragEl = null;
     });
+
+    function centerImg(imageEl, clipPathEl) {
+      const image = document.querySelector(imageEl);
+      const clipPath = document.querySelector(clipPathEl);
+
+      console.log('clipPath', clipPath)
+      // 获取裁切区域的边界框
+      const clipRect = clipPath.getBBox();
+      console.log('clipRect', clipRect)
+
+      // 计算图片的中心点
+      const imageWidth = parseFloat(image.getAttribute('width'));
+      const imageHeight = parseFloat(image.getAttribute('height'));
+      console.log(imageWidth, imageHeight)
+
+      // 设置图片的 `x` 和 `y`，使其中部对齐裁切区域
+      const x = clipRect.x + clipRect.width / 2 - imageWidth / 2;
+      const y = clipRect.y + clipRect.height / 2 - imageHeight / 2;
+      console.log(x, y)
+
+      image.setAttribute('x', x);
+      image.setAttribute('y', y);
+    }
+
+    // clipPath group1
+    // centerImg('#image1', '#clipPath-1 polygon')
+    // centerImg('#image2', '#clipPath-2 polygon')
+    // centerImg('#image3', '#clipPath-3 polygon')
+
+    // clipPath group2
+    centerImg('#image1', '#clipPath-5 path')
+    centerImg('#image2', '#clipPath-6 path')
+    centerImg('#image3', '#clipPath-7 path')
+
+    imgDragAble('#image1')
+    imgDragAble('#image2')
+    imgDragAble('#image3')
   </script>
 
 </body>
