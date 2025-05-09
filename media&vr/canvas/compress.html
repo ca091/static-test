@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>压缩图片</title>
+</head>
+<body>
+<input type="file" accept="image/*" id="file-input" multiple="multiple">
+
+<script type="module" src="./js/compress.js"></script>
+<script type="module">
+  import { compressImage, fileToImg } from './js/compress.js'
+  const inputEl = document.getElementById('file-input')
+  inputEl.addEventListener('change', handleFileChange)
+
+  async function handleFileChange(e) {
+    let files = Array.from(e.target.files)
+    console.log('upload files', e.target.files)
+
+    let beforeImg = await fileToImg(files[0])
+    console.log('before size：%d, width: %d, height: %d', files[0].size, beforeImg.width, beforeImg.height)
+    appendImg(beforeImg)
+
+    const compressedFile = await compressImage(files[0])
+    console.log('compressedFile', compressedFile)
+    let afterImg = await fileToImg(compressedFile)
+    console.log('after size：%d, width: %d, height: %d', compressedFile.size, afterImg.width, afterImg.height)
+    appendImg(afterImg)
+  }
+
+  function appendImg(img) {
+    let imgEl = document.createElement('img')
+    imgEl.src = img.src
+    document.body.appendChild(imgEl)
+  }
+</script>
+</body>
+</html>
