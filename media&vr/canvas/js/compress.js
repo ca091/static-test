@@ -35,7 +35,10 @@ export function compressImage(file, maxWidth = 1280, maxHeight = 1280, quality =
           reject(new Error('无法获取 canvas 的 2D 上下文'));
           return;
         }
-
+        if (img.width < maxWidth && img.height < maxHeight) {
+          resolve({ file: file, width: img.width, height: img.height });
+          return;
+        }
         // 计算缩放比例
         const scale = Math.min(maxWidth / img.width, maxHeight / img.height);
         canvas.width = img.width * scale;
@@ -49,7 +52,7 @@ export function compressImage(file, maxWidth = 1280, maxHeight = 1280, quality =
           (blob) => {
             if (blob) {
               const compressedFile = new File([blob], file.name, { type: file.type });
-              resolve(compressedFile);
+              resolve({ file: compressedFile, width: canvas.width, height: canvas.height });
             } else {
               reject(new Error('图片压缩失败'));
             }
