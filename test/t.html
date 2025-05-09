@@ -3,10 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+<input type="file" accept="image/jpeg,image/png,image/jpg,image/webp" id="file-input" multiple="multiple">
 
+<script type="module">
+  const inputEl = document.getElementById('file-input')
+  inputEl.addEventListener('change', e => {
+    handleFileChange(e.target.files)
+  })
+
+  async function handleFileChange(files) {
+    console.log('upload files', files)
+    console.log('upload file[0] name', files[0].name)
+    console.log('upload file[0] type', files[0].type)
+    appendMsg(files[0].name)
+    appendMsg(files[0].type)
+  }
+
+  function appendMsg(s) {
+    let pEl = document.createElement('p')
+    pEl.textContent = s
+    document.body.appendChild(pEl)
+  }
+</script>
 </body>
 </html>
