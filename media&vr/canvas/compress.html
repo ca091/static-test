@@ -85,15 +85,21 @@
     const limits = getCanvasLimits();
     console.log('Canvas 限制:', limits);
     const url = "https://img.linkv.fun/pg_pg_web/1910268980868478976/pgweb_super_resolution_1910268980868478976_1750235605425_10401/d4ce7303d723c1b2f5a93c41c5694cf9_1750235596894_super.png"
+    console.log('attempt origin')
     let blob = await generateImageBlob(url, '#fff')
+    console.log(`attempt origin ${blob ? 'success' : 'fail'}`)
     // add for ios limit
     if (!blob) {
+      console.log('attempt 4096')
       blob = await generateImageBlob(url, '#fff', 4096)
+      console.log(`attempt 4096 ${blob ? 'success' : 'fail'}`)
     }
     if (!blob) {
+      console.log('attempt 3072')
       blob = await generateImageBlob(url, '#fff', 3072)
+      console.log(`attempt 3072 ${blob ? 'success' : 'fail'}`)
     }
-    console.log('blob', blob)
+    console.log('blob - ', blob)
   }
 </script>
 </body>
