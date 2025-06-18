@@ -67,14 +67,11 @@
     console.log('before size：%d, width: %d, height: %d', files[0].size, beforeImg.width, beforeImg.height)
     appendImg(beforeImg)
 
-    // const compressedFile = await compressImage(files[0])
-    // console.log('compressedFile', compressedFile)
-    // let afterImg = await fileToImg(compressedFile.file)
-    // console.log('after size：%d, width: %d, height: %d', compressedFile.file.size, afterImg.width, afterImg.height)
-    // appendImg(afterImg)
-
-    const blob = await generateImageBlob(beforeImg.src, '#fff')
-    console.log('blob', blob)
+    const compressedFile = await compressImage(files[0])
+    console.log('compressedFile', compressedFile)
+    let afterImg = await fileToImg(compressedFile.file)
+    console.log('after size：%d, width: %d, height: %d', compressedFile.file.size, afterImg.width, afterImg.height)
+    appendImg(afterImg)
   }
 
   function appendImg(img) {
@@ -84,9 +81,12 @@
     pageEl.appendChild(imgEl)
   }
 
-  window.onload = function () {
+  window.onload = async function () {
     const limits = getCanvasLimits();
     console.log('Canvas 限制:', limits);
+    const url = "https://img.linkv.fun/pg_pg_web/1910268980868478976/pgweb_super_resolution_1910268980868478976_1750235605425_10401/d4ce7303d723c1b2f5a93c41c5694cf9_1750235596894_super.png"
+    const blob = await generateImageBlob(url, '#fff')
+    console.log('blob', blob)
   }
 </script>
 </body>

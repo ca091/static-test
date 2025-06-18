@@ -98,6 +98,7 @@ export function setCanvasWH(img, maxL = 0) {
   }
   if (maxL) {
     const scale = Math.min(maxL / img.width, maxL / img.height, 1);
+    console.log('canvas scale', scale)
     canvas.width = img.width * scale;
     canvas.height = img.height * scale;
   } else {
