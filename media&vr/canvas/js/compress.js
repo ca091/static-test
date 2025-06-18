@@ -69,7 +69,6 @@ export function compressImage(file, maxWidth = 1280, maxHeight = 1280, quality =
 
 export function getCanvasLimits() {
   const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const isModernApple = /iPhone (1[4-9]|2[0-9])|iPad ([6-9]|\d{2,})/i.test(navigator.userAgent);
 
   let maxTextureSize = 0;
   try {
@@ -78,14 +77,71 @@ export function getCanvasLimits() {
     if (gl) {
       maxTextureSize = gl.getParameter(gl.MAX_TEXTURE_SIZE);
     }
-  } catch (e) {}
+  } catch (e) {
+    console.warn(e)
+  }
 
   return {
     userAgent: navigator.userAgent,
-    isModernApple, // 16777216
     // 基于 WebGL 纹理大小的单边最大尺寸
     maxTextureSize,
     // 是否为苹果设备
     isAppleDevice: isIOS
   }
+}
+
+export function setCanvasWH(img, maxL = 0) {
+  const canvas = document.createElement('canvas')
+  const ctx = canvas.getContext('2d')
+  if (!ctx) {
+    throw Error('Unable to get 2D context from canvas')
+  }
+  if (maxL) {
+    const scale = Math.min(maxL / img.width, maxL / img.height, 1);
+    canvas.width = img.width * scale;
+    canvas.height = img.height * scale;
+  } else {
+    console.log('canvas 原图大小', img.width, img.height)
+    canvas.width = img.width
+    canvas.height = img.height
+  }
+  return { canvas, ctx }
+}
+
+export async function generateImageBlob (url, bgColor, maxL){
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = url;
+    img.onload = function () {
+      try {
+        const { canvas, ctx: context } = setCanvasWH(img, maxL)
+        context.fillStyle = bgColor === "transparent" ? "transparent" : `${bgColor}`;
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob((blob) => {
+          if (blob) {
+            resolve(blob);
+          } else {
+            if (!maxL) return generateImageBlob(url, bgColor, 4096)
+            else if (maxL >= 4096) return generateImageBlob(url, bgColor, maxL - 1024)
+            else {
+              reject(new Error("Failed to create image blob"));
+            }
+          }
+        }, "image/png");
+      } catch (error) {
+        reject(
+          new Error(
+            `Error processing image: ${error instanceof Error ? error.message : String(error)}`
+          )
+        );
+      }
+    };
+
+    img.onerror = function () {
+      reject(new Error("Image loading failed"));
+    };
+  });
 }
