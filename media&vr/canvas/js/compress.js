@@ -66,3 +66,26 @@ export function compressImage(file, maxWidth = 1280, maxHeight = 1280, quality =
     reader.onerror = () => reject(new Error('文件读取失败'));
   });
 }
+
+export function getCanvasLimits() {
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const isModernApple = /iPhone (1[4-9]|2[0-9])|iPad ([6-9]|\d{2,})/i.test(navigator.userAgent);
+
+  let maxTextureSize = 0;
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (gl) {
+      maxTextureSize = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+    }
+  } catch (e) {}
+
+  return {
+    userAgent: navigator.userAgent,
+    isModernApple, // 16777216
+    // 基于 WebGL 纹理大小的单边最大尺寸
+    maxTextureSize,
+    // 是否为苹果设备
+    isAppleDevice: isIOS
+  }
+}

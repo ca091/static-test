@@ -45,10 +45,17 @@
 
     .cor {
       position: absolute;
-      left: -40px;
+      left: -39px;
       overflow: hidden;
       border: 20px solid transparent;
       border-right-color: var(--bgTip);
+    }
+    .cor.cor-top {
+      position: absolute;
+      top: -39px;
+      overflow: hidden;
+      border: 20px solid transparent;
+      border-bottom-color: var(--bgTip);
     }
 
     .box-shadow {
@@ -235,6 +242,11 @@
 
     <div class="box drop-shadow">
       <i class="cor"></i>
+      filter: drop-shadow(5px 5px 10px black)
+    </div>
+
+    <div class="box drop-shadow">
+      <i class="cor cor-top"></i>
       filter: drop-shadow(5px 5px 10px black)
     </div>
   </section>
