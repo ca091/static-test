@@ -85,7 +85,14 @@
     const limits = getCanvasLimits();
     console.log('Canvas 限制:', limits);
     const url = "https://img.linkv.fun/pg_pg_web/1910268980868478976/pgweb_super_resolution_1910268980868478976_1750235605425_10401/d4ce7303d723c1b2f5a93c41c5694cf9_1750235596894_super.png"
-    const blob = await generateImageBlob(url, '#fff')
+    let blob = await generateImageBlob(url, '#fff')
+    // add for ios limit
+    if (!blob) {
+      blob = await generateImageBlob(url, '#fff', 4096)
+    }
+    if (!blob) {
+      blob = await generateImageBlob(url, '#fff', 3072)
+    }
     console.log('blob', blob)
   }
 </script>

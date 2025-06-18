@@ -120,18 +120,7 @@ export async function generateImageBlob (url, bgColor, maxL){
         context.fillStyle = bgColor === "transparent" ? "transparent" : `${bgColor}`;
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-        canvas.toBlob((blob) => {
-          if (blob) {
-            resolve(blob);
-          } else {
-            if (!maxL) return generateImageBlob(url, bgColor, 4096)
-            else if (maxL >= 4096) return generateImageBlob(url, bgColor, maxL - 1024)
-            else {
-              reject(new Error("Failed to create image blob"));
-            }
-          }
-        }, "image/png");
+        canvas.toBlob(resolve, "image/png");
       } catch (error) {
         reject(
           new Error(
